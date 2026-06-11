@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innovo Secure One — Product Datasheets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E2A33; --petrol:#0F4C5C; --petrol2:#15677C; --lime:#8DC63F; --lime-d:#5E8E22;
+  --txt:#1B2A30; --mut:#5C7179; --line:#D7E0E2; --band:#F2F6F5; --bandb:#E7EFEC;
+  --pos:#3F8F2E; --warn:#C58A1E; --gold:#B8923A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#5a6b70;font-family:'Inter',system-ui,sans-serif;color:var(--txt);font-size:13px;line-height:1.5}
+.toolbar{position:sticky;top:0;z-index:50;background:var(--ink);color:#fff;display:flex;align-items:center;gap:16px;padding:11px 24px;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.toolbar .wm{font-weight:800;letter-spacing:.1em;font-size:14px}
+.toolbar .wm b{color:var(--lime)}
+.toolbar .sp{flex:1}
+.toolbar button{background:var(--lime);color:#0B2228;border:none;border-radius:7px;padding:8px 16px;font:inherit;font-weight:700;font-size:12px;cursor:pointer}
+.toolbar button.ghost{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff}
+.toolbar small{color:#9FB6BC;font-size:11px}
+.wrap{max-width:850px;margin:18px auto;padding:0 10px}
+.sheet{background:#fff;width:100%;max-width:820px;margin:0 auto 18px;padding:0;border-radius:3px;
+  box-shadow:0 6px 26px rgba(0,0,0,.28);overflow:hidden}
+.pad{padding:24px 34px 30px}
+/* header band */
+.hb{background:linear-gradient(115deg,var(--ink) 0%,var(--petrol) 78%);color:#fff;padding:22px 34px 20px;position:relative;overflow:hidden}
+.hb:after{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(141,198,63,.16)}
+.hb .wm{font-weight:800;letter-spacing:.13em;font-size:12px;opacity:.85}
+.hb .wm b{color:var(--lime)}
+.hb h1{font-size:27px;font-weight:800;margin:7px 0 4px;line-height:1.05;position:relative;z-index:1}
+.hb .tag{font-size:13.5px;color:#CFE9B4;font-weight:500;position:relative;z-index:1}
+.hb .cat{position:absolute;right:30px;top:24px;z-index:2;text-align:right}
+.chip{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);
+  border-radius:99px;padding:4px 12px;font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#fff}
+.chip.lime{background:var(--lime);color:#0B2228;border-color:var(--lime)}
+h2.sec{font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--petrol);
+  margin:20px 0 9px;padding-bottom:5px;border-bottom:2px solid var(--lime);display:inline-block}
+.lead{font-size:13.5px;color:var(--txt)}
+.lead b{color:var(--ink)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.tcards{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.tcard{background:var(--band);border:1px solid var(--line);border-radius:7px;padding:6px 11px;font-size:11.5px;font-weight:600;color:var(--petrol)}
+ul.hl{list-style:none;margin-top:4px}
+ul.hl li{padding:5px 0 5px 22px;position:relative;font-size:12.5px}
+ul.hl li:before{content:"▸";position:absolute;left:2px;color:var(--lime);font-weight:800}
+ul.hl li b{color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
+th{background:var(--bandb);color:var(--ink);text-align:left;font-size:10px;font-weight:800;letter-spacing:.06em;
+  text-transform:uppercase;padding:7px 10px;border:1px solid var(--line)}
+td{padding:7px 10px;border:1px solid var(--line);vertical-align:top}
+td.f{font-weight:700;color:var(--ink);width:38%;background:#FBFDFB}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:0 0;border:1px solid var(--line);border-radius:7px;overflow:hidden;margin-top:4px}
+.specs div{padding:7px 11px;border-bottom:1px solid var(--line);font-size:11.5px}
+.specs div:nth-child(odd){background:#FBFDFB;border-right:1px solid var(--line)}
+.specs .k{color:var(--mut);font-weight:600}
+.specs .v{color:var(--ink);font-weight:700}
+.win{background:linear-gradient(180deg,#F4FAEC,#FBFEF7);border:1px solid #CFE3AE;border-left:5px solid var(--lime);
+  border-radius:9px;padding:14px 16px;margin-top:6px}
+.win h3{font-size:13px;color:var(--ink);margin-bottom:8px}
+.win h3 span{color:var(--lime-d)}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:9px}
+.vs .b{font-size:11.5px}
+.vs .b .lab{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);display:block;margin-bottom:3px}
+.vs .them{color:var(--mut)}
+.vs .us{color:var(--ink);font-weight:600}
+.edges{list-style:none}
+.edges li{padding:3px 0 3px 20px;position:relative;font-size:11.5px;color:var(--ink)}
+.edges li:before{content:"✓";position:absolute;left:0;color:var(--lime-d);font-weight:900}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;padding-top:11px;border-top:1px solid var(--line);font-size:10.5px;color:var(--mut)}
+.foot b{color:var(--petrol)}
+.pricetag{background:var(--ink);color:#fff;border-radius:7px;padding:6px 13px;font-size:11.5px;font-weight:700}
+.pricetag span{color:var(--lime)}
+/* cover */
+.cover .hb{padding:40px 40px 34px}
+.cover h1{font-size:38px}
+.coverbody{padding:30px 40px 40px}
+.toc{columns:2;column-gap:30px;margin-top:6px}
+.toc a{display:block;text-decoration:none;color:var(--txt);font-size:12.5px;padding:6px 0;border-bottom:1px dashed var(--line);break-inside:avoid}
+.toc a b{color:var(--petrol)}
+.toc a .n{display:inline-block;width:22px;color:var(--lime-d);font-weight:800}
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+.stat{background:var(--band);border:1px solid var(--line);border-radius:9px;padding:13px;text-align:center}
+.stat .v{font-size:22px;font-weight:900;color:var(--ink)}
+.stat .l{font-size:10px;color:var(--mut);font-weight:600;margin-top:2px}
+.matrix td.f{width:30%}
+.matrix .mk{color:var(--lime-d);font-weight:900}
+.matrix .no{color:#B45;font-weight:700}
+.matrix .pa{color:var(--warn);font-weight:700}
+.note{font-size:10.5px;color:var(--mut);margin-top:10px;font-style:italic}
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff}
+  .toolbar{display:none}
+  .wrap{margin:0;max-width:none;padding:0}
+  .sheet{box-shadow:none;margin:0;max-width:none;border-radius:0;page-break-after:always}
+  .win,table,.specs,.tcards,.foot,.vs{break-inside:avoid}
+  .hb:after{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <span class="wm">INNOVO <b>SECURE</b> ONE</span>
+  <small>Product Datasheets · 11 products · v1.0 · June 2026</small>
+  <span class="sp"></span>
+  <small>Tip: Print → Save as PDF (A4) for the full pack</small>
+  <button onclick="window.print()">⬇ Save as PDF</button>
+</div>
+<div class="wrap" id="wrap"></div>
+
+<script>
+const FX=16.53;
+const PRODUCTS=[
+{
+ id:"edr", name:"AI Endpoint Protection & MDR", tagline:"Autonomous EDR plus a 24/7 human SOC — in one agent",
+ cat:"Endpoint Detection & Response · Managed Detection & Response",
+ space:"Competes in the EDR/XDR + managed-SOC market dominated by CrowdStrike Falcon, SentinelOne Singularity and Huntress Managed EDR — but delivered to mid-market and MSSP channels at a price and onboarding speed those platforms cannot match in Southern Africa.",
+ tech:["Behavioural AI EDR engine","MITRE ATT&CK mapping","Sigma detection-as-code","24/7 Cape Town SOC","AI L1 triage (Aiden)","Kernel + user-mode telemetry","Cloud + on-prem analysis"],
+ highlights:[
+   "<b>One lightweight agent</b> delivers EDR — no separate sensor to license or deploy",
+   "<b>AI does L1, humans own L2/L3</b> — Aiden auto-triages, Cape Town analysts investigate, hunt and respond",
+   "<b>4-minute MTTD</b> with ransomware behaviour, LSASS access and living-off-the-land detection out of the box",
+   "<b>Detection-as-code</b> — Sigma rules compiled to Splunk, Elastic and Sentinel; 96 ATT&CK techniques covered"],
+ features:[
+   ["Behavioural AI detection (not signatures)","Stops never-before-seen malware and fileless attacks, not just known hashes"],
+   ["Automatic ransomware roll-back tripwire","Shadow-copy deletion and mass-encryption are blocked and the host isolated before damage spreads"],
+   ["24/7 managed SOC included","You get an expert response team without hiring or rostering one — analyst-hours on tap"],
+   ["AI-assisted triage (Aiden)","312 analyst-hours saved a month; alerts arrive pre-investigated, not as raw noise"],
+   ["One-click host isolation + remote shell","Contain a compromised machine in seconds, then remediate without a site visit"],
+   ["Threat hunting + IR playbooks","Proactive hypothesis-driven hunts and a tested escalation matrix (L1→L2→L3→notify)"]],
+ specs:[["Platforms","Windows, macOS, Linux"],["Agent footprint","Single binary, &lt;1.5% CPU"],["MTTD / MTTR","4 min / 38 min"],["SOC","24/7/365, Cape Town"],["Detection logic","Sigma → Splunk/Elastic/Sentinel"],["ATT&CK coverage","96 techniques, 12 tactics"],["Response","Isolate, kill, quarantine, rollback"],["Data residency","South Africa 🇿🇦"]],
+ vs:{market:"CrowdStrike Falcon Complete · SentinelOne Vigilance · Huntress",
+   them:"Premium EDR plus managed response, billed as two line items, with onboarding measured in weeks and SOCs in another timezone.",
+   us:"EDR and a 24/7 SOC fused into the single Innovo agent, onboarded in 60 minutes, watched from a Cape Town SOC on local time with SA data residency.",
+   edges:["No separate sensor licence — EDR is in the one agent","AI L1 triage + local human L2/L3, not offshore only","Sigma detection-as-code: portable, auditable, yours","60-minute onboarding vs multi-week rollouts"]},
+ price:"Included in <b>Advanced</b> (EDR) · full MDR/SOC in <b>Complete</b> ($11.50/endpoint/mo)"
+},
+{
+ id:"vuln", name:"Vulnerability Management (VulnOps)", tagline:"Find, prioritise and fix — every 6 hours, no appliance",
+ cat:"Continuous Vulnerability Management",
+ space:"Plays in the vulnerability-management market held by Qualys, Tenable, Rapid7 and N-able — but folds discovery, AI prioritisation and one-click remediation into the same agent and console as protection, patching and the WAF, so there is no scanner appliance and no swivel-chair to a separate tool.",
+ tech:["Authenticated + agent-based scanning","900+ application coverage","CVSS + EPSS + CISA KEV scoring","AI prioritisation","One-click remediation engine","DAST for web & API (incl. NoSQL/SQLi/XSS)"],
+ highlights:[
+   "<b>Scans every 6 hours</b> across 900+ applications — not monthly, not on-demand-only",
+   "<b>AI prioritisation</b> blends CVSS, real-world EPSS exploit probability and the CISA KEV catalogue",
+   "<b>One-click fixes</b> — remediation is staged and deployed from the same console, no handoff to a patch tool",
+   "<b>App & API DAST</b> tests live web apps for injection, then virtual-patches them at the WAF edge"],
+ features:[
+   ["6-hourly continuous scanning","Exposure windows are hours, not the weeks a monthly-scan cadence leaves open"],
+   ["Exploit-aware prioritisation (EPSS+KEV)","Your team fixes the 3% of vulns actually being exploited first, not 3,000 by raw CVSS"],
+   ["One-click, single-deploy fixes","Remediation ships from the same pane — no ticket bounced to a separate patch product"],
+   ["Web & API DAST","Finds NoSQL/SQL injection, XSS and SSRF in tenant apps that endpoint scanners never see"],
+   ["Virtual patching tie-in","Critical web CVEs are blocked at the WAF edge instantly, before the code fix ships"],
+   ["Evidence auto-filed","Every scan and fix is logged to the compliance vault (CIS 7) — audit-ready"]],
+ specs:[["Scan cadence","Every 6 hours"],["App coverage","900+ applications"],["Prioritisation","CVSS + EPSS + CISA KEV"],["Web testing","DAST: NoSQL, SQLi, XSS, SSRF"],["Deployment","Agent-based, no appliance"],["Remediation","One-click + scripting library"],["Reporting","Aging, SLA, per-tenant"],["Compliance","CIS 7, PCI DSS 11.x"]],
+ vs:{market:"Qualys VMDR · Tenable.io · Rapid7 InsightVM · N-able",
+   them:"Strong scanners that still hand findings to a separate patch or ticketing tool, often via a scanner appliance, priced as a standalone platform.",
+   us:"Discovery, AI prioritisation, one-click remediation and edge virtual-patching in the same agent and console as EDR — close the loop without leaving the screen.",
+   edges:["No scanner appliance to rack or license","Find → prioritise → fix in one console, one click","EPSS+KEV exploit-awareness as standard","Web/API DAST + WAF virtual patching built in"]},
+ price:"Included from <b>Essentials</b> ($4.50/endpoint/mo)"
+},
+{
+ id:"patch", name:"Safe Patching with AI Scoring", tagline:"Patch fast, break nothing — AI gates every rollout",
+ cat:"Patch & Configuration Management",
+ space:"Sits in the patch-management space of Automox, Action1, ManageEngine and N-able Patch — differentiated by an AI Safety Score that decides what auto-deploys vs what waits, and by restore-testing each patch against an immutable backup before broad release.",
+ tech:["AI Safety Score model","Vendor telemetry ingest","Rollback-history analysis","Dependency-graph mapping","Ring-based rollout","Auto-rollback","Immutable pre-test"],
+ highlights:[
+   "<b>AI Safety Score (0–100)</b> from vendor telemetry, rollback history and a dependency graph decides the rollout path",
+   "<b>Ring-based rollout</b> — Canary 5% → Early 25% → Broad 100% with soak windows",
+   "<b>Auto-rollback</b> the instant a ring breaches a failure threshold",
+   "<b>3.2-day median patch latency</b> with only 2 rollbacks in 90 days — both automatic"],
+ features:[
+   ["AI Safety Score per patch","High-confidence patches auto-approve; risky ones are held — no manual triage of every KB"],
+   ["Canary → Early → Broad rings","Problems surface on 5% of fleet, never all of it at once"],
+   ["Automatic rollback","A bad patch self-heals before it becomes a P1 outage"],
+   ["Restore-tested against snapshots","Patches are validated against last night's immutable backup before broad release"],
+   ["Cross-platform","Windows, macOS, Linux and 900+ third-party apps from one queue"],
+   ["Compliance-linked","Patch latency and compliance % feed the evidence vault and KPIs automatically"]],
+ specs:[["Safety scoring","0–100, AI-derived"],["Rollout","Canary 5 / Early 25 / Broad 100"],["Rollback","Automatic on threshold"],["Median latency","3.2 days"],["Coverage","OS + 900+ apps"],["Pre-test","vs immutable snapshot"],["Rollbacks (90d)","2 — both automatic"],["Patch compliance","94.2% fleet-wide"]],
+ vs:{market:"Automox · Action1 · ManageEngine · N-able Patch",
+   them:"Schedule-and-hope patching with manual approval rings and no safety prediction; rollback is a manual scramble.",
+   us:"An AI Safety Score gates every rollout and ties to the backup engine, so patches are pre-tested against immutable snapshots and self-roll-back on failure.",
+   edges:["AI predicts patch risk before deployment","Auto-rollback, not manual firefighting","Patches restore-tested against backups first","Same agent as EDR/VulnOps — no extra tool"]},
+ price:"Included from <b>Essentials</b> ($4.50/endpoint/mo)"
+},
+{
+ id:"waf", name:"Web Application Firewall (WAFaaS)", tagline:"Add a website by URL — protected from the OWASP Top 10 in minutes",
+ cat:"Web Application Firewall as a Service",
+ space:"Competes with Cloudflare WAF, Imperva, AWS WAF and Akamai — but built for MSSP delivery: a tenant pastes a URL, Innovo proxies it through SA edge PoPs, and virtual patching is wired directly to the vulnerability scanner.",
+ tech:["Reverse-proxy edge","OWASP Core Rule Set","Bot management","L7 DDoS mitigation","Rate limiting","Geo / IP reputation","Virtual patching engine","Managed TLS"],
+ highlights:[
+   "<b>Onboard by URL</b> — paste a site, verify a CNAME, TLS is issued and OWASP rules go live",
+   "<b>Virtual patching</b> — a critical web CVE is blocked at the edge across every site, before any code change",
+   "<b>Full reporting</b> — attacker IPs, source countries, attack types and a live event log per site",
+   "<b>SA edge PoPs</b> — Cape Town, Joburg, Durban — keeping inspection and data in-country"],
+ features:[
+   ["Add sites by URL in minutes","No hardware, no agent on the web server — point DNS and you are protected"],
+   ["OWASP Core Rule Set, managed","SQLi, XSS, RCE, LFI/RFI and protocol abuse blocked and tuned for you"],
+   ["Virtual patching from VulnOps","Exploitation is blocked at the edge the moment a CVE is found — fix the code on your schedule"],
+   ["Bot, rate-limit & L7 DDoS","Credential stuffing, scrapers and application floods stopped before they hit origin"],
+   ["Attack analytics & reporting","See who is attacking (IP, country), how (attack type) and what was blocked — exportable evidence"],
+   ["Monitor-then-block","Start in monitor mode for 48h, auto-promote to blocking — zero false-positive surprises"]],
+ specs:[["Onboarding","By URL + CNAME, minutes"],["Ruleset","OWASP CRS, managed"],["Edge PoPs","Cape Town · Joburg · Durban"],["Added latency","~4 ms"],["Protections","Bot, RL, L7 DDoS, Geo"],["Virtual patching","&lt;30 s edge deploy"],["Reporting","IP, country, attack type, log"],["TLS","Managed, auto-renew"]],
+ vs:{market:"Cloudflare WAF · Imperva · AWS WAF · Akamai",
+   them:"Powerful global WAFs that are self-service to configure, priced on traffic/requests, and route inspection through overseas edges.",
+   us:"A managed, add-by-URL WAF on South African edge PoPs, wired to the vulnerability scanner for instant virtual patching, at a flat per-site price.",
+   edges:["Managed OWASP tuning, not DIY rules","Virtual patching synced to your vuln scanner","SA edge PoPs — in-country inspection","Flat per-site pricing, not per-request billing"]},
+ price:"Add-on: <b>$39 / site / month</b> (R"+Math.round(39*FX)+"), unlimited requests"
+},
+{
+ id:"bec", name:"Email & BEC Protection", tagline:"Stop business email compromise across M365 and Google — in one console",
+ cat:"Email Security · Business Email Compromise Defence",
+ space:"Plays against Mimecast, Proofpoint and Abnormal Security — uniquely covering both Microsoft 365 and Google Workspace in a single console, and catching both inbound BEC and the inbox-rule / OAuth-token abuse that signals an already-compromised account.",
+ tech:["Microsoft Graph API","Google Admin SDK","AI display-name analysis","Lookalike-domain detection","OAuth grant inspection","Sign-in anomaly correlation","Automated containment"],
+ highlights:[
+   "<b>One console for M365 and Google</b> — most rivals are strong on one and weak on the other",
+   "<b>Catches compromise, not just spam</b> — external forwarding rules, financial-keyword hide rules, risky OAuth grants",
+   "<b>AI inbound BEC detection</b> — CEO display-name spoofing, lookalike domains, mid-thread bank-change fraud",
+   "<b>Automated containment</b> — disable rule, revoke sessions, revoke OAuth consent, quarantine + warn"],
+ features:[
+   ["Dual-platform M365 + Google","One pane covers your whole estate regardless of mail provider"],
+   ["Inbox-rule abuse detection","The classic BEC persistence move — external auto-forward — is caught and disabled"],
+   ["Impossible-travel & scripted sign-ins","Token replay and python-requests/curl logins are flagged before funds move"],
+   ["Risky OAuth consent revocation","Illicit app grants that survive password resets are revoked, token and all"],
+   ["Inbound BEC / payment-fraud detection","Display-name spoofing, lookalike domains and bank-change emails are quarantined"],
+   ["One-click containment","Disable, revoke and quarantine actions with a human approving each — fully logged"]],
+ specs:[["Platforms","Microsoft 365 + Google Workspace"],["Detection","Inbox rules, sign-ins, OAuth, fraud"],["Inbound","Display-name, lookalike, bank-change"],["Containment","Disable / revoke / quarantine"],["APIs","Graph + Google Admin SDK"],["BEC blocked (30d)","23 attempts"],["Residency","South Africa 🇿🇦"],["Compliance","CIS 9"]],
+ vs:{market:"Mimecast · Proofpoint · Abnormal Security",
+   them:"Excellent inbound email gateways, usually licensed per platform, focused on filtering messages rather than detecting account takeover.",
+   us:"One console across M365 and Google that detects both inbound BEC and post-compromise inbox-rule/OAuth abuse, with automated containment.",
+   edges:["Both M365 and Google in one console","Detects account compromise, not just spam","OAuth-grant revocation, not just mail filtering","Automated, logged containment actions"]},
+ price:"Included in <b>Complete</b>; standalone add-on available"
+},
+{
+ id:"archive", name:"Email Archive & Retention", tagline:"Tamper-proof email for up to 99 years — billed by the TB you use",
+ cat:"Email Archiving · Retention · eDiscovery",
+ space:"Competes with Mimecast, Barracuda, Global Relay and Smarsh — but offers a 99-year immutable WORM horizon, South African data residency, and storage-based per-TB billing instead of per-mailbox, so a long-retention archive costs a fraction of the hot-storage norm.",
+ tech:["WORM immutable storage","M365 + Google journaling","Tiered cloud storage","Auto-tiering engine","Full-text eDiscovery","Legal hold","Hash-verified chain of custody"],
+ highlights:[
+   "<b>Up to 99-year retention</b>, immutable WORM — nothing can alter or delete archived mail",
+   "<b>Storage-based per-TB billing</b> — clients pay for the TB they consume, not per mailbox",
+   "<b>Auto-tiering</b> — aged mail drops to deep archive at $3/TB/mo while staying instantly searchable",
+   "<b>eDiscovery in seconds</b> across billions of messages, with legal hold and tamper-evident export"],
+ features:[
+   ["99-year immutable retention","Meet the longest legal, tax and sectoral mandates with one policy — WORM-locked"],
+   ["Per-TB consumption billing","Pay only for storage used; predictable and far cheaper than per-seat at long retention"],
+   ["Automatic storage tiering","Cost falls as mail ages (hot→warm→cold→deep archive) with no admin effort"],
+   ["Full-archive eDiscovery","Find any message in seconds; place on legal hold; export to PST/MBOX, hash-verified"],
+   ["M365 + Google journaling","Every sent and received message captured at source across both platforms"],
+   ["SA data residency","Archive stays in-country for POPIA/FICA — not shipped to an overseas region"]],
+ specs:[["Max retention","99 years (WORM)"],["Billing","Per-TB or per-mailbox"],["Tiers","Hot $20 → Deep $3 /TB/mo"],["Platforms","M365 + Google Workspace"],["eDiscovery","Full-text, &lt;1 s typical"],["Export","PST / MBOX, hash-verified"],["Residency","South Africa 🇿🇦"],["Compliance","CIS 8, POPIA, FICA"]],
+ vs:{market:"Mimecast · Barracuda · Global Relay · Smarsh",
+   them:"Mature archives priced per mailbox with retention typically capped around 7–10 years and data often held offshore.",
+   us:"A 99-year immutable archive billed by the TB consumed, auto-tiering to $3/TB deep storage, held in South Africa with sub-second eDiscovery.",
+   edges:["99-year horizon vs typical 7–10 years","Per-TB billing, not per-mailbox","Auto-tiering to $3/TB keeps long-term cost low","SA residency for POPIA/FICA"]},
+ price:"Add-on: <b>$6 / TB / month</b> (R"+Math.round(6*FX)+") blended, or per-mailbox"
+},
+{
+ id:"dr", name:"Resilience — Backup & Disaster Recovery", tagline:"Immutable backups, single-click & instant-VM recovery, in-country",
+ cat:"Backup · Disaster Recovery · Cyber Resilience",
+ space:"Competes with Veeam, Acronis, Datto and Rubrik — delivering immutable, locally-redundant backup with micro-cloud edge appliances, single-click recovery and instant VM recovery across VMware, Hyper-V and cloud, all from the same agent that does EDR.",
+ tech:["Immutable WORM repository","Micro-cloud edge appliances","VMware VADP + CBT","Hyper-V RCT","Cloud-native snapshots","Instant VM recovery","Cross-platform restore","Gigabit→terabit fabric"],
+ highlights:[
+   "<b>Immutable, locally-redundant storage</b> — ransomware cannot alter or delete a restore point",
+   "<b>Single-click & instant VM recovery</b> — boot a VM directly from backup in seconds, then live-migrate",
+   "<b>VMware, Hyper-V & cloud VMs</b> — agentless where supported; cross-platform restore (VMware↔Hyper-V↔cloud)",
+   "<b>100% recovery-test pass rate</b> with RTO ≤15 min and RPO ≤1 hr, proven quarterly"],
+ features:[
+   ["Immutable locally-redundant store","Restore points survive ransomware and insider deletion — WORM-enforced"],
+   ["Single-click / instant recovery","Files to full systems back in minutes; VMs boot from backup in seconds"],
+   ["VMware / Hyper-V / cloud coverage","One engine protects the whole virtual estate, agentless via VADP / RCT / snapshots"],
+   ["Cross-platform restore","Recover a VMware VM onto Hyper-V or cloud and back — hypervisor-independent"],
+   ["Micro-cloud edge appliances","On-prem immutable nodes for sovereign workloads and gigabit→terabit throughput"],
+   ["App-consistent backups","VSS, fs-freeze, SQL/Exchange/AD-aware — restores that actually start clean"]],
+ specs:[["Immutability","WORM, air-gapped"],["RTO / RPO","≤15 min / ≤1 hr"],["Hypervisors","VMware, Hyper-V, Nutanix"],["Cloud","Azure, Huawei, AWS"],["VM recovery","Instant boot-from-backup"],["Throughput","Gigabit node → terabit fabric"],["Recovery-test","100% pass (quarterly)"],["Residency","South Africa 🇿🇦"]],
+ vs:{market:"Veeam · Acronis · Datto · Rubrik",
+   them:"Best-of-breed backup suites licensed separately from security, often per-workload, with DR orchestration as a paid add-on.",
+   us:"Immutable backup, instant VM recovery and DR orchestration delivered by the same agent and console as EDR, with on-prem micro-cloud nodes for SA data residency.",
+   edges:["Backup + security in one agent and bill","Instant VM recovery: boot from backup in seconds","Cross-platform restore VMware↔Hyper-V↔cloud","On-prem micro-cloud for sovereign data"]},
+ price:"DR in <b>Advanced</b>; immutable storage <b>$24/TB/mo</b>; appliance $8,500"
+},
+{
+ id:"risk", name:"Digital Risk Protection", tagline:"Threat intel, dark web, social & VIP monitoring — white-label ready",
+ cat:"Cyber Threat Intelligence · Digital Risk Protection",
+ space:"Competes with Recorded Future, ZeroFox and Apura BTTng — processing 12M events a day across 300+ sources, uniquely covering WhatsApp and Instagram alongside the dark web, with VIP monitoring and a takedown service, fully white-labelable for MSSP partners.",
+ tech:["CTI/OSINT engine","300+ source types","Dark-web & marketplace crawlers","Social monitoring (incl. WhatsApp/Instagram)","Stealer-log correlation","VIP footprint tracking","Takedown workflow"],
+ highlights:[
+   "<b>12M events/day across 300+ sources</b> — surface, deep and dark web in one feed",
+   "<b>Social monitoring incl. WhatsApp & Instagram</b> — brand impersonation and channel abuse others miss",
+   "<b>Dark-web credential & VIP monitoring</b> — leaked logins and exec exposure caught early",
+   "<b>Takedown service + white-label</b> — file takedowns from the console; rebrand it for your clients"],
+ features:[
+   ["Threat intelligence feed","Actor TTPs and IOCs pushed as defensive packs to every protected tenant"],
+   ["Dark-web credential monitoring","Leaked logins trigger forced reset + session revoke before they are abused"],
+   ["Social media monitoring","Impersonation on WhatsApp, Instagram, X, Facebook and Telegram is flagged for takedown"],
+   ["VIP / executive monitoring","Exposure scoring and dark-web mentions for your highest-risk people"],
+   ["Takedown service","File platform takedown requests for fake accounts and lookalike domains from the console"],
+   ["White-label for MSSP","Rebrand reports, alerts and the console for your own clients — Apura-style"]],
+ specs:[["Events/day","12 million"],["Sources","300+ types"],["Channels","WhatsApp, Instagram, X, FB, Telegram"],["Coverage","Surface + deep + dark web"],["VIP monitoring","Exposure scoring"],["Action","Takedown + force-reset"],["White-label","Full rebrand"],["Residency","South Africa 🇿🇦"]],
+ vs:{market:"Recorded Future · ZeroFox · Apura BTTng",
+   them:"Enterprise CTI platforms priced for large SOCs, often light on local messaging channels and not built for partner rebranding.",
+   us:"A 300+ source CTI engine that monitors WhatsApp and Instagram, scores VIP exposure and files takedowns, fully white-labelable for MSSP resale.",
+   edges:["WhatsApp & Instagram monitoring built in","VIP exposure scoring as standard","Takedown service from the console","White-label for MSSP resale"]},
+ price:"Add-on: <b>$400 / organisation / month</b> (R"+Math.round(400*FX).toLocaleString()+")"
+},
+{
+ id:"studio", name:"Cyber Studio — AI Agents & Automation", tagline:"Pre-built AI cyber employees and no-code automations",
+ cat:"Security Automation · Agentic AI · SOAR",
+ space:"Plays in the SOAR / security-automation and emerging agentic-AI space of Torq, Tines and Microsoft Security Copilot — but ships ready-made AI 'cyber employees' out of the box with human-in-the-loop guardrails, rather than a blank automation canvas.",
+ tech:["Pre-built AI agents","No-code automation builder","Trigger→condition→action engine","Human-in-the-loop guardrails","Cross-module orchestration","Audit-logged runs"],
+ highlights:[
+   "<b>Six pre-built AI cyber employees</b> — triage, hunting, compliance, patching, recovery, dark-web watch",
+   "<b>312 analyst-hours saved a month</b> — agents handle the repetitive load, humans make the decisions",
+   "<b>No-code automation builder</b> — trigger → condition → action, armed with guardrails",
+   "<b>Cross-module orchestration</b> — a dark-web hit can force a reset, file evidence and notify in one flow"],
+ features:[
+   ["Ready-made AI agents","Value on day one — no prompt engineering or playbook authoring to start"],
+   ["Human-in-the-loop guardrails","Destructive actions always need human approval — automation without recklessness"],
+   ["No-code automation builder","Ops staff build workflows without scripting; every run is auditable"],
+   ["Cross-module reach","Agents act across EDR, VulnOps, BEC, DR and compliance — not siloed"],
+   ["Activity transparency","Run counts, success rates and runbooks visible per agent — no black box"],
+   ["Pause/route to humans","Toggle any agent off and work routes to analysts — full control"]],
+ specs:[["Pre-built agents","6 (triage, hunt, audit, patch, recovery, DRP)"],["Builder","No-code trigger/condition/action"],["Guardrails","Human-in-the-loop"],["Tasks handled/mo","1,247"],["Hours saved/mo","312 analyst-hours"],["Audit","Every run logged"],["Scope","All platform modules"],["Control","Per-agent enable/pause"]],
+ vs:{market:"Torq · Tines · Microsoft Security Copilot",
+   them:"Powerful automation canvases and copilots that you must design, integrate and prompt before they deliver value.",
+   us:"Pre-built AI cyber employees that work on day one across every Innovo module, with human-in-the-loop guardrails and full audit.",
+   edges:["Ready-made agents, not a blank canvas","Guardrails on destructive actions","Acts across the whole platform","Quantified hours-saved, transparent runs"]},
+ price:"Add-on: <b>$1.90 / endpoint / month</b> (R"+(1.90*FX).toFixed(2)+")"
+},
+{
+ id:"comply", name:"Compliance & Evidence Automation", tagline:"Audit-ready evidence, collected from the platform itself",
+ cat:"GRC · Compliance Automation · Evidence Management",
+ space:"Competes with Vanta, Drata, Secureframe and open-source Wazuh — but auto-collects evidence from the platform's own live telemetry (scans, patches, backups, SOC), not from questionnaires and integrations, and quantifies risk in Rand for the board.",
+ tech:["CIS v8 / ISO 27001 / POPIA mapping","Auto-evidence collection","Immutable evidence vault","Host integrity monitoring (FIM)","Business-outcomes risk model","One-click audit pack"],
+ highlights:[
+   "<b>Evidence collected automatically</b> from real telemetry — scans, patches, backups, recovery tests, SOC logs",
+   "<b>CIS v8, ISO 27001 & POPIA</b> with a one-click, hash-sealed audit pack",
+   "<b>Business-outcomes risk in Rand</b> — board-level exposure, quantified and trending down",
+   "<b>File integrity monitoring (FIM)</b> and a tamper-evident vault underpin every safeguard"],
+ features:[
+   ["Auto-evidence from telemetry","Artefacts are produced by the platform doing its job — not chased from staff"],
+   ["Multi-framework mapping","CIS v8, ISO 27001 and POPIA from one control set — map once, report many"],
+   ["Immutable evidence vault","Hash-sealed, freshness-tracked artefacts that hold up in an audit"],
+   ["One-click audit pack","Generate a complete, sealed evidence bundle for an auditor in minutes"],
+   ["Business-outcomes risk score","Translate posture into financial exposure leaders actually understand"],
+   ["File integrity monitoring","Critical-file and registry changes detected, mapped to CIS and PCI DSS 11.5"]],
+ specs:[["Frameworks","CIS v8, ISO 27001, POPIA"],["Evidence","Auto-collected, immutable"],["Coverage","14 of 18 CIS families"],["FIM","Real-time, rootkit + registry"],["Audit pack","One-click, hash-sealed"],["Risk model","Rand-quantified"],["Freshness","96% within policy"],["Residency","South Africa 🇿🇦"]],
+ vs:{market:"Vanta · Drata · Secureframe · Wazuh",
+   them:"Compliance platforms that gather evidence via questionnaires and third-party integrations, separate from where security actually happens.",
+   us:"Evidence auto-collected from Innovo's own scans, patches, backups and SOC telemetry, mapped to CIS/ISO/POPIA, with risk quantified in Rand.",
+   edges:["Evidence from real telemetry, not surveys","Security and compliance in one platform","Risk quantified in Rand for the board","SA residency for POPIA"]},
+ price:"Evidence & KPIs in <b>Advanced</b>; full workflow in <b>Complete</b>"
+},
+{
+ id:"platform", name:"Innovo Secure One — Unified Platform", tagline:"One agent. One console. One bill. Eleven products.",
+ cat:"Unified Security Platform · Multi-Tenant MSSP",
+ space:"Replaces the typical MSP/MSSP stack — a separate EDR, RMM, backup, email-security, archive, WAF and CTI tool, each with its own agent, console and bill — with one unified, multi-tenant platform onboarded in 60 minutes and resold under MSSP, reseller or SI models.",
+ tech:["Single multi-function agent","Multi-tenant control plane","White-label per tenant","SSO + M365 + Google","Provider Admin Console","Per-service entitlement & billing","Cloud / on-prem / hybrid micro-cloud"],
+ highlights:[
+   "<b>One lightweight agent</b> does EDR, vulnerability, patching, backup/DR, host integrity and remote access",
+   "<b>One console, one bill</b> — eleven products instead of a sprawl of point tools and invoices",
+   "<b>60-minute onboarding</b> — tenant, SSO, agents, baseline scan and DR enabled inside the SLA",
+   "<b>Provider Admin Console</b> — activate the services a client pays for; one-click suspend for non-payment; clients get a scoped single pane of glass"],
+ features:[
+   ["Single multi-function agent","One install to deploy and maintain — not six agents fighting for the endpoint"],
+   ["Multi-tenant + white-label","Run MSSP, reseller and SI models; rebrand the console per partner"],
+   ["Provider Admin Console","Provision tenants, toggle paid services, suspend/reactivate instantly for billing"],
+   ["Client single pane of glass","Clients log in to their own scoped view — posture, alerts, evidence, all in one place"],
+   ["60-minute onboarding","New tenants are protected within the hour, evidence auto-filed"],
+   ["Deploy anywhere","Cloud, on-premise or hybrid micro-cloud — same agent, SA data residency"]],
+ specs:[["Products in one platform","11"],["Agent","Single, multi-function"],["Tenancy","Multi-tenant, white-label"],["Onboarding","≤60 minutes"],["Channels","MSSP / Reseller / SI / Direct"],["Identity","SSO, M365, Google"],["Deployment","Cloud / on-prem / micro-cloud"],["Residency","South Africa 🇿🇦"]],
+ vs:{market:"N-able / ConnectWise stacks · point-product sprawl",
+   them:"A bundle of separate best-of-breed tools — each its own agent, console, contract and bill — stitched together by the MSP and onboarded over weeks.",
+   us:"One agent, one console and one bill spanning eleven products, multi-tenant and white-label, onboarded in 60 minutes with provider-controlled per-service activation.",
+   edges:["One agent vs six fighting for the endpoint","One console & bill vs tool sprawl","Provider activate/suspend per service","60-minute onboarding, SA data residency"]},
+ price:"<b>Essentials $4.50</b> · <b>Advanced $7.50</b> · <b>Complete $11.50</b> /endpoint/mo"
+}
+];
+
+/* ---- render ---- */
+function chiprow(arr){return `<div class="tcards">${arr.map(t=>`<span class="tcard">${t}</span>`).join('')}</div>`;}
+function sheet(p,i){return `
+<section class="sheet" id="${p.id}">
+  <div class="hb">
+    <div class="wm">INNOVO <b>SECURE</b> ONE</div>
+    <h1>${p.name}</h1>
+    <div class="tag">${p.tagline}</div>
+    <div class="cat"><span class="chip lime">PRODUCT ${String(i+1).padStart(2,'0')}</span></div>
+  </div>
+  <div class="pad">
+    <h2 class="sec">Where it plays — market space</h2>
+    <div class="lead">${p.space}</div>
+    <div style="margin-top:6px"><span class="chip" style="background:var(--band);color:var(--petrol);border-color:var(--line)">${p.cat}</span></div>
+
+    <div class="cols" style="margin-top:4px">
+      <div>
+        <h2 class="sec">At a glance</h2>
+        <ul class="hl">${p.highlights.map(h=>`<li>${h}</li>`).join('')}</ul>
+      </div>
+      <div>
+        <h2 class="sec">Technology inside</h2>
+        ${chiprow(p.tech)}
+      </div>
+    </div>
+
+    <h2 class="sec">Features &amp; benefits</h2>
+    <table><thead><tr><th>Feature</th><th>Benefit to the client</th></tr></thead><tbody>
+      ${p.features.map(f=>`<tr><td class="f">${f[0]}</td><td>${f[1]}</td></tr>`).join('')}
+    </tbody></table>
+
+    <h2 class="sec">Technical specifications</h2>
+    <div class="specs">${p.specs.map(s=>`<div class="k">${s[0]}</div><div class="v">${s[1]}</div>`).join('')}</div>
+
+    <h2 class="sec">Why Innovo wins</h2>
+    <div class="win">
+      <h3>Innovo Secure One <span>vs ${p.vs.market}</span></h3>
+      <div class="vs">
+        <div class="b them"><span class="lab">The market norm</span>${p.vs.them}</div>
+        <div class="b us"><span class="lab">The Innovo advantage</span>${p.vs.us}</div>
+      </div>
+      <ul class="edges">${p.vs.edges.map(e=>`<li>${e}</li>`).join('')}</ul>
+    </div>
+
+    <div class="foot">
+      <span>Innovo Networks (Pty) Ltd · Cape Town · <b>innovonet.co.za</b> · info@innovonet.co.za · +27 21 811 3333</span>
+      <span class="pricetag">${p.price}</span>
+    </div>
+  </div>
+</section>`;}
+
+/* cover */
+const cover=`
+<section class="sheet cover" id="cover">
+  <div class="hb">
+    <div class="wm">INNOVO <b>SECURE</b> ONE</div>
+    <h1>Product Datasheets</h1>
+    <div class="tag">Unified AI cyber protection — one agent, one console, eleven products</div>
+    <div class="cat"><span class="chip">v1.0 · JUNE 2026</span></div>
+  </div>
+  <div class="coverbody">
+    <div class="lead" style="font-size:14px">Innovo Secure One is a single, multi-tenant platform that replaces a sprawl of point security tools with <b>one lightweight agent, one console and one bill</b>. Delivered from South Africa with full data residency, onboarded in 60 minutes, and resold under MSSP, reseller and systems-integrator models. This pack contains a detailed datasheet for each product — technology, market space, features, benefits and how each one beats its market-leading rival.</div>
+    <div class="statrow">
+      <div class="stat"><div class="v">11</div><div class="l">products, one platform</div></div>
+      <div class="stat"><div class="v">1</div><div class="l">lightweight agent</div></div>
+      <div class="stat"><div class="v">60 min</div><div class="l">tenant onboarding</div></div>
+      <div class="stat"><div class="v">🇿🇦 100%</div><div class="l">SA data residency</div></div>
+    </div>
+    <h2 class="sec">Contents</h2>
+    <div class="toc">
+      ${PRODUCTS.map((p,i)=>`<a href="#${p.id}"><span class="n">${String(i+1).padStart(2,'0')}</span><b>${p.name}</b> — ${p.cat.split('·')[0].trim()}</a>`).join('')}
+      <a href="#matrix"><span class="n">★</span><b>Competitive capability matrix</b> — Innovo vs the market</a>
+      <a href="#packaging"><span class="n">★</span><b>Packaging &amp; pricing</b> — tiers and add-ons</a>
+    </div>
+    <div class="foot"><span>Innovo Networks (Pty) Ltd · The Forum, Century City, Cape Town · <b>innovonet.co.za</b></span><span>THINK. SOLVE. CONNECT.</span></div>
+  </div>
+</section>`;
+
+/* competitive matrix */
+const MATRIX=[
+ ["Single multi-function agent","Multiple agents per vendor","One agent: EDR + vuln + patch + backup + FIM + remote"],
+ ["24/7 SOC (MDR) included","Premium add-on / separate contract","Included in Complete, AI L1 + local human L2/L3"],
+ ["Vulnerability scan cadence","Monthly or on-demand","Every 6 hours, 900+ apps, EPSS+KEV"],
+ ["AI-scored safe patching","Manual approval rings","AI Safety Score + auto-rollback + snapshot pre-test"],
+ ["WAF onboarding","Self-service rule config","Add by URL, managed OWASP, virtual patching"],
+ ["Email security platforms","One of M365 or Google","Both M365 and Google in one console"],
+ ["Email archive retention","Typically 7–10 years","Up to 99 years, immutable WORM"],
+ ["Archive billing model","Per mailbox","Per-TB consumption (or per-mailbox)"],
+ ["Immutable backup + instant VM recovery","Separate backup vendor","Same agent; boot VM from backup in seconds"],
+ ["Cross-platform VM restore","Usually same-hypervisor","VMware ↔ Hyper-V ↔ cloud"],
+ ["Social monitoring (WhatsApp/Instagram)","Rarely covered","Built into Digital Risk Protection"],
+ ["Pre-built AI cyber employees","Build-your-own automations","6 ready agents, human-in-the-loop"],
+ ["Compliance evidence source","Questionnaires + integrations","Auto-collected from live telemetry"],
+ ["Data residency","Often offshore region","100% South Africa"],
+ ["Tenant onboarding time","Days to weeks","≤ 60 minutes"],
+ ["Provider activate / suspend billing","Manual, per-tool","One-click per service in Admin Console"],
+ ["Commercial model","Many tools, many bills","One agent · one console · one bill"]
+];
+const matrix=`
+<section class="sheet" id="matrix">
+  <div class="hb"><div class="wm">INNOVO <b>SECURE</b> ONE</div><h1>Competitive Capability Matrix</h1>
+    <div class="tag">How the platform measures up against the market norm</div>
+    <div class="cat"><span class="chip lime">BENCHMARK</span></div></div>
+  <div class="pad">
+    <h2 class="sec">Capability comparison</h2>
+    <table class="matrix"><thead><tr><th>Capability</th><th>Typical market product</th><th>Innovo Secure One</th></tr></thead><tbody>
+      ${MATRIX.map(m=>`<tr><td class="f">${m[0]}</td><td style="color:var(--mut)">${m[1]}</td><td><span class="mk">✓</span> ${m[2]}</td></tr>`).join('')}
+    </tbody></table>
+    <div class="note">Positioning reflects Innovo Secure One's designed capabilities versus common configurations of the named market categories. Competitor capabilities vary by tier and configuration; verify against current vendor documentation for formal RFP responses.</div>
+    <div class="foot"><span>Innovo Networks (Pty) Ltd · <b>innovonet.co.za</b></span><span>THINK. SOLVE. CONNECT.</span></div>
+  </div>
+</section>`;
+
+/* packaging */
+const TIERS=[
+ ["Essentials","$4.50","R"+(4.5*FX).toFixed(2),["AI AV / EDR-lite","Vulnerability scans — every 6 h","Safe patching (AI-scored)","SSO + M365 + Google","Reports & KPIs"]],
+ ["Advanced","$7.50","R"+(7.5*FX).toFixed(2),["Everything in Essentials","Full EDR + remediation workflows","Local DR — single agent + immutable","Single-click recovery","Evidence artefacts"]],
+ ["Complete","$11.50","R"+(11.5*FX).toFixed(2),["Everything in Advanced","24/7 SOC (MDR)","Email & BEC + Compliance workflow","AI-assisted remote access","Business-outcomes risk reporting"]]
+];
+const ADDONS=[
+ ["Web Application Firewall","$39 / site / mo","Add sites by URL, OWASP CRS, virtual patching, full reporting"],
+ ["Email Archive (99-yr)","$6 / TB / mo","Immutable WORM, per-TB billing, eDiscovery, SA residency"],
+ ["DR immutable storage","$24 / TB / mo","Locally-redundant immutable backup storage"],
+ ["Digital Risk Protection","$400 / org / mo","Threat intel, dark web, social, VIP monitoring + takedowns"],
+ ["Cyber Studio","$1.90 / endpoint / mo","Pre-built AI agents and no-code automation"],
+ ["Micro-cloud appliance","$8,500 once-off","On-prem immutable edge DR node"]
+];
+const packaging=`
+<section class="sheet" id="packaging">
+  <div class="hb"><div class="wm">INNOVO <b>SECURE</b> ONE</div><h1>Packaging &amp; Pricing</h1>
+    <div class="tag">Three endpoint tiers, plus storage-based and per-site add-ons</div>
+    <div class="cat"><span class="chip lime">COMMERCIAL</span></div></div>
+  <div class="pad">
+    <h2 class="sec">Subscription tiers <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--mut);font-size:11px">— per endpoint / month</span></h2>
+    <table><thead><tr><th>Capability</th>${TIERS.map(t=>`<th>${t[0]}<br><span style="color:var(--lime-d)">${t[1]}</span> <span style="font-weight:500;color:var(--mut)">(${t[2]})</span></th>`).join('')}</tr></thead><tbody>
+      ${(()=>{const rows=["AI EDR","Vulnerability mgmt (6-hourly)","Safe patching (AI-scored)","SSO + M365 + Google","Remediation workflows","Local DR + immutable backup","Single-click recovery","24/7 SOC (MDR)","Email & BEC protection","Compliance workflow","AI-assisted remote access","Business-outcomes risk"];
+        const inc=[[1,1,1],[1,1,1],[1,1,1],[1,1,1],[0,1,1],[0,1,1],[0,1,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1]];
+        return rows.map((r,ri)=>`<tr><td class="f">${r}</td>${inc[ri].map(v=>`<td style="text-align:center">${v?'<span class="mk" style="color:var(--lime-d);font-weight:900">✓</span>':'<span style="color:#C9D4D6">—</span>'}</td>`).join('')}</tr>`).join('');})()}
+    </tbody></table>
+
+    <h2 class="sec">Add-on services</h2>
+    <table><thead><tr><th>Add-on</th><th>Price</th><th>What it includes</th></tr></thead><tbody>
+      ${ADDONS.map(a=>`<tr><td class="f">${a[0]}</td><td style="font-weight:700;color:var(--ink);white-space:nowrap">${a[1]}</td><td>${a[2]}</td></tr>`).join('')}
+    </tbody></table>
+
+    <h2 class="sec">Channel models</h2>
+    <ul class="hl">
+      <li><b>MSSP white-label</b> — rebrand the console, reports and alerts; ~40% partner margin</li>
+      <li><b>IT Reseller</b> — sell branded subscriptions, Innovo operates the service; ~25% margin</li>
+      <li><b>Systems Integrator</b> — enterprise projects with micro-cloud appliance attach; ~30% margin</li>
+      <li><b>Innovo Direct</b> — fully managed by Innovo as MSSP #1</li>
+    </ul>
+    <div class="note">USD list pricing; ZAR shown at R${FX}/$ and subject to spot rate. Volume and multi-year discounts available. Pricing indicative for planning — see formal quote for contracted rates.</div>
+    <div class="foot"><span>Innovo Networks (Pty) Ltd · Cape Town · <b>innovonet.co.za</b> · +27 21 811 3333</span><span>THINK. SOLVE. CONNECT.</span></div>
+  </div>
+</section>`;
+
+document.getElementById('wrap').innerHTML = cover + PRODUCTS.map(sheet).join('') + matrix + packaging;
+</script>
+</body>
+</html>

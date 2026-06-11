@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innovo Secure One — Unified AI Cyber Protection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E2A33; --ink2:#0B222A; --petrol:#0F4C5C; --panel:#11333E; --panel2:#143B48;
+  --lime:#8DC63F; --lime-d:#6FA52C; --amber:#E8A33D; --red:#D5524A; --redd:#C0392B;
+  --txt:#EAF2EE; --mut:#8FA8AD; --line:rgba(255,255,255,.08);
+  --mono:'Consolas','SF Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--txt);font-family:'Inter',system-ui,sans-serif;font-size:13.5px;overflow:hidden}
+::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:#1E4A56;border-radius:6px}
+a{color:var(--lime)}
+button{font-family:inherit;cursor:pointer;border:none}
+.app{display:none;height:100vh}
+.app.on{display:flex}
+/* ---------- login ---------- */
+#login{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(1100px 700px at 70% -10%, #14505F 0%, var(--ink) 55%) , var(--ink);z-index:50}
+.login-card{width:380px;background:rgba(17,51,62,.85);border:1px solid var(--line);border-radius:16px;padding:38px 34px;backdrop-filter:blur(6px)}
+.wordmark{font-weight:800;letter-spacing:.12em;font-size:19px}
+.wordmark .dot{color:var(--lime)}
+.tag{color:var(--mut);font-size:10.5px;letter-spacing:.34em;margin-top:5px}
+.login-card h2{font-size:15px;font-weight:600;margin:26px 0 16px}
+.fld{width:100%;background:#0B2832;border:1px solid var(--line);border-radius:9px;color:var(--txt);padding:11px 13px;font-size:13px;margin-bottom:11px;outline:none}
+.fld:focus{border-color:var(--lime)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9px;padding:10px 16px;font-weight:600;font-size:13px;transition:.15s}
+.btn-lime{background:var(--lime);color:#0B2228;width:100%}
+.btn-lime:hover{background:#9ED455}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--txt);width:100%}
+.btn-ghost:hover{border-color:var(--lime);color:var(--lime)}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:7px}
+.or{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:11px;margin:16px 0}
+.or:before,.or:after{content:"";flex:1;height:1px;background:var(--line)}
+.login-foot{margin-top:22px;color:var(--mut);font-size:10.5px;text-align:center}
+/* ---------- shell ---------- */
+.side{width:228px;min-width:228px;background:var(--ink2);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 0 10px}
+.side .brand{padding:0 20px 16px;border-bottom:1px solid var(--line)}
+.nav{flex:1;overflow-y:auto;padding:10px 12px}
+.ngrp{color:#5E7B82;font-size:9.5px;font-weight:700;letter-spacing:.22em;padding:14px 10px 6px}
+.nitem{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;color:#B9CDD1;
+  padding:8px 10px;border-radius:8px;font-size:13px;font-weight:500;margin:1px 0}
+.nitem:hover{background:rgba(141,198,63,.08);color:var(--txt)}
+.nitem.on{background:rgba(141,198,63,.14);color:var(--lime)}
+.nitem svg{width:16px;height:16px;flex:none}
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.top{height:54px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 22px;background:var(--ink2)}
+.tswitch{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:7px 11px;font-size:12.5px;font-family:inherit}
+.gsearch{flex:1;max-width:430px;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:8px 13px;font-size:12.5px;outline:none}
+.bell{position:relative;background:none;color:#B9CDD1;padding:6px}
+.bell .b{position:absolute;top:1px;right:0;background:var(--red);color:#fff;font-size:9px;font-weight:700;border-radius:8px;padding:1px 5px}
+.me{display:flex;align-items:center;gap:9px;margin-left:auto}
+.ava{width:30px;height:30px;border-radius:50%;background:var(--lime);color:#0B2228;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
+.me small{color:var(--mut);display:block;font-size:10.5px}
+.view{flex:1;overflow-y:auto;padding:24px 26px 60px}
+.h1{font-size:19px;font-weight:700;margin-bottom:3px}
+.sub{color:var(--mut);font-size:12.5px;margin-bottom:20px}
+.chiprow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.chip{display:inline-flex;align-items:center;gap:7px;background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:6px 13px;font-size:11.5px;color:#C9DADF}
+.chip b{color:var(--lime)}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--lime);animation:pu 1.6s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.25}}
+/* cards & grids */
+.grid{display:grid;gap:14px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:1200px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
+.card{background:linear-gradient(180deg,var(--panel) 0%,#0F2F39 100%);border:1px solid var(--line);border-radius:13px;padding:16px 18px}
+.kpi .lab{color:var(--mut);font-size:11px;font-weight:600;letter-spacing:.04em}
+.kpi .val{font-size:23px;font-weight:800;margin:7px 0 3px}
+.kpi .d{font-size:11px;font-weight:600}
+.up{color:var(--lime)}.dn{color:var(--red)}.wn{color:var(--amber)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.card h3 small{color:var(--mut);font-weight:500;font-size:11px}
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{color:#7E9AA0;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.045);vertical-align:middle}
+tr:hover td{background:rgba(141,198,63,.04)}
+.pill{display:inline-block;border-radius:99px;padding:3px 10px;font-size:10.5px;font-weight:700}
+.p-lime{background:rgba(141,198,63,.16);color:var(--lime)}
+.p-amber{background:rgba(232,163,61,.15);color:var(--amber)}
+.p-red{background:rgba(213,82,74,.16);color:#F08A84}
+.p-blue{background:rgba(86,170,200,.16);color:#7CC6E2}
+.p-grey{background:rgba(255,255,255,.07);color:#AEC4C9}
+.mono{font-family:var(--mono);font-size:11.5px}
+.scorebar{display:inline-flex;align-items:center;gap:7px}
+.scorebar .t{width:54px;height:6px;border-radius:4px;background:#0B2832;overflow:hidden}
+.scorebar .t i{display:block;height:100%;border-radius:4px}
+/* toasts */
+#toasts{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:9px;z-index:300}
+.toast{background:#12343F;border:1px solid var(--lime);border-left:4px solid var(--lime);border-radius:10px;padding:12px 16px;min-width:300px;max-width:420px;
+  font-size:12.5px;box-shadow:0 8px 30px rgba(0,0,0,.45);animation:tin .25s}
+.toast b{color:var(--lime)}
+@keyframes tin{from{transform:translateY(12px);opacity:0}}
+/* modal */
+#mwrap{position:fixed;inset:0;background:rgba(4,16,20,.72);display:none;align-items:center;justify-content:center;z-index:200}
+#mwrap.on{display:flex}
+.modal{width:620px;max-width:94vw;max-height:88vh;overflow-y:auto;background:#102E38;border:1px solid var(--line);border-radius:15px;padding:24px 26px}
+.modal h2{font-size:16px;margin-bottom:4px}
+.modal .ms{color:var(--mut);font-size:12px;margin-bottom:18px}
+.mx{float:right;background:none;color:var(--mut);font-size:18px}
+.steps{display:flex;gap:6px;margin-bottom:18px}
+.steps i{flex:1;height:4px;border-radius:3px;background:#1A4350}
+.steps i.done{background:var(--lime)}
+.codebox{background:#081E26;border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-family:var(--mono);font-size:11.5px;color:#A8E063;display:flex;justify-content:space-between;align-items:center;gap:10px;margin:10px 0}
+.prog{height:8px;background:#0B2832;border-radius:5px;overflow:hidden;margin:12px 0}
+.prog i{display:block;height:100%;background:var(--lime);width:0%;transition:width .3s;border-radius:5px}
+.steplist{list-style:none;margin:14px 0}
+.steplist li{display:flex;align-items:center;gap:10px;padding:8px 4px;color:var(--mut);font-size:13px}
+.steplist li.run{color:var(--txt)}
+.steplist li.ok{color:var(--lime)}
+.dotw{width:17px;text-align:center}
+.timer{font-family:var(--mono);background:rgba(141,198,63,.13);color:var(--lime);border-radius:7px;padding:4px 10px;font-size:12px;font-weight:700}
+/* tabs */
+.tabs{display:flex;gap:6px;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:0}
+.tab{background:none;color:var(--mut);padding:9px 15px;font-size:12.5px;font-weight:600;border-bottom:2px solid transparent}
+.tab.on{color:var(--lime);border-bottom-color:var(--lime)}
+/* misc */
+.gauge{position:relative;width:120px;height:66px;margin:auto}
+.flex{display:flex;align-items:center;gap:10px}
+.spread{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.feed{max-height:280px;overflow-y:auto}
+.fitem{display:flex;gap:10px;padding:8px 2px;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px}
+.fitem .tm{color:var(--mut);font-family:var(--mono);font-size:10.5px;white-space:nowrap;padding-top:2px}
+.mitre{font-family:var(--mono);font-size:10px;background:rgba(124,198,226,.13);color:#7CC6E2;border-radius:5px;padding:1px 6px}
+.agent-card{position:relative}
+.agent-card .face{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;color:#0B2228}
+.switch{position:relative;width:38px;height:21px;background:#1A4350;border-radius:99px;transition:.2s}
+.switch.on{background:var(--lime)}
+.switch i{position:absolute;top:2.5px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:.2s}
+.switch.on i{left:19px}
+.cis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.cisbox{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.02)}
+.cisbox .nm{font-size:11.5px;font-weight:600;margin-bottom:5px}
+.cisbox .md{color:var(--mut);font-size:10.5px}
+.slider{width:100%;accent-color:var(--lime)}
+.bigval{font-size:21px;font-weight:800;color:var(--lime)}
+.term{background:#06181F;border:1px solid var(--line);border-radius:10px;padding:13px;font-family:var(--mono);font-size:11.5px;color:#9FE08A;line-height:1.75;min-height:170px}
+.term .c{color:#6FA0AC}
+.copilot{background:rgba(141,198,63,.06);border:1px solid rgba(141,198,63,.25);border-radius:10px;padding:13px}
+.copilot h4{font-size:11px;color:var(--lime);letter-spacing:.1em;margin-bottom:9px}
+.copilot p{font-size:12px;color:#D7E6DC;margin-bottom:9px}
+.ring{display:flex;gap:14px;align-items:center}
+.ringbox{flex:1;text-align:center;border:1px solid var(--line);border-radius:11px;padding:12px}
+.ringbox b{display:block;font-size:17px;margin-bottom:2px}
+.arrow{color:var(--mut)}
+.note{font-size:11px;color:var(--mut);margin-top:10px}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tier{border:1px solid var(--line);border-radius:13px;padding:18px;background:rgba(255,255,255,.02);position:relative}
+.tier.hot{border-color:var(--lime)}
+.tier .pr{font-size:25px;font-weight:800;margin:8px 0 2px}
+.tier ul{list-style:none;margin-top:12px}
+.tier li{font-size:12px;color:#C9DADF;padding:4px 0;display:flex;gap:8px}
+.tier li:before{content:"✓";color:var(--lime);font-weight:800}
+.tier .badge{position:absolute;top:-9px;right:14px;background:var(--lime);color:#0B2228;font-size:10px;font-weight:800;border-radius:99px;padding:2px 10px}
+svg text{font-family:'Inter',sans-serif}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-card">
+    <div class="wordmark">INNOVO <span style="color:var(--lime)">SECURE</span> ONE<span class="dot"> ●</span></div>
+    <div class="tag">THINK. SOLVE. CONNECT.</div>
+    <div style="display:flex;gap:4px;margin:18px 0 14px;background:#0B2832;border:1px solid var(--line);border-radius:9px;padding:4px">
+      <button id="roleProv" onclick="setRole('provider')" style="flex:1;padding:8px;border:none;border-radius:7px;font:inherit;font-size:12px;font-weight:700;cursor:pointer;background:var(--lime);color:#0B2228">Innovo Admin</button>
+      <button id="roleClient" onclick="setRole('client')" style="flex:1;padding:8px;border:none;border-radius:7px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:#8FA8AD">Client</button>
+    </div>
+    <div id="provFields">
+      <input class="fld" id="lemail" placeholder="name@innovonet.co.za" value="damian@innovonet.co.za">
+      <input class="fld" type="password" placeholder="••••••••••" value="************">
+      <button class="btn btn-lime" onclick="doLogin()">Sign in to provider console</button>
+      <div class="or">or continue with</div>
+      <button class="btn btn-ghost" style="margin-bottom:9px" onclick="doLogin()">⊞&nbsp; Microsoft 365</button>
+      <button class="btn btn-ghost" onclick="doLogin()">G&nbsp; Google</button>
+    </div>
+    <div id="clientFields" style="display:none">
+      <label class="note">Your organisation</label>
+      <select class="fld" id="clientOrg"></select>
+      <input class="fld" type="password" placeholder="••••••••••" value="************">
+      <button class="btn btn-lime" onclick="doLogin()">Sign in to my dashboard</button>
+      <div class="note" style="margin-top:8px">Single pane of glass — your security posture, scoped to your organisation.</div>
+    </div>
+    <div class="login-foot">Multi-tenant console · SA Data Residency · POPIA-aligned<br>© 2026 Innovo Networks (Pty) Ltd</div>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div class="app" id="app">
+  <aside class="side">
+    <div class="brand">
+      <div class="wordmark" style="font-size:14.5px">INNOVO <span style="color:var(--lime)">SECURE</span> ONE <span class="dot">●</span></div>
+      <div class="tag" style="font-size:8.5px">THINK. SOLVE. CONNECT.</div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div style="padding:10px 20px;border-top:1px solid var(--line);color:var(--mut);font-size:10.5px">
+      Platform v1.0 · Agent v2.4.1<br>Region: <span style="color:var(--lime)">South Africa 🇿🇦</span>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="top">
+      <select class="tswitch" id="tenantSel"><option>All tenants (38)</option></select>
+      <input class="gsearch" placeholder="Search endpoints, CVEs, tenants, evidence…  ( / )">
+      <button class="bell" title="Alerts">🔔<span class="b">7</span></button>
+      <div class="me">
+        <span id="roleTag"></span>
+        <div style="text-align:right"><div id="meName" style="font-size:12.5px;font-weight:600">Damian Michael</div><small id="meSub">Founder · Innovo Networks</small></div>
+        <div class="ava" id="ava">DM</div>
+      </div>
+    </div>
+    <div class="view" id="view"></div>
+  </div>
+</div>
+
+<div id="mwrap" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
+<div id="toasts"></div>
+
+<script>
+/* ============== utilities ============== */
+const $=s=>document.querySelector(s);
+const fmt=n=>n.toLocaleString('en-ZA');
+const usd=n=>'$'+n.toLocaleString('en-US',{maximumFractionDigits:0});
+function toast(html,ms=5200){const t=document.createElement('div');t.className='toast';t.innerHTML=html;$('#toasts').appendChild(t);setTimeout(()=>t.remove(),ms);}
+function openModal(html){$('#modal').innerHTML=html;$('#mwrap').classList.add('on');}
+function closeModal(){$('#mwrap').classList.remove('on');clearInterval(window._wizTick);}
+function sw(el){el.classList.toggle('on');}
+function scoreColor(v){return v>=80?'var(--lime)':v>=55?'var(--amber)':'var(--red)';}
+function scorebar(v){return `<span class="scorebar"><span class="t"><i style="width:${v}%;background:${scoreColor(v)}"></i></span><b style="color:${scoreColor(v)}">${v}</b></span>`;}
+/* tiny SVG charts */
+function areaChart(series,labels,colors,w=560,h=180){
+  const max=Math.max(...series.map(s=>s.reduce((a,b,i)=>Math.max(a,series.map(x=>x[i]).reduce((p,q)=>p+q,0)),0)))*1.08;
+  const X=i=>30+i*( (w-44)/(labels.length-1) ), Y=v=>h-26-(v/max)*(h-44);
+  let cum=series[0].map(()=>0),out='';
+  series.forEach((s,si)=>{
+    const top=s.map((v,i)=>cum[i]+v);
+    let p='M'+X(0)+','+Y(top[0]);top.forEach((v,i)=>p+=' L'+X(i)+','+Y(v));
+    for(let i=s.length-1;i>=0;i--)p+=' L'+X(i)+','+Y(cum[i]);
+    out+=`<path d="${p}Z" fill="${colors[si]}" opacity=".75"/>`;cum=top;});
+  let ax='';labels.forEach((l,i)=>{if(i%2==0)ax+=`<text x="${X(i)}" y="${h-8}" fill="#6F8C93" font-size="9.5" text-anchor="middle">${l}</text>`;});
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:100%">${out}${ax}</svg>`;}
+function barChart(vals,labels,color,w=520,h=170){
+  const max=Math.max(...vals)*1.15,bw=(w-50)/vals.length-14;let out='';
+  vals.forEach((v,i)=>{const x=34+i*((w-50)/vals.length),bh=(v/max)*(h-50);
+    out+=`<rect x="${x}" y="${h-30-bh}" width="${bw}" height="${bh}" rx="4" fill="${Array.isArray(color)?color[i]:color}"/>
+    <text x="${x+bw/2}" y="${h-36-bh}" fill="#C9DADF" font-size="10" text-anchor="middle" font-weight="700">${fmt(v)}</text>
+    <text x="${x+bw/2}" y="${h-12}" fill="#6F8C93" font-size="9.5" text-anchor="middle">${labels[i]}</text>`;});
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:100%">${out}</svg>`;}
+function donut(pct,color,size=120,label=''){const r=44,c=2*Math.PI*r;
+  return `<svg viewBox="0 0 120 120" style="width:${size}px"><circle cx="60" cy="60" r="${r}" stroke="#16404D" stroke-width="13" fill="none"/>
+  <circle cx="60" cy="60" r="${r}" stroke="${color}" stroke-width="13" fill="none" stroke-linecap="round"
+   stroke-dasharray="${c*pct/100} ${c}" transform="rotate(-90 60 60)"/>
+  <text x="60" y="58" fill="#EAF2EE" font-size="21" font-weight="800" text-anchor="middle">${pct}%</text>
+  <text x="60" y="76" fill="#8FA8AD" font-size="9.5" text-anchor="middle">${label}</text></svg>`;}
+function spark(vals,color,w=110,h=30){const max=Math.max(...vals),min=Math.min(...vals);
+  const pts=vals.map((v,i)=>`${i*(w/(vals.length-1))},${h-3-((v-min)/(max-min||1))*(h-7)}`).join(' ');
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:${w}px"><polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2"/></svg>`;}
+function comboChart(rev,marg,labels,w=620,h=210){
+  const max=Math.max(...rev)*1.18,bw=(w-90)/rev.length-22;let out='';
+  rev.forEach((v,i)=>{const x=46+i*((w-90)/rev.length),bh=(v/max)*(h-64);
+    out+=`<rect x="${x}" y="${h-34-bh}" width="${bw}" height="${bh}" rx="5" fill="#2C7A8C"/>
+    <text x="${x+bw/2}" y="${h-40-bh}" fill="#C9DADF" font-size="10.5" font-weight="700" text-anchor="middle">$${v}M</text>
+    <text x="${x+bw/2}" y="${h-14}" fill="#6F8C93" font-size="10" text-anchor="middle">${labels[i]}</text>`;});
+  const Y=v=>h-34-((v+15)/50)*(h-64);
+  let p='';marg.forEach((m,i)=>{const x=46+i*((w-90)/rev.length)+bw/2;p+=(i?' L':'M')+x+','+Y(m);});
+  out+=`<path d="${p}" fill="none" stroke="var(--lime)" stroke-width="2.5"/>`;
+  marg.forEach((m,i)=>{const x=46+i*((w-90)/rev.length)+bw/2;
+    out+=`<circle cx="${x}" cy="${Y(m)}" r="4" fill="var(--lime)"/><text x="${x}" y="${Y(m)-9}" fill="var(--lime)" font-size="10" font-weight="700" text-anchor="middle">${m}%</text>`;});
+  out+=`<line x1="40" x2="${w-30}" y1="${Y(0)}" y2="${Y(0)}" stroke="rgba(255,255,255,.18)" stroke-dasharray="3 4"/>
+  <text x="${w-28}" y="${Y(0)+3}" fill="#8FA8AD" font-size="9">0%</text>`;
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:100%">${out}</svg>`;}
+
+/* ============== data ============== */
+const TENANTS=[
+ ["Atlantic Coast Legal","MSSP White-label",842,"Cloud","R 68,400","Healthy"],
+ ["Boland Medical Group","Systems Integrator",1260,"Micro-cloud","R 142,900","Healthy"],
+ ["Cape Winelands Logistics","IT Reseller",505,"Cloud","R 39,200","Healthy"],
+ ["Garden Route Municipality","Systems Integrator",1834,"On-premise","R 171,500","Attention"],
+ ["Khulisa Financial Services","MSSP White-label",966,"Cloud","R 87,300","Healthy"],
+ ["Stellenbosch Tech Park","Innovo Direct",612,"Cloud","R 55,800","Healthy"],
+ ["Durban Port Services","Systems Integrator",1422,"Micro-cloud","R 128,600","Healthy"],
+ ["Joburg Retail Group","MSSP White-label",2210,"Cloud","R 196,400","Attention"],
+ ["Mossel Bay Engineering","IT Reseller",318,"Cloud","R 24,100","Healthy"],
+ ["Pretoria Health Network","MSSP White-label",1108,"Cloud","R 99,700","Healthy"],
+ ["Knysna Tourism Board","Innovo Direct",184,"Cloud","R 16,900","Healthy"],
+ ["Winelands Private College","IT Reseller",586,"On-premise","R 44,300","Healthy"]];
+const CVES=[
+ ["CVE-2026-21412","Windows SmartScreen security-feature bypass",9.8,67,true,412],
+ ["CVE-2025-53770","SharePoint 'ToolShell' RCE chain",9.8,84,true,38],
+ ["CVE-2024-3400","PAN-OS GlobalProtect command injection",10.0,91,true,6],
+ ["CVE-2026-1731","Chrome V8 type-confusion (exploited)",8.8,72,true,1893],
+ ["CVE-2025-61882","Oracle EBS unauthenticated RCE",9.0,55,false,11],
+ ["CVE-2026-0282","Ivanti Connect Secure stack overflow",9.0,61,true,4],
+ ["CVE-2025-31324","SAP NetWeaver unrestricted upload",9.9,48,false,3],
+ ["CVE-2026-3105","Java 21 deserialisation in legacy ERP",7.5,22,false,57]];
+const PATCHES=[
+ ["Windows 11 24H2 CU — June 2026 (KB5042831)",4211,96,"Auto-approve"],
+ ["Google Chrome 137.0.7204 — security update",3876,94,"Auto-approve"],
+ ["Microsoft Edge 137 — security update",3411,93,"Auto-approve"],
+ ["Adobe Acrobat DC 25.2 — APSB26-14",1422,78,"Staged rollout"],
+ ["Java 21.0.4 LTS — quarterly CPU",557,62,"Staged rollout"],
+ ["Legacy ERP client 9.4.1 hotfix",212,31,"Hold — dependency risk"]];
+const WORKLOADS=[
+ ["GRM-SQL-01 · ERP database","Garden Route Municipality","4 min ago","Micro-cloud · George Edge","42 min"],
+ ["BML-EHR-02 · patient records","Boland Medical Group","2 min ago","Micro-cloud · Paarl Edge","18 min"],
+ ["JRG-POS-CL · retail cluster","Joburg Retail Group","7 min ago","SA Cloud Region (ZA-N)","51 min"],
+ ["ACL-FS-01 · matter files","Atlantic Coast Legal","1 min ago","SA Cloud Region (ZA-W)","12 min"],
+ ["DPS-SCADA-HIS · historian","Durban Port Services","9 min ago","Micro-cloud · Durban Edge","44 min"]];
+const AGENTS=[
+ ["Aiden","Triage Analyst (L1)","#8DC63F",3412,99.2,[4,6,5,8,7,9,8,11]],
+ ["Naledi","Threat Hunter","#56AAC8",818,97.8,[2,3,5,4,6,5,7,8]],
+ ["Thabo","Compliance Auditor","#E8A33D",1266,99.6,[5,5,6,6,7,7,8,8]],
+ ["Zara","Patch Strategist","#B58DE0",942,98.4,[3,4,4,6,5,7,6,9]],
+ ["Sipho","Recovery Orchestrator","#5ED0B8",287,100,[1,2,1,3,2,3,4,4]],
+ ["Lerato","Dark Web Watcher","#F08A84",1654,96.9,[6,7,8,7,9,10,9,12]]];
+const CIS=[
+ ["01 Enterprise asset inventory","Agent + Console",1],["02 Software asset inventory","VulnOps",1],
+ ["03 Data protection","Resilience + Micro-cloud",1],["04 Secure configuration","VulnOps + Patch",1],
+ ["05 Account management","SSO / M365 / Google",1],["06 Access control","Console RBAC",1],
+ ["07 Continuous vuln management","VulnOps",1],["08 Audit log management","Comply",1],
+ ["09 Email & browser protection","Email & BEC (M365+Google)",1],["10 Malware defenses","Protect (AI EDR)",1],
+ ["11 Data recovery","Resilience",1],["12 Network infrastructure","Micro-cloud",0],
+ ["13 Network monitoring & defense","Protect + SOC",1],["14 Awareness & training","Cyber Studio",0],
+ ["15 Service provider mgmt","Comply",0],["16 App software security","VulnOps + DAST",1],
+ ["17 Incident response","SOC + Cyber Studio",1],["18 Penetration testing","Digital Risk + SI",0]];
+const EVIDENCE=[
+ ["Asset register export","All tenants","2 h ago","Covered: CIS 01"],
+ ["6-hourly vulnerability scan report","All tenants","1 h ago","Covered: CIS 07"],
+ ["Patch deployment log — June","All tenants","3 h ago","Covered: CIS 04"],
+ ["Recovery-test certificate Q2-2026","Boland Medical Group","2 d ago","Covered: CIS 11"],
+ ["Immutability attestation — storage","All tenants","6 h ago","Covered: CIS 03"],
+ ["SOC alert & triage log","All tenants","14 min ago","Covered: CIS 13/17"],
+ ["Identity audit extract (M365)","Khulisa Financial","5 h ago","Covered: CIS 05"],
+ ["RBAC matrix export","All tenants","1 d ago","Covered: CIS 06"],
+ ["Web & API DAST report — injection class (NoSQL/SQLi/XSS)","All tenants","3 h ago","Covered: CIS 16/07"],
+ ["FIM baseline & change report","All tenants","1 h ago","Covered: CIS 03/04"],
+ ["Sigma detection coverage (ATT&CK layer)","All tenants","30 min ago","Covered: CIS 08/13"],
+ ["BEC / inbox-rule audit (M365 + Google)","All tenants","2 h ago","Covered: CIS 09"],
+ ["VM backup & recovery-test certificate (VMware/Hyper-V/cloud)","All tenants","2 d ago","Covered: CIS 11"],
+ ["Email archive retention & legal-hold register (99-yr, WORM)","All tenants","4 h ago","Covered: CIS 08 · POPIA/FICA"],
+ ["WAF protection & OWASP ruleset report","All tenants","1 h ago","Covered: CIS 13/16 · PCI DSS 6.6"],
+ ["EDR/MDR detection & response report (MTTD/MTTR, 24/7 SOC)","All tenants","20 min ago","Covered: CIS 10/13/17"],
+ ["Mobile device compliance & encryption report (MDM)","All tenants","1 h ago","Covered: CIS 01/03/04"]];
+const ENDPOINTS=[
+ ["GRM-FIN-W1184","win","Garden Route Municipality",18,"2 min ago","Protected"],
+ ["ACL-LAW-M0218","mac","Atlantic Coast Legal",9,"1 min ago","Protected"],
+ ["JRG-POS-L0412","lin","Joburg Retail Group",74,"4 min ago","Isolated"],
+ ["BML-EHR-W0907","win","Boland Medical Group",22,"just now","Protected"],
+ ["DPS-OPS-W1530","win","Durban Port Services",41,"6 min ago","Protected"],
+ ["STP-DEV-M0331","mac","Stellenbosch Tech Park",12,"3 min ago","Protected"],
+ ["KFS-TRD-W0788","win","Khulisa Financial Services",58,"2 min ago","Pending"],
+ ["PHN-NUR-W1922","win","Pretoria Health Network",15,"5 min ago","Protected"]];
+const FEED0=[
+ ["19:02","Ransomware behaviour blocked — vssadmin shadow-copy deletion intercepted","T1490","JRG-POS-L0412","crit"],
+ ["18:54","PowerShell encoded command quarantined","T1059.001","GRM-FIN-W1184","high"],
+ ["18:47","Credential-dump attempt (LSASS read) denied","T1003.001","KFS-TRD-W0788","high"],
+ ["18:31","Phishing URL rewritten & sandboxed (M365)","T1566.002","ACL-LAW-M0218","med"],
+ ["18:12","New persistence run-key auto-removed","T1547.001","DPS-OPS-W1530","med"]];
+
+/* ============== navigation ============== */
+const NAV=[["PROVIDER",[["admin","Admin Console","M3 3h7v7H3z M14 3h7v7h-7z M14 14h7v7h-7z M3 14h7v7H3z"]]],
+["OPERATE",[["dashboard","Dashboard","M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"],
+ ["tenants","Tenants","M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"],
+ ["endpoints","Endpoints","M20 16V7a2 2 0 00-2-2H6a2 2 0 00-2 2v9m16 0H4m16 0l1.28 2.55a1 1 0 01-.9 1.45H3.62a1 1 0 01-.9-1.45L4 16"],
+ ["mdm","Mobile (MDM)","M7 2h10a1 1 0 011 1v18a1 1 0 01-1 1H7a1 1 0 01-1-1V3a1 1 0 011-1z M11 18h2"]]],
+["PROTECT",[["vulns","Vulnerabilities","M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"],
+ ["patching","Patching","M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l8.57-8.57A4 4 0 1118 8.84l-8.59 8.57a2 2 0 01-2.83-2.83l8.49-8.48"],
+ ["risk","Digital Risk","M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7zm10 3a3 3 0 100-6 3 3 0 000 6z"],
+ ["bec","Email & BEC","M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6"],
+ ["fim","Host Integrity","M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M9 14l2 2 4-4"],
+ ["waf","Web App Firewall","M12 2a10 10 0 100 20 10 10 0 000-20z M2 12h20 M12 2a15 15 0 010 20 15 15 0 010-20z"]]],
+["DETECT",[["detections","Detections","M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 11l2 2 4-4"],
+ ["edr","EDR / MDR","M22 12h-4l-3 9L9 3l-3 9H2"]]],
+["RECOVER",[["dr","Resilience DR","M3 12a9 9 0 019-9 9.75 9.75 0 016.74 2.74L21 8M21 3v5h-5M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 16m0 5v-5h5"]]],
+["AUTOMATE",[["studio","Cyber Studio","M12 8V4H8m8 0h-4m4 16h-4m-4 0H8m12-8h4M0 12h4m4 8a8 8 0 008-8 8 8 0 00-8-8 8 8 0 00-8 8 8 8 0 008 8z"],
+ ["remote","Remote Access","M5 12h14M12 5l7 7-7 7"]]],
+["GOVERN",[["comply","Compliance","M9 12l2 2 4-4m5.6-3.6A9 9 0 1120.4 18M12 3v1m0 16v1"],
+ ["archive","Email Archive","M21 8v13H3V8 M1 3h22v5H1z M10 12h4"]]],
+["GROW",[["econ","Partner Economics","M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"]]],
+["RESOURCES",[["datasheets","Product Datasheets","M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"]]],
+["",[["settings","Settings","M12 15a3 3 0 100-6 3 3 0 000 6z M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 008 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H2a2 2 0 110-4h.09A1.65 1.65 0 004 8a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H8a1.65 1.65 0 001-1.51V2a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V8a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"]]]];
+function ic(d){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;}
+const SESSION={role:'provider',tenant:null,impersonating:false,pendingRole:'provider'};
+const PROVIDER_ONLY=new Set(['admin','econ']);
+function buildNav(role){role=role||SESSION.role||'provider';let h='';NAV.forEach(([g,items])=>{
+ const vis=items.filter(([id])=>role==='provider'||!PROVIDER_ONLY.has(id));
+ if(!vis.length)return;
+ if(g)h+=`<div class="ngrp">${g}</div>`;
+ vis.forEach(([id,lab,d])=>h+=`<button class="nitem" id="n-${id}" onclick="go('${id}')">${ic(d)}${lab}</button>`);});
+ $('#nav').innerHTML=h;}
+function go(v){if(SESSION.role==='client'&&PROVIDER_ONLY.has(v))v='dashboard';
+ document.querySelectorAll('.nitem').forEach(b=>b.classList.remove('on'));
+ const b=$('#n-'+v);if(b)b.classList.add('on');VIEWS[v]();$('#view').scrollTop=0;}
+function doLogin(){const r=SESSION.pendingRole||'provider';
+ if(r==='client'){SESSION.role='client';SESSION.impersonating=false;SESSION.tenant=($('#clientOrg')&&$('#clientOrg').value)||TENANT_BILLING[0][0];}
+ else{SESSION.role='provider';SESSION.impersonating=false;SESSION.tenant=null;}
+ $('#login').style.display='none';$('#app').classList.add('on');applyRole();}
+
+/* ============== views ============== */
+const VIEWS={};
+VIEWS.dashboard=()=>{
+ const k=[["Endpoints under management","12,847","+8.2% QoQ","up"],["Active tenants","38","+3 this quarter","up"],
+  ["Open critical vulnerabilities","23","−12 this week","up"],["Patch compliance","94.2%","target 95%","wn"],
+  ["Backup success rate","99.6%","last 30 days","up"],["Compliance coverage","78%","CIS v8 safeguards","up"],
+  ["Business-outcomes risk","R 4.2M","−R 1.1M after fixes","up"],["ARR run-rate","$1.04M","+11% QoQ","up"]];
+ $('#view').innerHTML=`
+ <div class="h1">Command Center</div><div class="sub">Unified AI cyber protection across all tenants · Wednesday 10 June 2026, 19:08 SAST</div>
+ <div class="chiprow">
+   <span class="chip"><span class="pulse"></span> Next vulnerability scan in <b id="scanT">2h 14m</b> — scans run every 6 hours</span>
+   <span class="chip">🇿🇦 Data residency: <b>100% South Africa</b></span>
+   <span class="chip">AI SOC: <b>24/7</b> · MTTD 4 min</span></div>
+ <div class="grid g4">${k.map(x=>`<div class="card kpi"><div class="lab">${x[0]}</div><div class="val">${x[1]}</div><div class="d ${x[3]}">${x[2]}</div></div>`).join('')}</div>
+ <div class="grid g2" style="margin-top:14px">
+   <div class="card"><h3>Endpoints by channel <small>8 quarters</small></h3>
+     ${areaChart([[1.2,1.6,2.1,2.6,3.1,3.6,4.1,4.6],[0.8,1.2,1.7,2.3,2.9,3.5,4.0,4.5],[0.5,0.8,1.1,1.5,1.9,2.3,2.6,2.9],[0.3,0.5,0.7,0.9,1.0,1.1,1.2,1.3]].map(s=>s.map(v=>v*1000)),
+      ["24Q3","24Q4","25Q1","25Q2","25Q3","25Q4","26Q1","26Q2"],["#2C7A8C","#8DC63F","#E8A33D","#56AAC8"])}
+     <div class="flex" style="gap:16px;font-size:11px;color:var(--mut)"><span>■ <span style="color:#2C7A8C">MSSP white-label</span></span><span>■ <span style="color:#8DC63F">IT Reseller</span></span><span>■ <span style="color:#E8A33D">Systems Integrator</span></span><span>■ <span style="color:#56AAC8">Innovo Direct</span></span></div></div>
+   <div class="card"><h3>Vulnerability aging <small>open items by age</small></h3>
+     ${barChart([1184,1612,498,109],["0–7 d","8–30 d","31–90 d","> 90 d"],["#8DC63F","#56AAC8","#E8A33D","#D5524A"])}
+     <div class="note">109 items breach the 90-day SLA — auto-escalated to tenant owners (workflow #WF-114).</div></div>
+ </div>
+ <div class="card" style="margin-top:14px"><h3>Detections &amp; response — live AI EDR feed <small><span class="pulse" style="display:inline-block"></span> streaming</small></h3>
+   <div class="feed" id="feed">${FEED0.map(f=>feedRow(f)).join('')}</div></div>`;
+ startFeed();};
+function feedRow(f){const c=f[4]=='crit'?'p-red':f[4]=='high'?'p-amber':'p-blue';
+ return `<div class="fitem"><span class="tm">${f[0]}</span><span class="pill ${c}" style="align-self:flex-start">${f[4].toUpperCase()}</span>
+ <div>${f[1]} <span class="mitre">${f[2]}</span><div style="color:var(--mut);font-size:10.5px;margin-top:2px">${f[3]} · auto-contained by Aiden (AI triage)</div></div></div>`;}
+let feedI;function startFeed(){clearInterval(feedI);const xs=[
+ ["Suspicious OAuth consent grant revoked","T1528","KFS-TRD-W0788","high"],
+ ["Cobalt Strike beacon signature blocked","T1071.001","JRG-POS-L0412","crit"],
+ ["Impossible-travel sign-in challenged (MFA)","T1078","ACL-LAW-M0218","med"],
+ ["WMI lateral-movement attempt isolated","T1047","DPS-OPS-W1530","high"]];let i=0;
+ feedI=setInterval(()=>{if(!$('#feed')){clearInterval(feedI);return;}
+  const d=new Date();const t=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+  const x=xs[i++%xs.length];$('#feed').insertAdjacentHTML('afterbegin',feedRow([t,x[0],x[1],x[2],x[3]]));},7000);}
+
+VIEWS.tenants=()=>{
+ $('#view').innerHTML=`
+ <div class="spread"><div><div class="h1">Tenants</div><div class="sub">Multi-tenant partner console · MSSP white-label, IT Reseller, Systems Integrator &amp; Innovo Direct models</div></div>
+ <button class="btn btn-lime" onclick="wizard()">＋ Onboard tenant (60-min SLA)</button></div>
+ <div class="grid g4" style="margin-bottom:14px">
+  <div class="card kpi"><div class="lab">MSSP white-label</div><div class="val">14</div><div class="d up">partners · rebranded console</div></div>
+  <div class="card kpi"><div class="lab">IT Resellers</div><div class="val">12</div><div class="d up">sell-through · Innovo operates</div></div>
+  <div class="card kpi"><div class="lab">Systems Integrators</div><div class="val">8</div><div class="d up">projects + micro-cloud attach</div></div>
+  <div class="card kpi"><div class="lab">Innovo Direct</div><div class="val">4</div><div class="d up">MSSP #1 — proof of platform</div></div></div>
+ <div class="card"><table><thead><tr><th>Tenant</th><th>Partner model</th><th>Endpoints</th><th>Deployment</th><th>Residency</th><th>MRR</th><th>Health</th><th></th></tr></thead><tbody>
+ ${TENANTS.map(t=>`<tr><td style="font-weight:600">${t[0]}</td><td><span class="pill ${t[1]=='MSSP White-label'?'p-blue':t[1]=='IT Reseller'?'p-lime':t[1]=='Systems Integrator'?'p-amber':'p-grey'}">${t[1]}</span></td>
+  <td>${fmt(t[2])}</td><td>${t[3]}</td><td><span class="pill p-lime">ZA 🇿🇦 SA Data Residency</span></td><td>${t[4]}</td>
+  <td><span class="pill ${t[5]=='Healthy'?'p-lime':'p-amber'}">${t[5]}</span></td>
+  <td><button class="btn btn-ghost btn-sm" onclick="toast('Opening <b>${t[0]}</b> tenant workspace — white-label theme applied.')">Open</button></td></tr>`).join('')}
+ </tbody></table></div>`;};
+
+function wizard(){let step=1,t0=Date.now();
+ const render=()=>{const el=Math.floor((Date.now()-t0)/1000);const mm=('0'+Math.floor(el/60)).slice(-2),ss=('0'+el%60).slice(-2);
+  openModal(`
+  <button class="mx" onclick="closeModal()">✕</button>
+  <h2>Onboard tenant</h2><div class="ms">Guided onboarding — target <b style="color:var(--lime)">60:00</b> · elapsed <span class="timer" id="wt">${mm}:${ss}</span></div>
+  <div class="steps">${[1,2,3,4,5].map(i=>`<i class="${i<=step?'done':''}"></i>`).join('')}</div>
+  ${step==1?`<h3 style="margin-bottom:10px">1 · Create tenant &amp; white-label</h3>
+    <input class="fld" placeholder="Tenant name" value="Mzansi Credit Bureau">
+    <div class="flex"><input class="fld" style="flex:1" placeholder="Primary colour" value="#8DC63F"><button class="btn btn-ghost btn-sm" onclick="toast('Logo uploaded — console rebranded for partner.')">Upload logo</button></div>
+    <select class="fld"><option>Partner model: MSSP White-label</option><option>IT Reseller</option><option>Systems Integrator</option><option>Innovo Direct</option></select>`:''}
+  ${step==2?`<h3 style="margin-bottom:10px">2 · Connect identity &amp; productivity</h3>
+    <button class="btn btn-ghost" style="margin-bottom:8px" id="c1" onclick="this.style.borderColor='var(--lime)';this.style.color='var(--lime)';this.innerHTML='✓ Microsoft 365 connected — 1,204 identities'">⊞ Connect Microsoft 365</button>
+    <button class="btn btn-ghost" style="margin-bottom:8px" id="c2" onclick="this.style.borderColor='var(--lime)';this.style.color='var(--lime)';this.innerHTML='✓ Google Workspace connected'">G Connect Google Workspace</button>
+    <button class="btn btn-ghost" id="c3" onclick="this.style.borderColor='var(--lime)';this.style.color='var(--lime)';this.innerHTML='✓ SSO (SAML/OIDC) enabled'">🔑 Enable SSO (SAML / OIDC)</button>`:''}
+  ${step==3?`<h3 style="margin-bottom:10px">3 · Deploy the single agent</h3>
+    <div class="ms">One lightweight agent: EDR + vulnerability + patching + backup/DR + remote access.</div>
+    <div class="codebox"><span>iwr https://get.innovo.one/agent | iex  -Tenant MZB-7741</span><button class="btn btn-lime btn-sm" onclick="navigator.clipboard&&navigator.clipboard.writeText('iwr https://get.innovo.one/agent | iex -Tenant MZB-7741');toast('Install one-liner copied to clipboard.')">Copy</button></div>
+    <div class="flex" style="gap:8px"><button class="btn btn-ghost btn-sm" onclick="toast('innovo-agent-2.4.1.msi download started.')">⬇ Windows MSI</button>
+    <button class="btn btn-ghost btn-sm" onclick="toast('innovo-agent-2.4.1.pkg download started.')">⬇ macOS PKG</button>
+    <button class="btn btn-ghost btn-sm" onclick="toast('innovo-agent_2.4.1_amd64.deb download started.')">⬇ Linux DEB</button></div>
+    <div class="note">Agents check in within ~90 seconds. 0 of 1,204 reporting…</div>`:''}
+  ${step==4?`<h3 style="margin-bottom:10px">4 · Baseline vulnerability scan</h3>
+    <div class="ms">Scanning 900+ applications across the estate (runs every 6 hours thereafter).</div>
+    <div class="prog"><i id="wp"></i></div><div class="note" id="wn2">Initialising scanners…</div>`:''}
+  ${step==5?`<h3 style="margin-bottom:10px">5 · Enable DR &amp; immutable storage</h3>
+    <div class="spread" style="padding:10px 0"><span>Immutable locally-redundant backup</span><span class="switch on" onclick="sw(this)"><i></i></span></div>
+    <div class="spread" style="padding:10px 0"><span>Single-Agent Data Residency</span><span class="pill p-lime">Region: South Africa 🇿🇦</span></div>
+    <div class="spread" style="padding:10px 0"><span>Quarterly automated recovery test</span><span class="switch on" onclick="sw(this)"><i></i></span></div>`:''}
+  <div class="spread" style="margin-top:18px">
+   <span class="note">Step ${step} of 5</span>
+   <button class="btn btn-lime" onclick="${step<5?`wizNext(${step+1})`:`wizDone()`}">${step<5?'Continue →':'Finish onboarding'}</button></div>`);
+  if(step==4){let p=0;const iv=setInterval(()=>{p+=Math.random()*18;if(p>=100){p=100;clearInterval(iv);$('#wn2').innerHTML='<span style="color:var(--lime)">Baseline complete — 1,204 assets · 3 critical / 41 high found · fixes queued.</span>';}
+   if($('#wp')){$('#wp').style.width=p+'%';if(p<100)$('#wn2').textContent=`Scanning… ${Math.min(1204,Math.floor(p*12))} of 1,204 assets`;}else clearInterval(iv);},420);}};
+ window.wizNext=s=>{step=s;render();};
+ window.wizDone=()=>{closeModal();toast('<b>Tenant onboarded in 47 minutes</b> — under the 60-minute SLA. Evidence artefacts auto-filed (CIS 01/05/07/11).',7000);};
+ render();clearInterval(window._wizTick);window._wizTick=setInterval(()=>{const w=$('#wt');if(!w){clearInterval(window._wizTick);return;}
+  const el=Math.floor((Date.now()-t0)/1000);w.textContent=('0'+Math.floor(el/60)).slice(-2)+':'+('0'+el%60).slice(-2);},1000);}
+
+VIEWS.endpoints=()=>{
+ const os={win:"⊞",mac:"",lin:"🐧"};
+ $('#view').innerHTML=`
+ <div class="h1">Endpoints</div><div class="sub">12,847 endpoints · single agent v2.4.1 — EDR, vulnerability, patching, backup/DR and remote access in one binary</div>
+ <div class="grid" style="grid-template-columns:2.2fr 1fr">
+  <div class="card"><table><thead><tr><th>Hostname</th><th>OS</th><th>Tenant</th><th>Agent</th><th>AI risk</th><th>Last seen</th><th>Status</th><th></th></tr></thead><tbody>
+  ${ENDPOINTS.map(e=>`<tr><td class="mono">${e[0]}</td><td>${os[e[1]]}</td><td>${e[2]}</td><td class="mono">v2.4.1</td>
+   <td>${scorebar(100-e[3]>100?100:100-e[3])}</td><td style="color:var(--mut)">${e[4]}</td>
+   <td><span class="pill ${e[5]=='Protected'?'p-lime':e[5]=='Isolated'?'p-red':'p-amber'}">${e[5]}</span></td>
+   <td style="white-space:nowrap"><button class="btn btn-ghost btn-sm" onclick="toast('<b>${e[0]}</b> network-isolated. Rollback available for 72h.')">Isolate</button>
+   <button class="btn btn-ghost btn-sm" onclick="toast('On-demand scan queued for <b>${e[0]}</b> — results in ~4 min.')">Scan</button></td></tr>`).join('')}</tbody></table></div>
+  <div class="card"><h3>Deploy the single agent</h3>
+   <div class="codebox" style="flex-direction:column;align-items:flex-start"><span style="word-break:break-all">iwr https://get.innovo.one/agent | iex</span></div>
+   <button class="btn btn-lime" style="width:100%;margin-bottom:8px" onclick="navigator.clipboard&&navigator.clipboard.writeText('iwr https://get.innovo.one/agent | iex');toast('Install one-liner copied.')">Copy one-liner</button>
+   <div class="flex" style="gap:8px;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" onclick="toast('MSI download started.')">⬇ MSI</button><button class="btn btn-ghost btn-sm" onclick="toast('PKG download started.')">⬇ PKG</button><button class="btn btn-ghost btn-sm" onclick="toast('DEB download started.')">⬇ DEB</button></div>
+   <div class="note">Deploy via Intune, GPO, Jamf or RMM. Cloud, on-premise or hybrid micro-cloud — same agent.</div>
+   <hr style="border-color:var(--line);margin:14px 0">
+   <h3>Fleet posture</h3>
+   <div class="spread"><span class="note">Protected</span><b style="color:var(--lime)">12,716</b></div>
+   <div class="spread"><span class="note">Isolated</span><b style="color:var(--red)">9</b></div>
+   <div class="spread"><span class="note">Pending first check-in</span><b style="color:var(--amber)">122</b></div></div>
+ </div>`;};
+
+const NOSQL_APIS=[
+ ["Joburg Retail Group","POST /api/login","MongoDB 6.0","authbypass"],
+ ["Garden Route Municipality","GET /api/residents","MongoDB 6.0","where"],
+ ["Boland Medical Group","POST /api/patients/search","MongoDB 6.0","blind"],
+ ["Khulisa Financial Services","POST /api/accounts/lookup","MongoDB 5.0","safe"],
+ ["Atlantic Coast Legal","POST /api/matters/query","DocumentDB","safe"]];
+const NOSQL_PROBES=[
+ ["Operator reflection",'{"username":{"$gt":""}}',"Do $-operators reach the query layer?"],
+ ["Auth bypass ($ne)",'{"username":{"$ne":""},"password":{"$ne":""}}',"Match any document → login bypass"],
+ ["Auth bypass ($exists/$gt)",'{"username":{"$exists":true},"password":{"$gt":""}}',"Alternate bypass operators"],
+ ["Blind extraction ($regex)",'{"username":"admin","password":{"$regex":"^a"}}',"Char-by-char data exfiltration"],
+ ["Server-side JS ($where)",'{"$where":"sleep(2000)||true"}',"Arbitrary JS / time-based execution"],
+ ["Type juggling","username sent as object, not string","Object where a string is expected"]];
+const APPSEC_FINDINGS=[
+ ["NoSQL injection — auth bypass","Joburg Retail Group","POST /api/login","Critical","p-red","WAF blocking · fix workflow open"],
+ ["NoSQL injection — $where JS","Garden Route Municipality","GET /api/residents","Critical","p-red","Fix scheduled 22:00 SAST"],
+ ["NoSQL blind — $regex","Boland Medical Group","POST /api/patients/search","High","p-amber","Triaged by Naledi (AI)"],
+ ["SQL injection","Legacy ERP","/report.aspx?id=","High","p-amber","Patched — verified"],
+ ["Reflected XSS","Stellenbosch Tech Park","/search?q=","Medium","p-blue","Fix deployed"],
+ ["SSRF","Durban Port Services","/api/fetch?url=","Medium","p-blue","Mitigated — allowlist"]];
+
+VIEWS.vulns=()=>vulnTab('cves');
+function vulnTabs(t){return `<div class="tabs">
+ <button class="tab ${t=='cves'?'on':''}" onclick="vulnTab('cves')">Infrastructure CVEs</button>
+ <button class="tab ${t=='appsec'?'on':''}" onclick="vulnTab('appsec')">App &amp; API Security · DAST</button></div>`;}
+function vulnTab(t){t=='appsec'?vulnAppSec():vulnCVEs();$('#view').scrollTop=0;}
+function vulnCVEs(){
+ $('#view').innerHTML=`
+ <div class="h1">Vulnerabilities</div><div class="sub">900+ applications scanned · every 6 hours · prioritised by CVSS + EPSS + CISA KEV · AI remediation</div>
+ ${vulnTabs('cves')}
+ <div class="grid g4" style="margin-bottom:14px">
+  <div class="card kpi"><div class="lab">Critical</div><div class="val" style="color:#F08A84">23</div><div class="d up">−12 this week</div></div>
+  <div class="card kpi"><div class="lab">High</div><div class="val" style="color:var(--amber)">147</div><div class="d up">−38 this week</div></div>
+  <div class="card kpi"><div class="lab">Medium</div><div class="val">892</div><div class="d wn">+14</div></div>
+  <div class="card kpi"><div class="lab">Low</div><div class="val">2,341</div><div class="d wn">tracked</div></div></div>
+ <div class="card" style="margin-bottom:14px"><div class="ring">
+   <div class="ringbox"><b>312</b><span class="note">Detected</span></div><span class="arrow">→</span>
+   <div class="ringbox"><b>170</b><span class="note">Prioritised (AI)</span></div><span class="arrow">→</span>
+   <div class="ringbox"><b>96</b><span class="note">Fix scheduled</span></div><span class="arrow">→</span>
+   <div class="ringbox" style="border-color:var(--lime)"><b style="color:var(--lime)">1,408</b><span class="note">Verified fixed (30d)</span></div></div></div>
+ <div class="card"><table><thead><tr><th>CVE</th><th>Title</th><th>CVSS</th><th>EPSS</th><th>KEV</th><th>Endpoints</th><th>Remediation</th></tr></thead><tbody>
+ ${CVES.map((c,i)=>`<tr><td class="mono" style="color:#7CC6E2">${c[0]}</td><td>${c[1]}</td>
+  <td><b style="color:${c[2]>=9?'#F08A84':c[2]>=7?'var(--amber)':'var(--txt)'}">${c[2].toFixed(1)}</b></td>
+  <td>${(c[3])}%</td><td>${c[4]?'<span class="pill p-red">KEV</span>':'<span style="color:var(--mut)">—</span>'}</td>
+  <td>${fmt(c[5])}</td><td><button class="btn btn-lime btn-sm" id="fix${i}" onclick="fixCve(${i})">Fix — one click</button></td></tr>`).join('')}</tbody></table>
+ <div class="note">AI agent <b>Zara</b> has pre-staged remediation packages for all KEV-listed items. Single, easy-to-deploy fixes — no handoffs.</div></div>`;}
+function vulnAppSec(){
+ $('#view').innerHTML=`
+ <div class="h1">Vulnerabilities</div><div class="sub">Dynamic application &amp; API security testing (DAST) across tenant web apps and APIs — injection class, authenticated &amp; unauthenticated</div>
+ ${vulnTabs('appsec')}
+ <div class="grid g4" style="margin-bottom:14px">
+  <div class="card kpi"><div class="lab">Open injection findings</div><div class="val" style="color:#F08A84">6</div><div class="d up">3 with WAF mitigation live</div></div>
+  <div class="card kpi"><div class="lab">APIs under continuous DAST</div><div class="val">214</div><div class="d up">across 38 tenants</div></div>
+  <div class="card kpi"><div class="lab">Injection payloads blocked (30d)</div><div class="val">1,890</div><div class="d up">runtime WAF</div></div>
+  <div class="card kpi"><div class="lab">Mean time to fix</div><div class="val">2.1 d</div><div class="d up">parameterised-query autofix</div></div></div>
+ <div class="card" style="margin-bottom:14px"><h3>Application &amp; API findings <small>injection class</small></h3>
+  <table><thead><tr><th>Finding</th><th>Tenant</th><th>Endpoint</th><th>Severity</th><th>Status</th></tr></thead><tbody>
+  ${APPSEC_FINDINGS.map(f=>`<tr><td style="font-weight:600">${f[0]}</td><td>${f[1]}</td><td class="mono" style="font-size:11px">${f[2]}</td>
+   <td><span class="pill ${f[4]}">${f[3]}</span></td><td style="color:var(--mut)">${f[5]}</td></tr>`).join('')}</tbody></table></div>
+ <div class="card"><h3>NoSQL injection tester <small>safe · authorised · onboarded tenant APIs only</small></h3>
+  <div class="note" style="margin-bottom:10px">Probes the MongoDB operator-injection class ($ne, $gt, $exists, $regex, $where) and type-juggling. Read-only, rate-limited and scoped to tenant assets you manage — every run is logged to the Evidence Vault.</div>
+  <div class="flex" style="gap:10px;flex-wrap:wrap;margin-bottom:6px">
+   <select class="fld" id="apiSel" style="max-width:440px;margin:0">
+    ${NOSQL_APIS.map((a,i)=>`<option value="${i}">${a[0]} — ${a[1]} (${a[2]})</option>`).join('')}</select>
+   <button class="btn btn-lime" id="nosqlGo" onclick="runNoSQLScan()">Run NoSQL injection probe suite</button></div>
+  <table style="margin-top:8px"><thead><tr><th>Technique</th><th>Probe payload</th><th>Checks for</th><th>Result</th></tr></thead>
+   <tbody id="nosqlResults"><tr><td colspan="4" class="note" style="text-align:center;padding:18px">Select a tenant API and run the probe suite.</td></tr></tbody></table>
+  <div id="nosqlFinding" style="margin-top:14px"></div></div>`;}
+function runNoSQLScan(){
+ if(window._nosqlBusy)return;
+ const sel=$('#apiSel'),idx=+sel.value,api=NOSQL_APIS[idx],prof=api[3];
+ const vulnSet={authbypass:[0,1,2,3,5],where:[0,4],blind:[0,3],safe:[]}[prof];
+ const sev={authbypass:['Critical','9.8'],where:['Critical','9.1'],blind:['High','7.5'],safe:['—','—']}[prof];
+ $('#nosqlResults').innerHTML=NOSQL_PROBES.map((p,i)=>`<tr><td>${p[0]}</td><td class="mono" style="font-size:10.5px;color:#A8E063">${p[1].replace(/</g,'&lt;')}</td><td style="color:var(--mut)">${p[2]}</td><td id="pv${i}"><span class="note">queued</span></td></tr>`).join('');
+ $('#nosqlFinding').innerHTML='';window._nosqlBusy=true;sel.disabled=true;
+ const btn=$('#nosqlGo');btn.disabled=true;btn.textContent='Scanning…';
+ NOSQL_PROBES.forEach((p,i)=>{
+  setTimeout(()=>{const c=$('#pv'+i);if(c)c.innerHTML='<span class="note">◌ probing…</span>';},i*640);
+  setTimeout(()=>{const c=$('#pv'+i);if(!c)return;const bad=vulnSet.includes(i);
+   c.innerHTML=`<span class="pill ${bad?'p-red':'p-lime'}">${bad?'VULNERABLE':'safe'}</span>`;
+   if(i==NOSQL_PROBES.length-1)finishNoSQL(api,vulnSet,sev);},i*640+500);});}
+function finishNoSQL(api,vulnSet,sev){
+ window._nosqlBusy=false;const sel=$('#apiSel');if(sel)sel.disabled=false;
+ const btn=$('#nosqlGo');if(btn){btn.disabled=false;btn.textContent='Run NoSQL injection probe suite';}
+ const host=$('#nosqlFinding');if(!host)return;
+ if(!vulnSet.length){host.innerHTML=`<div class="card" style="border-color:var(--lime)"><div class="flex"><span class="pill p-lime">SECURE</span><b>${api[0]} · ${api[1]}</b></div>
+  <div class="note" style="margin-top:8px">No operator injection reached the query layer — input is type-validated and server-side JavaScript ($where) is disabled. Evidence artefact filed (CIS 16).</div></div>`;
+  toast('Scan complete — <b>'+api[1]+'</b> passed all NoSQL injection probes.');return;}
+ const winning=vulnSet.includes(1)?'{"username":{"$ne":""},"password":{"$ne":""}}':vulnSet.includes(4)?'{"$where":"sleep(2000)||true"}':'{"username":"admin","password":{"$regex":"^a"}}';
+ const impact=vulnSet.includes(1)?'Authentication bypass — an attacker authenticates as any user with no valid credentials.':vulnSet.includes(4)?'Server-side JavaScript execution via $where — data exfiltration and potential remote code execution.':'Boolean-blind data extraction — stored values read character-by-character via $regex.';
+ host.innerHTML=`<div class="card" style="border-color:#D5524A">
+  <div class="spread"><div class="flex"><span class="pill p-red">${sev[0]} · CVSS ${sev[1]}</span><b>NoSQL injection — ${api[0]} · ${api[1]}</b></div><span class="pill p-grey">${api[2]}</span></div>
+  <div style="margin:10px 0"><span class="note">Confirmed payload</span><div class="codebox"><span>${winning.replace(/</g,'&lt;')}</span></div></div>
+  <div class="note" style="color:#E7B9B5">${impact}</div>
+  <div style="margin:12px 0 6px"><span class="note">AI remediation — agent Zara</span></div>
+  <ul class="steplist" style="margin:0">
+   <li class="ok"><span class="dotw">✓</span>Cast user input to string; reject objects and keys starting with “$” where scalars are expected</li>
+   <li class="ok"><span class="dotw">✓</span>Use parameterised driver queries — never pass the raw request body into find()</li>
+   <li class="ok"><span class="dotw">✓</span>Disable server-side JavaScript (security.javascriptEnabled:false) to remove $where</li>
+   <li class="ok"><span class="dotw">✓</span>Least-privilege DB role + runtime WAF rule (already blocking in production)</li></ul>
+  <div class="spread" style="margin-top:14px"><span class="note">Runtime WAF: <b style="color:var(--lime)">blocking these payloads in production</b> while the fix ships</span>
+  <button class="btn btn-lime" onclick="createInjectionFix('${api[0]}','${api[1]}')">Create fix workflow</button></div></div>`;
+ toast('<b>NoSQL injection confirmed</b> on '+api[1]+' ('+api[0]+'). Finding queued — runtime WAF already blocking.',6500);}
+function createInjectionFix(t,ep){toast('<b>Parameterised-query fix workflow created</b> for '+t+' · '+ep+' — tenant notified, re-scan scheduled. Evidence filed (CIS 16).',6500);}
+function fixCve(i){const c=CVES[i];openModal(`
+ <button class="mx" onclick="closeModal()">✕</button><h2>Deploy remediation</h2>
+ <div class="ms">${c[0]} — ${c[1]}</div>
+ <div class="codebox"><span>fix-pack: ${c[0].toLowerCase()}.ips · ${fmt(c[5])} endpoints · canary first</span></div>
+ <div class="prog"><i id="fp"></i></div><div class="note" id="fn">Awaiting confirmation…</div>
+ <div class="spread" style="margin-top:16px"><span class="note">Auto-rollback if failure rate &gt; 0.5%</span>
+ <button class="btn btn-lime" id="fgo" onclick="runFix(${i})">Deploy fix now</button></div>`);}
+function runFix(i){const c=CVES[i];$('#fgo').disabled=true;$('#fgo').textContent='Deploying…';let p=0;
+ const iv=setInterval(()=>{p+=Math.random()*22;if(p>=100){p=100;clearInterval(iv);closeModal();
+   toast(`<b>Remediation deployed to ${fmt(c[5])} endpoints</b> — verification scan queued. Evidence artefact filed (CIS 07).`,6500);}
+  if($('#fp')){$('#fp').style.width=p+'%';$('#fn').textContent=p<35?'Canary ring (5%)…':p<70?'Early ring (25%)…':'Broad ring (100%)…';}else clearInterval(iv);},450);}
+
+VIEWS.patching=()=>{
+ $('#view').innerHTML=`
+ <div class="h1">Safe Patching</div><div class="sub">AI Safety Score gates every rollout — vendor telemetry + rollback history + dependency graph</div>
+ <div class="chiprow"><span class="chip">Median patch latency <b>3.2 days</b></span><span class="chip">Rollbacks (90d) <b>2 — both automatic</b></span><span class="chip">Patch compliance <b>94.2%</b></span></div>
+ <div class="card" style="margin-bottom:14px"><h3>Rollout rings <small>auto-rollback ON</small></h3>
+  <div class="ring"><div class="ringbox"><b>Canary</b><span class="note">5% · 4h soak</span></div><span class="arrow">→</span>
+  <div class="ringbox"><b>Early</b><span class="note">25% · 12h soak</span></div><span class="arrow">→</span>
+  <div class="ringbox"><b>Broad</b><span class="note">100%</span></div>
+  <div style="margin-left:18px" class="flex"><span class="note">Auto-rollback</span><span class="switch on" onclick="sw(this);toast('Auto-rollback toggled.')"><i></i></span></div></div></div>
+ <div class="card"><table><thead><tr><th>Patch</th><th>Endpoints</th><th>AI Safety Score</th><th>Decision</th><th></th></tr></thead><tbody>
+ ${PATCHES.map((p,i)=>`<tr><td>${p[0]}</td><td>${fmt(p[1])}</td><td>${scorebar(p[2])}</td>
+  <td><span class="pill ${p[2]>=80?'p-lime':p[2]>=55?'p-amber':'p-red'}">${p[3]}</span></td>
+  <td><button class="btn btn-ghost btn-sm" onclick="toast('${p[2]>=80?'Rollout started — canary ring first.':p[2]>=55?'Staged rollout scheduled tonight 22:00 SAST.':'Held — AI flagged legacy ERP dependency. Ticket #4471 raised.'}')">${p[2]>=80?'Roll out':p[2]>=55?'Schedule':'Review'}</button></td></tr>`).join('')}</tbody></table>
+ <div class="note">Tooltip: AI score = vendor telemetry + rollback history + dependency graph. Patches restore-tested against last night's immutable snapshots before broad ring.</div></div>`;};
+
+VIEWS.dr=()=>drTab('workloads');
+function drTabs(t){return `<div class="tabs">
+ <button class="tab ${t=='workloads'?'on':''}" onclick="drTab('workloads')">Workloads &amp; Endpoints</button>
+ <button class="tab ${t=='vms'?'on':''}" onclick="drTab('vms')">Virtual Machines</button></div>`;}
+function drTab(t){t=='vms'?drVMs():drWorkloads();$('#view').scrollTop=0;}
+function drWorkloads(){
+ $('#view').innerHTML=`
+ <div class="h1">Resilience — Disaster Recovery</div><div class="sub">Immutable, locally-redundant storage · single-agent or multi-tenant with SA Data Residency · single-click recovery</div>
+ ${drTabs('workloads')}
+ <div class="grid g3" style="margin-bottom:14px">
+  <div class="card"><h3>Immutable locally-redundant store</h3>
+   <div class="prog" style="height:11px"><i style="width:64%"></i></div>
+   <div class="spread"><span class="note">38.4 TB used of 60 TB</span><span class="pill p-lime">Immutability: enforced</span></div>
+   <div class="spread" style="margin-top:10px"><span class="note">Throughput now</span><b class="bigval">2.4 Gbps</b></div>
+   <div class="spread"><span class="note">Fabric capacity</span><b>1.2 Tbps</b></div>
+   <div class="note">Gigabit per tenant node → terabit aggregate fabric. 🇿🇦 100% in-country.</div></div>
+  <div class="card"><h3>Micro-cloud nodes</h3>
+   ${[["Cape Town DC-1","Healthy","p-lime"],["Century City Edge","Healthy","p-lime"],["Garden Route Edge","Syncing","p-amber"],["Paarl Edge","Healthy","p-lime"],["Durban Edge","Healthy","p-lime"]].map(n=>`<div class="spread" style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span>${n[0]}</span><span class="pill ${n[2]}">${n[1]}</span></div>`).join('')}
+   <div class="note">1U immutable storage appliances — on-premise DR for sovereign workloads.</div></div>
+  <div class="card" style="text-align:center"><h3 style="justify-content:center">Recovery objectives</h3>
+   <div class="flex" style="justify-content:center;gap:24px">${donut(100,'var(--lime)',110,'RTO ≤ 15 min')}${donut(100,'#56AAC8',110,'RPO ≤ 1 hr')}</div>
+   <div class="note">Quarterly recovery-test pass rate: <b style="color:var(--lime)">100%</b> (Q2-2026, 38 tenants)</div></div></div>
+ <div class="card"><h3>Protected workloads <small>snapshots every 15 min · 30-day immutable retention</small></h3>
+ <table><thead><tr><th>Workload</th><th>Tenant</th><th>Last snapshot</th><th>Location</th><th>Actual RPO</th><th></th></tr></thead><tbody>
+ ${WORKLOADS.map((w,i)=>`<tr><td class="mono">${w[0]}</td><td>${w[1]}</td><td style="color:var(--lime)">${w[2]}</td><td>${w[3]}</td><td>${w[4]}</td>
+ <td><button class="btn btn-lime btn-sm" onclick="recover(${i})">⟳ RECOVER</button></td></tr>`).join('')}</tbody></table></div>`;}
+const VM_PLATFORMS=[
+ ["VMware vSphere","ESXi 8.0 · vCenter","412","Agentless · VADP + CBT","p-lime","Connected"],
+ ["Microsoft Hyper-V","WS2022 · SCVMM","268","Host-level · RCT","p-lime","Connected"],
+ ["Microsoft Azure","ZA-North region","154","Cloud-native snapshot","p-lime","Connected"],
+ ["Huawei Cloud","AF-Johannesburg","96","Cloud-native snapshot","p-lime","Connected"],
+ ["Amazon EC2","af-south-1 (Cape Town)","38","EBS snapshot + agent","p-amber","Syncing"],
+ ["Nutanix AHV","—","0","Agentless","p-grey","Available"]];
+const VM_INVENTORY=[
+ ["grm-erp-db01","VMware vSphere","Windows Server 2022","1.8 TB","6 min ago","15 min","SQL VSS","Protected"],
+ ["bml-ehr-app02","Hyper-V","Windows Server 2019","640 GB","4 min ago","15 min","App-consistent","Protected"],
+ ["jrg-pos-cluster","VMware vSphere","Ubuntu 22.04","320 GB","9 min ago","30 min","FS-freeze","Protected"],
+ ["acl-files-vm","Azure","Windows Server 2022","980 GB","2 min ago","1 hr","VSS","Protected"],
+ ["dps-scada-hist","Hyper-V","Windows Server 2016","1.2 TB","12 min ago","30 min","App-consistent","Protected"],
+ ["khulisa-core-vm","Huawei Cloud","RHEL 9","720 GB","7 min ago","1 hr","FS-freeze","Protected"],
+ ["pretoria-ad-dc01","Azure","Windows Server 2022","180 GB","3 min ago","1 hr","AD-aware","Protected"],
+ ["stp-dev-k8s-node","VMware vSphere","Ubuntu 22.04","260 GB","21 min ago","4 hr","Crash-consistent","Backing up"]];
+function drVMs(){
+ $('#view').innerHTML=`
+ <div class="h1">Resilience — Disaster Recovery</div><div class="sub">Virtual-machine backup &amp; recovery — VMware, Hyper-V and cloud VMs · agentless · immutable · instant recovery</div>
+ ${drTabs('vms')}
+ <div class="grid g4" style="margin-bottom:14px">
+   <div class="card kpi"><div class="lab">VMs protected</div><div class="val">968</div><div class="d up">across 5 platforms</div></div>
+   <div class="card kpi"><div class="lab">Backup success (30d)</div><div class="val">99.7%</div><div class="d up">app-consistent</div></div>
+   <div class="card kpi"><div class="lab">Agentless coverage</div><div class="val">94%</div><div class="d up">VADP / RCT / cloud-native</div></div>
+   <div class="card kpi"><div class="lab">Protected VM data</div><div class="val">214 TB</div><div class="d up">immutable · 30-day default</div></div></div>
+ <div class="card" style="margin-bottom:14px"><h3>Hypervisor &amp; cloud platforms <small>one engine, agentless where supported</small></h3>
+   <div class="grid g3">${VM_PLATFORMS.map(p=>`<div class="cisbox"><div class="spread"><b>${p[0]}</b><span class="pill ${p[4]}">${p[5]}</span></div>
+     <div class="note" style="margin:5px 0">${p[1]}</div>
+     <div class="spread"><span class="mono" style="font-size:10.5px;color:var(--lime)">${p[3]}</span><b>${p[2]} VMs</b></div>
+     ${p[5]=='Available'?`<button class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%" onclick="toast('Connecting ${p[0]} — discovery started.')">Connect</button>`:''}</div>`).join('')}</div></div>
+ <div class="card" style="margin-bottom:14px"><div class="spread"><h3 style="margin:0">Protected virtual machines</h3>
+   <button class="btn btn-ghost btn-sm" onclick="toast('Backing up all VMs now — incremental via CBT/RCT, app-consistent.')">Backup all now</button></div>
+   <table style="margin-top:8px"><thead><tr><th>VM</th><th>Platform</th><th>Guest OS</th><th>Size</th><th>Last backup</th><th>RPO</th><th>Consistency</th><th>Status</th><th></th></tr></thead><tbody>
+   ${VM_INVENTORY.map((v,i)=>`<tr><td class="mono" style="font-size:11px">${v[0]}</td>
+     <td><span class="pill ${v[1].includes('VMware')?'p-blue':v[1].includes('Hyper')?'p-grey':'p-lime'}">${v[1]}</span></td>
+     <td style="font-size:11.5px">${v[2]}</td><td>${v[3]}</td><td style="color:var(--lime)">${v[4]}</td><td>${v[5]}</td>
+     <td><span class="pill p-grey" style="font-size:9.5px">${v[6]}</span></td>
+     <td><span class="pill ${v[7]=='Protected'?'p-lime':'p-amber'}">${v[7]}</span></td>
+     <td style="white-space:nowrap"><button class="btn btn-ghost btn-sm" onclick="vmBackup(${i})">Backup</button>
+     <button class="btn btn-lime btn-sm" onclick="vmRecover(${i})">⟳ Instant recover</button></td></tr>`).join('')}</tbody></table>
+   <div class="note">Agentless backup via vSphere VADP + Changed Block Tracking, Hyper-V Resilient Change Tracking, and cloud-native snapshots (Azure / Huawei / AWS). Every restore point is immutable and replicated to a micro-cloud node or SA cloud region.</div></div>
+ <div class="grid g2">
+   <div class="card"><h3>Recovery &amp; backup capabilities</h3>
+     ${[["Instant VM recovery","Boot a VM directly from the immutable backup store in seconds, then storage-migrate live to production"],
+        ["Granular recovery","Full VM · file-level · application-item (SQL table, Exchange mailbox, AD object)"],
+        ["App-consistent backups","VSS quiescing (Windows), fs-freeze (Linux), SQL / Exchange / AD-aware"],
+        ["Cross-platform restore","Restore a VMware VM to Hyper-V or cloud, and back — hypervisor-independent format"],
+        ["Immutable &amp; air-gapped","Hardened repository · ransomware can't alter or delete restore points"]].map(c=>`
+        <div style="padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><b style="font-size:12.5px;color:var(--lime)">✓ ${c[0]}</b><div class="note">${c[1]}</div></div>`).join('')}</div>
+   <div class="card"><div class="spread"><h3 style="margin:0">DR orchestration &amp; failover plans</h3><span class="pill p-lime">tested</span></div>
+     ${[["Garden Route Municipality","12 VMs → Cape Town DC-1","2 d ago · pass"],
+        ["Boland Medical Group","8 VMs → Paarl Edge","5 d ago · pass"],
+        ["Joburg Retail Group","21 VMs → SA Cloud (ZA-N)","1 w ago · pass"]].map(p=>`
+        <div class="spread" style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div><b style="font-size:12.5px">${p[0]}</b><div class="note">${p[1]}</div></div>
+        <div style="text-align:right"><div class="note">last drill</div><b style="font-size:11.5px;color:var(--lime)">${p[2]}</b></div></div>`).join('')}
+     <button class="btn btn-lime" style="width:100%;margin-top:12px" onclick="toast('DR failover plan initiated (non-disruptive test mode) — orchestrating VM boot order, re-IP and dependency checks.')">Run failover test</button>
+     <div class="note">One-click site failover with boot-order, re-IP and application-dependency orchestration.</div></div></div>`;}
+function vmBackup(i){const v=VM_INVENTORY[i];toast('On-demand <b>'+v[6]+'</b> backup queued for <b>'+v[0]+'</b> — incremental via '+(v[1].includes('Hyper')?'RCT':v[1].includes('VMware')?'CBT':'cloud snapshot')+', sent to immutable store.');}
+function vmRecover(i){const v=VM_INVENTORY[i];const steps=["Mount immutable VM restore point","Register VM on standby host ("+v[1]+")","Power on directly from backup store","Storage-migrate (live) to production"];
+ openModal(`<button class="mx" onclick="closeModal()">✕</button><h2>Instant VM recovery</h2>
+ <div class="ms">${v[0]} · ${v[1]} · ${v[2]} — booting from immutable backup, zero data copy</div>
+ <ul class="steplist">${steps.map((s,j)=>`<li id="vr${j}"><span class="dotw">○</span>${s}</li>`).join('')}</ul>
+ <div class="spread"><span class="timer" id="vrt">00:00</span><span class="note">RTO target: 15 min · RPO: ${v[5]}</span></div>`);
+ const t0=Date.now();const tk=setInterval(()=>{const el=$('#vrt');if(!el){clearInterval(tk);return;}
+  const s=Math.floor((Date.now()-t0)/1000);el.textContent=('0'+Math.floor(s/60)).slice(-2)+':'+('0'+s%60).slice(-2);},250);
+ steps.forEach((s,j)=>{setTimeout(()=>{const li=$('#vr'+j);if(!li)return;li.className='run';li.querySelector('.dotw').textContent='◌';},j*2000);
+  setTimeout(()=>{const li=$('#vr'+j);if(!li)return;li.className='ok';li.querySelector('.dotw').textContent='✓';
+   if(j==1)toast('<b>'+v[0]+' booted in 38s</b> from the backup store — users back online while migration completes.');
+   if(j==steps.length-1){clearInterval(tk);setTimeout(()=>{closeModal();
+    toast(`<b>${v[0]} recovered &amp; live-migrated in 6m 04s</b> — RTO target 15m ✓. VM recovery certificate filed (CIS 11).`,7000);},700);}},j*2000+1800);});}
+function recover(i){const w=WORKLOADS[i];const steps=["Mount immutable snapshot","Integrity verification (hash chain)","Restore to target","Service health check"];
+ openModal(`<button class="mx" onclick="closeModal()">✕</button><h2>Single-click recovery</h2>
+ <div class="ms">${w[0]} · ${w[1]} — restoring from immutable locally-redundant store</div>
+ <ul class="steplist">${steps.map((s,j)=>`<li id="rs${j}"><span class="dotw">○</span>${s}</li>`).join('')}</ul>
+ <div class="spread"><span class="timer" id="rt">00:00</span><span class="note">RTO target: 15 min</span></div>`);
+ const t0=Date.now();const tk=setInterval(()=>{const el=$('#rt');if(!el){clearInterval(tk);return;}
+  const s=Math.floor((Date.now()-t0)/1000);el.textContent=('0'+Math.floor(s/60)).slice(-2)+':'+('0'+s%60).slice(-2);},250);
+ steps.forEach((s,j)=>{setTimeout(()=>{const li=$('#rs'+j);if(!li)return;li.className='run';li.querySelector('.dotw').textContent='◌';},j*2000);
+  setTimeout(()=>{const li=$('#rs'+j);if(!li)return;li.className='ok';li.querySelector('.dotw').textContent='✓';
+   if(j==steps.length-1){clearInterval(tk);setTimeout(()=>{closeModal();
+    toast(`<b>${w[0]} recovered in 4m 12s</b> — RTO target 15m ✓. Recovery certificate filed to Evidence Vault (CIS 11).`,7000);},700);}},j*2000+1800);});}
+
+VIEWS.risk=()=>{riskTab('intel');};
+function riskTab(t){
+ const tabs=`<div class="tabs">${[["intel","Threat Intel"],["dark","Dark Web"],["social","Social Media"],["vip","VIP Monitoring"]].map(x=>`<button class="tab ${t==x[0]?'on':''}" onclick="riskTab('${x[0]}')">${x[1]}</button>`).join('')}</div>`;
+ let body='';
+ if(t=='intel')body=`
+  <div class="chiprow"><span class="chip"><span class="pulse"></span> <b>12M</b> events/day processed</span><span class="chip"><b>300+</b> source types</span><span class="chip">Powered by BTTng-class CTI engine</span></div>
+  <div class="grid g3" style="margin-bottom:14px">
+   ${[["Scattered Spider","Targeting SA retail & telco helpdesks — vishing + MFA fatigue","crit"],["RansomHub affiliates","ESXi encryption wave — Southern Africa logistics","high"],["Stealer-log surge","RedLine/Lumma logs mentioning .co.za domains +34% WoW","med"]].map(a=>`
+   <div class="card"><div class="spread"><b>${a[0]}</b><span class="pill ${a[2]=='crit'?'p-red':a[2]=='high'?'p-amber':'p-blue'}">${a[2].toUpperCase()}</span></div>
+   <div class="note" style="margin-top:8px">${a[1]}</div>
+   <button class="btn btn-ghost btn-sm" style="margin-top:10px" onclick="toast('Defensive pack applied: detections + IOC blocklist pushed to all tenants.')">Apply defensive pack</button></div>`).join('')}</div>
+  <div class="card"><h3>Fresh indicators</h3><table><thead><tr><th>Indicator</th><th>Type</th><th>Source</th><th>Confidence</th><th>First seen</th></tr></thead><tbody>
+  ${[["185.220.101.42","C2 IP","Sinkhole telemetry",96,"19:01"],["update-m365security[.]top","Phishing domain","CT log monitor",92,"18:44"],["7f3a…c91d","Ransomware SHA-256","Sandbox detonation",99,"18:12"],["+27 60 555 0181","Vishing number","Community report",81,"17:30"]].map(x=>`<tr><td class="mono">${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td><td>${scorebar(x[3])}</td><td style="color:var(--mut)">${x[4]}</td></tr>`).join('')}</tbody></table></div>`;
+ if(t=='dark')body=`
+  <div class="grid g2" style="margin-bottom:14px">
+   <div class="card kpi"><div class="lab">Leaked credentials found (30d)</div><div class="val" style="color:#F08A84">217</div><div class="d up">−41% after forced resets</div></div>
+   <div class="card kpi"><div class="lab">Marketplace mentions of tenant brands</div><div class="val">12</div><div class="d wn">3 new this week</div></div></div>
+  <div class="card"><h3>Credential leak findings</h3><table><thead><tr><th>Identity</th><th>Tenant</th><th>Source</th><th>Found</th><th></th></tr></thead><tbody>
+  ${[["j.vandermerwe@joburgretail.co.za","Joburg Retail Group","Russian Market (stealer log)","2 h ago"],["finance@gardenroute.gov.za","Garden Route Municipality","Combo list — Telegram","6 h ago"],["dr.naidoo@bolandmed.co.za","Boland Medical Group","LummaC2 log","1 d ago"],["it@khulisafin.co.za","Khulisa Financial Services","BreachForums repost","2 d ago"]].map(x=>`
+  <tr><td class="mono">${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td><td style="color:var(--mut)">${x[3]}</td>
+  <td><button class="btn btn-lime btn-sm" onclick="toast('Password reset forced + sessions revoked for <b>${x[0]}</b>. Tenant notified.')">Force reset</button></td></tr>`).join('')}</tbody></table></div>`;
+ if(t=='social')body=`
+  <div class="chiprow">${["WhatsApp","Instagram","X","Facebook","Telegram","TikTok"].map(c=>`<span class="chip">◉ ${c} <b>monitored</b></span>`).join('')}</div>
+  <div class="card"><h3>Flagged items</h3><table><thead><tr><th>Channel</th><th>Finding</th><th>Tenant / brand</th><th>Risk</th><th></th></tr></thead><tbody>
+  ${[["WhatsApp","Impersonation number '+27 81 ··· 4412' posing as IT helpdesk requesting OTPs","Khulisa Financial Services","p-red","crit"],
+     ["Instagram","Fake account @joburgretail_deals selling counterfeit vouchers","Joburg Retail Group","p-red","crit"],
+     ["WhatsApp","Cloned group 'GRM Staff Notices' circulating malicious APK","Garden Route Municipality","p-amber","high"],
+     ["X","Coordinated complaint bots amplifying outage rumour","Durban Port Services","p-blue","med"],
+     ["Instagram","Executive lookalike profile messaging suppliers","Boland Medical Group","p-amber","high"]].map(x=>`
+  <tr><td><b>${x[0]}</b></td><td>${x[1]}</td><td>${x[2]}</td><td><span class="pill ${x[3]}">${x[4].toUpperCase()}</span></td>
+  <td><button class="btn btn-lime btn-sm" onclick="toast('<b>Takedown request filed</b> with platform trust &amp; safety — case ref TD-${Math.floor(Math.random()*9000+1000)}.')">Request takedown</button></td></tr>`).join('')}</tbody></table></div>`;
+ if(t=='vip')body=`
+  <div class="grid g3">
+  ${[["Damian Michael","Founder & CEO — Innovo Networks",18,"2 leaked emails · 1 old password (rotated)"],
+     ["S. Naidoo","CFO — Khulisa Financial",64,"Phone in 3 stealer logs · home address exposed"],
+     ["Adv. L. Botha","Managing Partner — Atlantic Coast Legal",37,"Email in combo list · imposter LinkedIn"],
+     ["Cllr. M. Dlamini","Mayor — Garden Route Municipality",52,"Deepfake audio attempt reported"],
+     ["J. van Wyk","COO — Joburg Retail",29,"Email exposure only"],
+     ["Dr. P. Naidoo","Director — Boland Medical",41,"Credentials in LummaC2 log (reset)"]].map(v=>`
+  <div class="card"><div class="spread"><b>${v[0]}</b>${scorebar(100-v[2])}</div>
+   <div class="note">${v[1]}</div><div style="font-size:11.5px;margin:9px 0;color:#C9DADF">${v[3]}</div>
+   <button class="btn btn-ghost btn-sm" onclick="toast('Protection plan applied for <b>${v[0]}</b>: credential rotation, profile-watch + takedown standing order.')">Protect</button></div>`).join('')}</div>`;
+ $('#view').innerHTML=`<div class="h1">Digital Risk Protection</div><div class="sub">Threat intelligence · dark web · social media (incl. WhatsApp &amp; Instagram) · VIP monitoring</div>${tabs}${body}`;}
+
+VIEWS.studio=()=>{studioTab('agents');};
+function studioTab(t){
+ const tabs=`<div class="tabs"><button class="tab ${t=='agents'?'on':''}" onclick="studioTab('agents')">AI Agents — cyber employees</button>
+ <button class="tab ${t=='auto'?'on':''}" onclick="studioTab('auto')">Automations</button></div>`;
+ let body='';
+ if(t=='agents')body=`
+  <div class="chiprow"><span class="chip">AI cyber employees handled <b>1,247 tasks</b> this month</span><span class="chip"><b>312 analyst-hours</b> saved</span><span class="chip">Human-in-the-loop on destructive actions</span></div>
+  <div class="grid g3">
+  ${AGENTS.map((a,i)=>`<div class="card agent-card">
+   <div class="flex"><div class="face" style="background:${a[2]}">${a[0][0]}</div>
+    <div style="flex:1"><b>${a[0]}</b><div class="note">${a[1]}</div></div>
+    <span class="switch on" onclick="agentToggle(this,'${a[0]}')"><i></i></span></div>
+   <div class="spread" style="margin:12px 0 4px"><span class="note">${fmt(a[3])} runs · ${a[4]}% success</span>${spark(a[5],a[2])}</div>
+   <button class="btn btn-ghost btn-sm" onclick="toast('Runbook for <b>${a[0]}</b>: triggers, guardrails, escalation path and audit trail.')">View runbook</button></div>`).join('')}</div>`;
+ if(t=='auto')body=`
+  <div class="card" style="margin-bottom:14px"><div class="spread"><h3 style="margin:0">Automations</h3>
+   <button class="btn btn-lime btn-sm" onclick="autoBuilder()">＋ New automation</button></div></div>
+  <div class="card"><table><thead><tr><th>Automation</th><th>Trigger</th><th>Runs (30d)</th><th>Last run</th><th>Status</th></tr></thead><tbody>
+  ${[["KEV fast-track","Critical CVE appears on CISA KEV → create fix workflow → notify tenant",41,"2 h ago"],
+     ["Ransomware tripwire","Mass-encryption behaviour → isolate endpoint → snapshot lock → page SOC",3,"6 d ago"],
+     ["Leak responder","Dark-web credential hit → force reset → revoke sessions → evidence artefact",58,"2 h ago"],
+     ["Injection autofix","NoSQL/SQLi finding on tenant API → generate parameterised-query fix → notify tenant",17,"3 h ago"],
+     ["BEC responder","External inbox-forward rule created → disable rule → revoke sessions → alert tenant",29,"2 h ago"],
+     ["Detection sync (CI/CD)","Sigma rule merged → validate → compile → deploy to all tenant SIEMs",61,"14 min ago"],
+     ["FIM tripwire","Critical system binary changed → isolate host → snapshot lock → page SOC",4,"3 h ago"],
+     ["Archive tiering","Mail crosses age threshold → auto-tier to deep archive → re-seal immutability (99-yr)",1240,"1 h ago"],
+     ["Virtual patch on exposure","New critical web CVE → auto-deploy edge WAF rule → block exploitation → notify tenant",22,"2 h ago"],
+     ["Lost-device lockdown","Device reported lost/stolen → remote lock → locate → selective wipe if unrecovered in 24h → notify",6,"5 h ago"],
+     ["EDR auto-response","High-severity EDR detection → isolate endpoint → kill process tree → open MDR case",47,"22 min ago"],
+     ["Patch soak gate","Canary failure rate > 0.5% → auto-rollback → hold ring → ticket",2,"11 d ago"],
+     ["Evidence freshness","Artefact older than policy → re-collect → update vault",214,"14 min ago"]].map(x=>`
+  <tr><td><b>${x[0]}</b></td><td style="color:#C9DADF">${x[1]}</td><td>${x[2]}</td><td style="color:var(--mut)">${x[3]}</td><td><span class="pill p-lime">Active</span></td></tr>`).join('')}</tbody></table></div>`;
+ $('#view').innerHTML=`<div class="h1">Cyber Studio</div><div class="sub">Pre-built AI agents, cyber employees and no-code automations</div>${tabs}${body}`;}
+function agentToggle(el,name){sw(el);toast('<b>'+name+'</b> '+(el.classList.contains('on')?'enabled — resuming task queue.':'paused — tasks routed to human analysts.'));}
+function autoBuilder(){openModal(`
+ <button class="mx" onclick="closeModal()">✕</button><h2>New automation</h2><div class="ms">Trigger → condition → action. Guardrails enforced; every run is auditable.</div>
+ <label class="note">Trigger</label><select class="fld"><option>New critical vulnerability detected</option><option>Dark-web credential found</option><option>Backup failure</option><option>Endpoint risk score &gt; 80</option></select>
+ <label class="note">Condition</label><select class="fld"><option>CVE is on CISA KEV list</option><option>Tenant tier = Complete</option><option>Asset tagged 'crown-jewel'</option></select>
+ <label class="note">Action</label><select class="fld"><option>Create fix workflow + notify tenant</option><option>Isolate endpoint + snapshot lock</option><option>Force password reset + revoke sessions</option></select>
+ <div class="spread" style="margin-top:14px"><span class="note">Approval: human-in-the-loop ✓</span>
+ <button class="btn btn-lime" onclick="closeModal();toast('<b>Automation created</b> and armed. First dry-run scheduled.')">Create automation</button></div>`);}
+
+VIEWS.remote=()=>{
+ $('#view').innerHTML=`
+ <div class="h1">AI-Assisted Remote Access</div><div class="sub">Copilot-guided sessions · fully recorded &amp; audited for evidence</div>
+ <div class="grid" style="grid-template-columns:1.4fr 1fr;margin-bottom:14px">
+  <div class="card"><h3>Live session — GRM-FIN-W1184 <small>recording ● 04:12</small></h3>
+   <div class="term"><span class="c"># Innovo Remote · session #RS-8841 · Garden Route Municipality</span><br>
+PS C:\\&gt; Get-Service InnovoAgent<br><span class="c">Status: Stopped   Name: InnovoAgent   DisplayName: Innovo Secure One Agent</span><br>
+PS C:\\&gt; Restart-Service InnovoAgent -Verbose<br><span class="c">VERBOSE: Performing operation "Restart-Service" on target "Innovo Secure One Agent"…</span><br>
+PS C:\\&gt; Get-Service InnovoAgent<br><span style="color:var(--lime)">Status: Running   ✓ heartbeat restored (2.1s)</span><br>
+PS C:\\&gt; <span class="pulse" style="display:inline-block;width:8px;height:13px;border-radius:2px"></span></div></div>
+  <div class="copilot"><h4>⚡ AI COPILOT</h4>
+   <p><b>Observation:</b> Service <span class="mono">InnovoAgent</span> was stopped after patch KB5042831.</p>
+   <p><b>Suggestion:</b> Restart service and verify heartbeat; if it fails, redeploy agent with <span class="mono">-Repair</span>.</p>
+   <button class="btn btn-lime btn-sm" style="margin-bottom:8px" onclick="toast('Command inserted into session terminal.')">Insert suggested command</button>
+   <p><b>Next:</b> Confirm endpoint resumes 15-min snapshot schedule.</p>
+   <button class="btn btn-ghost btn-sm" onclick="toast('Verified: snapshots resumed. Session note saved.')">Verify snapshots</button></div></div>
+ <div class="card"><h3>Recent sessions</h3><table><thead><tr><th>Session</th><th>Technician</th><th>Endpoint</th><th>Tenant</th><th>Duration</th><th>Audit</th></tr></thead><tbody>
+ ${[["RS-8841","Damian Michael","GRM-FIN-W1184","Garden Route Municipality","04:12 (live)"],
+    ["RS-8836","Aiden (AI) + T. Mokoena","JRG-POS-L0412","Joburg Retail Group","11:38"],
+    ["RS-8829","S. Petersen","BML-EHR-W0907","Boland Medical Group","07:51"],
+    ["RS-8818","Aiden (AI)","KFS-TRD-W0788","Khulisa Financial Services","02:09"]].map(s=>`
+ <tr><td class="mono">${s[0]}</td><td>${s[1]}</td><td class="mono">${s[2]}</td><td>${s[3]}</td><td>${s[4]}</td>
+ <td><span class="pill p-lime">Recorded ✓</span></td></tr>`).join('')}</tbody></table></div>`;};
+
+VIEWS.comply=()=>{
+ const cov=Math.round(CIS.filter(c=>c[2]).length/CIS.length*100);
+ $('#view').innerHTML=`
+ <div class="h1">Compliance</div><div class="sub">Compliance workflow with covered safeguards · centralised evidence artefacts · audit-ready KPIs</div>
+ <div class="tabs"><button class="tab on">CIS Controls v8</button><button class="tab" onclick="toast('ISO 27001 Annex A mapping loaded — 81% covered.')">ISO 27001</button><button class="tab" onclick="toast('POPIA condition mapping loaded — 7 of 8 conditions evidenced.')">POPIA</button></div>
+ <div class="grid" style="grid-template-columns:auto 1fr;margin-bottom:14px;align-items:center">
+  <div class="card" style="text-align:center">${donut(cov,'var(--lime)',130,'safeguards covered')}
+   <div class="note">Partial families upgrade in Phase 2 (H1-2027)</div></div>
+  <div class="card"><h3>Compliance workflow</h3><div class="ring">
+   ${["Onboard (60 min)","Assess","Map safeguards","Remediate","Evidence","Report"].map((s,i)=>`<div class="ringbox" style="${i==4?'border-color:var(--lime)':''}"><b style="font-size:12.5px">${i+1}. ${s}</b></div>${i<5?'<span class="arrow">→</span>':''}`).join('')}</div>
+   <div class="note">Every step auto-files artefacts to the Evidence Vault. Board pack: business-outcomes risk quantified in Rand.</div></div></div>
+ <div class="card" style="margin-bottom:14px"><h3>CIS v8 control families</h3><div class="cis">
+  ${CIS.map(c=>`<div class="cisbox"><div class="spread"><span class="nm">${c[0]}</span><span class="pill ${c[2]?'p-lime':'p-amber'}">${c[2]?'Covered':'Partial'}</span></div><div class="md">${c[1]}</div></div>`).join('')}</div></div>
+ <div class="grid g2">
+  <div class="card"><div class="spread"><h3 style="margin:0">Evidence Vault</h3>
+   <button class="btn btn-lime btn-sm" onclick="exportPack()">⬇ Export audit pack</button></div>
+   <table style="margin-top:10px"><thead><tr><th>Artefact</th><th>Scope</th><th>Freshness</th><th>Maps to</th></tr></thead><tbody>
+   ${EVIDENCE.map(e=>`<tr><td>${e[0]}</td><td style="color:var(--mut)">${e[1]}</td><td><span class="pill p-lime">${e[2]}</span></td><td class="mono" style="font-size:10.5px">${e[3]}</td></tr>`).join('')}</tbody></table></div>
+  <div class="card"><h3>Compliance &amp; resilience KPIs</h3>
+   ${[["Patch latency (median)","3.2 days","up"],["MTTD / MTTR","4 min / 38 min","up"],["Backup success","99.6%","up"],["RTO attainment","100%","up"],["Evidence freshness","96%","up"],["Vuln > 90 days","109 items","dn"],["Business-outcomes risk","R 4.2M ↓","up"]].map(k=>`
+   <div class="spread" style="padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span class="note">${k[0]}</span><b class="${k[2]}" style="font-size:14px">${k[1]}</b></div>`).join('')}</div></div>`;};
+function exportPack(){openModal(`<button class="mx" onclick="closeModal()">✕</button><h2>Export audit pack</h2>
+ <div class="ms">Bundling evidence artefacts for all tenants · June 2026</div><div class="prog"><i id="ep"></i></div><div class="note" id="en">Collecting artefacts…</div>`);
+ let p=0;const iv=setInterval(()=>{p+=Math.random()*26;if(p>=100){p=100;clearInterval(iv);closeModal();
+  toast('<b>Audit pack generated</b> — 38 artefacts · evidence_pack_2026-06.zip (sha-256 sealed).',6500);}
+ if($('#ep')){$('#ep').style.width=p+'%';$('#en').textContent=p<50?'Collecting artefacts…':p<85?'Sealing hashes…':'Zipping…';}else clearInterval(iv);},380);}
+
+VIEWS.econ=()=>{
+ $('#view').innerHTML=`
+ <div class="h1">Partner Economics</div><div class="sub">The business model, inside the platform — pricing, channel margins and the 5-year venture case</div>
+ <div class="spread" style="margin-bottom:14px"><div class="chiprow" style="margin:0">
+  <span class="chip">Currency <b id="curLab">USD</b></span></div>
+  <button class="btn btn-ghost btn-sm" onclick="ECON.zar=!ECON.zar;VIEWS.econ()">Toggle USD / ZAR (R16.53)</button></div>
+ <div class="tiers" style="margin-bottom:16px">
+  ${[["Essentials",4.5,["AI AV / EDR-lite","Vulnerability scans — every 6 h","Safe patching (AI-scored)","SSO + M365 + Google","Reports & KPIs"],""],
+     ["Advanced",7.5,["Everything in Essentials","Full EDR + remediation workflows","Local DR — single agent","Immutable storage + 1-click recovery","Evidence artefacts (lite)"],"MOST POPULAR"],
+     ["Complete",11.5,["Everything in Advanced","24/7 SOC (MDR)","Compliance workflow + evidence vault","AI-assisted remote access","Business-outcomes risk reporting"],""]].map(t=>`
+  <div class="tier ${t[3]?'hot':''}">${t[3]?`<span class="badge">${t[3]}</span>`:''}<b>${t[0]}</b>
+   <div class="pr">${ECON.zar?'R'+(t[1]*16.53).toFixed(2):'$'+t[1].toFixed(2)}<span style="font-size:12px;color:var(--mut)"> /endpoint/mo</span></div>
+   <ul>${t[2].map(f=>`<li>${f}</li>`).join('')}</ul></div>`).join('')}</div>
+ <div class="chiprow">${[["DR immutable storage","$24 /TB/mo"],["Email archive (99-yr, per-TB)","$6 /TB/mo"],["Web App Firewall (per site)","$39 /site/mo"],["Digital Risk Protection","$400 /org/mo"],["Cyber Studio","$1.90 /endpoint/mo"],["MDR — 24/7 SOC","$2.50 /endpoint/mo"],["Mobile Device Mgmt","$2.50 /device/mo"],["Micro-cloud appliance","$8,500 once-off"]].map(a=>`<span class="chip">${a[0]} <b>${ECON.zar?a[1].replace(/\$([\d,.]+)/,(m,n)=>'R'+fmt(Math.round(parseFloat(n.replace(',',''))*16.53))):a[1]}</b></span>`).join('')}</div>
+ <div class="grid g2" style="margin-top:4px">
+  <div class="card"><h3>Partner calculator <small>live</small></h3>
+   <label class="note">Partner model</label>
+   <select class="fld" id="pcModel" onchange="calc()"><option value=".40">MSSP white-label — 40% margin</option><option value=".30">Systems Integrator — 30% margin</option><option value=".25">IT Reseller — 25% margin</option></select>
+   <label class="note">Endpoints: <b id="pcEpL">2,500</b></label>
+   <input type="range" class="slider" id="pcEp" min="100" max="10000" step="100" value="2500" oninput="calc()">
+   <label class="note">Bundle mix — Advanced share: <b id="pcMixL">45%</b> (rest split Essentials/Complete 35/20)</label>
+   <input type="range" class="slider" id="pcMix" min="0" max="100" value="45" oninput="calc()">
+   <div class="grid g3" style="margin-top:14px">
+    <div><div class="note">Customer pays (MRR)</div><div class="bigval" id="pcGross">—</div></div>
+    <div><div class="note">Partner margin /mo</div><div class="bigval" id="pcPart">—</div></div>
+    <div><div class="note">Innovo net MRR</div><div class="bigval" id="pcNet">—</div></div></div>
+   <div class="note" id="pcArr"></div></div>
+  <div class="card"><h3>5-year venture case <small>from INNOVO_SECURE_ONE_model.xlsx</small></h3>
+   ${comboChart([1.2,2.9,5.5,7.3,9.2],[-18,9,30,30,32],["FY27","FY28","FY29","FY30","FY31"])}
+   <div class="note">Bars = revenue (US$M) · line = EBITDA margin. Breakeven during FY2028 · peak funding ≈ $1.05M · WACC 15.4% · DCF EV ≈ $9.3M (NPV $8.6M ≈ R143M).</div></div></div>`;
+ calc();};
+const ECON={zar:false};
+function calc(){const m=parseFloat($('#pcModel').value),ep=+$('#pcEp').value,adv=+$('#pcMix').value;
+ $('#pcEpL').textContent=fmt(ep);$('#pcMixL').textContent=adv+'%';
+ const rest=100-adv,ess=rest*0.636,com=rest*0.364;
+ const arpu=(ess/100)*4.5+(adv/100)*7.5+(com/100)*11.5;
+ const gross=ep*arpu,part=gross*m,net=gross-part,fx=ECON.zar?16.53:1,c=ECON.zar?'R':'$';
+ const F=v=>c+fmt(Math.round(v*fx));
+ $('#pcGross').textContent=F(gross);$('#pcPart').textContent=F(part);$('#pcNet').textContent=F(net);
+ $('#pcArr').innerHTML=`Blended list ARPU ${c}${(arpu*fx).toFixed(2)}/endpoint/mo · customer ARR ${F(gross*12)} · Innovo net ARR ${F(net*12)} — excludes DR/DRP/Studio add-ons.`;}
+
+VIEWS.datasheets=()=>{
+ $('#view').innerHTML=`
+ <div class="h1">Product Datasheets</div><div class="sub">Full capability reference for every Innovo Secure One module</div>
+ <div style="margin-top:16px">
+  <a href="INNOVO_SECURE_ONE_datasheets.html" target="_blank" class="btn btn-lime" style="display:inline-flex;align-items:center;gap:8px">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+   Open Full Datasheets
+  </a>
+ </div>
+ <iframe src="INNOVO_SECURE_ONE_datasheets.html" style="width:100%;height:calc(100vh - 180px);border:none;border-radius:8px;margin-top:16px;background:#0d0d0d"></iframe>`;
+};
+VIEWS.settings=()=>{
+ $('#view').innerHTML=`
+ <div class="h1">Settings</div><div class="sub">White-label, identity, residency and deployment</div>
+ <div class="grid g2">
+  <div class="card"><h3>White-label</h3>
+   <label class="note">Console name</label><input class="fld" value="Innovo Secure One">
+   <label class="note">Accent colour</label><div class="flex"><input class="fld" style="flex:1" value="#8DC63F"><span style="width:30px;height:30px;border-radius:8px;background:var(--lime)"></span></div>
+   <button class="btn btn-ghost btn-sm" onclick="toast('Brand kit saved — applied to console, reports and alerts (per-tenant override available).')">Save brand kit</button></div>
+  <div class="card"><h3>Identity & SSO</h3>
+   ${[["Microsoft 365 / Entra ID","Connected","p-lime"],["Google Workspace","Connected","p-lime"],["SAML / OIDC (generic)","Configured","p-lime"],["SCIM provisioning","Phase 2","p-amber"]].map(x=>`<div class="spread" style="padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span>${x[0]}</span><span class="pill ${x[2]}">${x[1]}</span></div>`).join('')}</div>
+  <div class="card"><h3>Data residency</h3>
+   <select class="fld"><option>South Africa 🇿🇦 (default — SA Data Residency)</option><option>European Union</option><option>United Kingdom</option></select>
+   <div class="note">Single-Agent Data Residency: tenant data pinned in-region across cloud + micro-cloud nodes. Immutability attestation auto-filed monthly.</div></div>
+  <div class="card"><h3>Deployment mode</h3>
+   ${[["Cloud (multi-tenant)",true],["On-premise (sovereign)",false],["Hybrid micro-cloud",true]].map(x=>`<div class="spread" style="padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span>${x[0]}</span><span class="switch ${x[1]?'on':''}" onclick="sw(this)"><i></i></span></div>`).join('')}
+   <label class="note" style="margin-top:10px;display:block">API key</label>
+   <div class="codebox"><span>iso_live_8f4a••••••••••••9c2e</span><button class="btn btn-ghost btn-sm" onclick="toast('API key rotated. Old key valid for 24h grace.')">Rotate</button></div></div>
+ </div>`;};
+
+/* ============== DETECTION LAYER ============== */
+const esc=s=>(''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* --- Sigma detection-as-code: [title, attack, tactic, sev, status, fp%, yaml, splunk, elastic, sentinel] --- */
+const SIGMA_RULES=[
+ ["Mimikatz credential dumping (LSASS access)","T1003.001","Credential Access","high","Deployed",0.4,
+`title: Mimikatz Credential Dumping via LSASS Access
+id: 0d894093-71bc-43c3-8d63-bf520e73a7c5
+status: stable
+level: high
+logsource:
+    category: process_access
+    product: windows
+detection:
+    selection:
+        TargetImage|endswith: '\\lsass.exe'
+        GrantedAccess|contains: ['0x1010','0x1038','0x1fffff','0x40']
+    filter:
+        SourceImage|endswith: ['\\svchost.exe','\\csrss.exe','\\wininit.exe']
+    condition: selection and not filter
+tags: [attack.credential_access, attack.t1003.001]`,
+`index=edr sourcetype=Sysmon EventCode=10 TargetImage="*\\\\lsass.exe"
+  (GrantedAccess="*0x1010*" OR GrantedAccess="*0x1fffff*" OR GrantedAccess="*0x40*")
+  NOT (SourceImage IN ("*\\\\svchost.exe","*\\\\csrss.exe","*\\\\wininit.exe"))`,
+`process where event.action == "access" and process.name == "lsass.exe" and
+  not process.executable : ("*\\\\svchost.exe","*\\\\csrss.exe","*\\\\wininit.exe")`,
+`DeviceEvents | where ActionType == "ProcessAccessLsass"
+  | where not(InitiatingProcessFileName in~ ("svchost.exe","csrss.exe","wininit.exe"))`],
+
+ ["Encoded PowerShell execution","T1059.001","Execution","high","Deployed",1.2,
+`title: Suspicious Encoded PowerShell Command
+id: a7f8c1e0-9b21-4d77-8c0a-2e6f1b4d9a31
+level: high
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\\powershell.exe'
+        CommandLine|contains: ['-enc ','-EncodedCommand','FromBase64String']
+    condition: selection
+tags: [attack.execution, attack.t1059.001]`,
+`index=edr EventCode=1 Image="*\\\\powershell.exe"
+  (CommandLine="*-enc *" OR CommandLine="*EncodedCommand*" OR CommandLine="*FromBase64String*")`,
+`process where process.name == "powershell.exe" and
+  process.command_line : ("*-enc *","*EncodedCommand*","*FromBase64String*")`,
+`DeviceProcessEvents | where FileName =~ "powershell.exe"
+  | where ProcessCommandLine has_any ("-enc ","EncodedCommand","FromBase64String")`],
+
+ ["External inbox forwarding rule (M365/Google)","T1114.003","Collection / Exfiltration","high","Deployed",0.6,
+`title: Suspicious External Email Forwarding Rule Created
+id: c2b1f7a4-3e88-4a19-9f0c-7d2a5e6b8c10
+level: high
+logsource:
+    product: m365
+    service: exchange
+detection:
+    selection:
+        Operation: ['New-InboxRule','Set-InboxRule','Set-Mailbox']
+    forward:
+        Parameters|contains: ['ForwardTo','RedirectTo','ForwardingSmtpAddress']
+    external:
+        Parameters|re: '@(?!.*(yourtenant\\.co\\.za))'
+    condition: selection and forward and external
+tags: [attack.collection, attack.t1114.003, attack.exfiltration]`,
+`index=o365 Operation IN ("New-InboxRule","Set-InboxRule","Set-Mailbox")
+  (Parameters="*ForwardTo*" OR Parameters="*RedirectTo*" OR Parameters="*ForwardingSmtpAddress*")
+  NOT Parameters="*@yourtenant.co.za*"`,
+`event.dataset : "o365.audit" and event.action : ("New-InboxRule","Set-InboxRule") and
+  o365.audit.Parameters : ("*ForwardTo*","*RedirectTo*")`,
+`OfficeActivity | where Operation in ("New-InboxRule","Set-InboxRule","Set-Mailbox")
+  | where Parameters has_any ("ForwardTo","RedirectTo","ForwardingSmtpAddress")
+  | where Parameters !has "yourtenant.co.za"`],
+
+ ["Impossible-travel / atypical sign-in","T1078","Initial Access (Valid Accounts)","high","Deployed",2.1,
+`title: Impossible Travel or Anomalous Sign-in
+id: 7d3e9c52-1a40-49bb-bf3e-6c8a0d12e745
+level: high
+logsource:
+    product: azure
+    service: signinlogs
+detection:
+    selection:
+        riskEventTypes|contains: ['impossibleTravel','unfamiliarFeatures','anonymizedIPAddress']
+    agent:
+        userAgent|contains: ['python-requests','curl','PowerShell']
+    condition: selection or agent
+tags: [attack.initial_access, attack.t1078]`,
+`index=azuread sourcetype="azure:aad:signin"
+  (riskEventTypes="*impossibleTravel*" OR userAgent IN ("*python-requests*","*curl*","*PowerShell*"))`,
+`event.dataset : "azure.signinlogs" and
+  (azure.signinlogs.properties.risk_event_types : "impossibleTravel" or
+   user_agent.original : ("*python-requests*","*curl*"))`,
+`SigninLogs | where RiskLevelDuringSignIn in ("high","medium")
+  | where RiskEventTypes has "impossibleTravel" or UserAgent has_any ("python-requests","curl","PowerShell")`],
+
+ ["Volume shadow copy deletion (ransomware)","T1490","Impact","critical","Deployed",0.1,
+`title: Shadow Copy Deletion Indicating Ransomware
+id: 9f1a6b30-7c25-4e88-a1d2-3b9c0e5f4a18
+level: critical
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains: ['vssadmin delete shadows','wmic shadowcopy delete','bcdedit /set recoveryenabled no']
+    condition: selection
+tags: [attack.impact, attack.t1490]`,
+`index=edr EventCode=1 (CommandLine="*vssadmin delete shadows*" OR CommandLine="*wmic shadowcopy delete*" OR CommandLine="*recoveryenabled no*")`,
+`process where process.command_line : ("*vssadmin delete shadows*","*wmic shadowcopy delete*","*recoveryenabled no*")`,
+`DeviceProcessEvents | where ProcessCommandLine has_any ("vssadmin delete shadows","wmic shadowcopy delete","recoveryenabled no")`],
+
+ ["Critical file integrity change (FIM)","T1565.001","Persistence / Integrity","high","Deployed",0.9,
+`title: Critical System File or Registry Run-Key Modified
+id: 4b8c2d61-5f93-4a07-9e1b-8d0a6c3f2b54
+level: high
+logsource:
+    product: wazuh
+    service: syscheck
+detection:
+    selection:
+        rule.groups|contains: 'syscheck'
+        file|contains: ['/usr/bin/','/usr/sbin/','/etc/ssh/sshd_config','\\System32\\drivers\\','CurrentVersion\\Run']
+    condition: selection
+tags: [attack.persistence, attack.t1565.001, attack.t1543]`,
+`index=wazuh rule.groups="syscheck" (file="*/usr/bin/*" OR file="*sshd_config*" OR file="*CurrentVersion\\\\Run*")`,
+`event.module : "wazuh" and rule.groups : "syscheck" and
+  file.path : ("*/usr/bin/*","*sshd_config*","*CurrentVersion\\\\Run*")`,
+`Syslog | where ProcessName == "ossec" and SyslogMessage has "syscheck"
+  | where SyslogMessage has_any ("/usr/bin/","sshd_config","CurrentVersion")`]
+];
+const SIGMA_BACKENDS=['Splunk','Elastic','Sentinel'];
+const ATTACK=[
+ ["Initial Access",4,5],["Execution",9,11],["Persistence",7,10],["Priv Esc",6,9],
+ ["Defense Evasion",11,16],["Credential Access",8,9],["Discovery",5,8],
+ ["Lateral Movement",4,6],["Collection",5,7],["Command & Control",6,8],["Exfiltration",3,5],["Impact",6,7]];
+
+VIEWS.detections=()=>{
+ $('#view').innerHTML=`
+ <div class="h1">Detections</div><div class="sub">Detection-as-code · Sigma rules compiled to every tenant SIEM · mapped to MITRE ATT&CK · validated in CI/CD</div>
+ <div class="chiprow">
+   <span class="chip">Rules deployed <b>142</b></span>
+   <span class="chip">Backends <b>Splunk · Elastic · Sentinel</b></span>
+   <span class="chip"><span class="pulse"></span> CI/CD <b>green</b> — last sync 14 min ago</span>
+   <span class="chip">ATT&CK coverage <b>68%</b></span></div>
+ <div class="grid g4" style="margin-bottom:14px">
+   <div class="card kpi"><div class="lab">Sigma rules deployed</div><div class="val">142</div><div class="d up">+9 this month</div></div>
+   <div class="card kpi"><div class="lab">ATT&CK techniques covered</div><div class="val">96</div><div class="d up">across 12 tactics</div></div>
+   <div class="card kpi"><div class="lab">Detections fired (24h)</div><div class="val">318</div><div class="d up">auto-triaged by Aiden</div></div>
+   <div class="card kpi"><div class="lab">Mean detection latency</div><div class="val">4 min</div><div class="d up">batch + streaming</div></div></div>
+ <div class="card" style="margin-bottom:14px"><h3>MITRE ATT&CK coverage <small>techniques with ≥1 deployed rule</small></h3>
+   <div class="grid" style="grid-template-columns:repeat(6,1fr);gap:8px">
+   ${ATTACK.map(t=>{const p=t[1]/t[2];const col=p>=0.8?'var(--lime)':p>=0.5?'var(--amber)':'#D5524A';
+     return `<div class="cisbox" style="text-align:center"><div class="md" style="height:26px;display:flex;align-items:center;justify-content:center">${t[0]}</div>
+      <div style="font-size:17px;font-weight:800;color:${col}">${t[1]}/${t[2]}</div>
+      <div style="width:100%;height:5px;background:#0B2832;border-radius:3px;margin-top:5px"><i style="display:block;height:100%;width:${Math.round(p*100)}%;background:${col};border-radius:3px"></i></div></div>`;}).join('')}</div></div>
+ <div class="card"><div class="spread"><h3 style="margin:0">Rule library</h3>
+   <div class="flex"><button class="btn btn-ghost btn-sm" onclick="newSigma()">＋ New rule from threat intel</button>
+   <button class="btn btn-lime btn-sm" onclick="syncSiems()">Sync to all SIEMs</button></div></div>
+   <table style="margin-top:10px"><thead><tr><th>Rule</th><th>ATT&CK</th><th>Tactic</th><th>Severity</th><th>Backends</th><th>FP rate</th><th>Status</th><th></th></tr></thead><tbody>
+   ${SIGMA_RULES.map((r,i)=>`<tr><td style="font-weight:600">${r[0]}</td><td class="mono" style="color:#7CC6E2">${r[1]}</td><td style="color:var(--mut)">${r[2]}</td>
+    <td><span class="pill ${r[3]=='critical'?'p-red':r[3]=='high'?'p-amber':'p-blue'}">${r[3]}</span></td>
+    <td>${SIGMA_BACKENDS.map(b=>`<span class="pill p-grey" style="font-size:9px">${b}</span>`).join(' ')}</td>
+    <td>${r[5]}%</td><td><span class="pill p-lime">${r[4]}</span></td>
+    <td><button class="btn btn-ghost btn-sm" onclick="sigmaView(${i})">View / convert</button></td></tr>`).join('')}</tbody></table>
+   <div class="note">Authored once in Sigma, compiled by pySigma to each tenant's SIEM. Every rule is version-controlled and CI/CD-tested before deploy — detection-as-code.</div></div>`;};
+function sigmaView(i){const r=SIGMA_RULES[i];
+ openModal(`<button class="mx" onclick="closeModal()">✕</button>
+ <h2>${r[0]}</h2><div class="ms">${r[1]} · ${r[2]} · severity ${r[3]} · false-positive ${r[5]}%</div>
+ <div class="tabs" id="sgTabs">
+  <button class="tab on" onclick="sgTab(${i},6,this)">Sigma source</button>
+  <button class="tab" onclick="sgTab(${i},7,this)">Splunk SPL</button>
+  <button class="tab" onclick="sgTab(${i},8,this)">Elastic EQL</button>
+  <button class="tab" onclick="sgTab(${i},9,this)">Sentinel KQL</button></div>
+ <pre class="term" id="sgBody" style="white-space:pre-wrap;max-height:300px;overflow:auto">${esc(r[6])}</pre>
+ <div class="spread" style="margin-top:14px"><span class="note">One source → 3 SIEM dialects via pySigma · CI/CD validated</span>
+ <button class="btn btn-lime" onclick="closeModal();toast('<b>${r[0]}</b> deployed to Splunk, Elastic &amp; Sentinel across 38 tenants.')">Deploy to all SIEMs</button></div>`);}
+function sgTab(i,col,btn){document.querySelectorAll('#sgTabs .tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');$('#sgBody').textContent=SIGMA_RULES[i][col];}
+function newSigma(){openModal(`<button class="mx" onclick="closeModal()">✕</button><h2>New detection from threat intel</h2>
+ <div class="ms">Paste an IOC, TTP or ATT&CK technique — Naledi (AI) drafts a Sigma rule and compiles it.</div>
+ <textarea class="fld" style="height:90px">Scattered Spider: helpdesk social-engineering, then MFA-fatigue, then registry Run-key persistence (HKCU CurrentVersion Run) dropping a signed binary.</textarea>
+ <div class="spread" style="margin-top:12px"><span class="note">Maps to ATT&CK · validates syntax · backtests 7 days</span>
+ <button class="btn btn-lime" onclick="closeModal();toast('<b>Draft Sigma rule generated</b> — T1547.001 Run-key persistence. Syntax valid · 0 FPs in 7-day backtest · staged for review.')">Generate rule</button></div>`);}
+function syncSiems(){openModal(`<button class="mx" onclick="closeModal()">✕</button><h2>Sync detections to SIEMs</h2>
+ <div class="ms">Compiling 142 Sigma rules → Splunk SPL, Elastic EQL, Sentinel KQL across 38 tenants</div>
+ <div class="prog"><i id="syp"></i></div><div class="note" id="syn">Validating rules…</div>`);
+ let p=0;const iv=setInterval(()=>{p+=Math.random()*24;if(p>=100){p=100;clearInterval(iv);closeModal();
+  toast('<b>142 detections synced</b> — Splunk ✓ Elastic ✓ Sentinel ✓ across 38 tenants. CI/CD run green.',6000);}
+  if($('#syp')){$('#syp').style.width=p+'%';$('#syn').textContent=p<40?'Compiling Splunk SPL…':p<70?'Compiling Elastic EQL…':'Compiling Sentinel KQL…';}else clearInterval(iv);},360);}
+
+/* --- Host Integrity (FIM / HIDS) --- */
+const FIM_EVENTS=[
+ ["19:02","JRG-POS-L0412","Linux","/etc/ssh/sshd_config","Modified","high","CIS 4 · PCI 11.5"],
+ ["18:40","GRM-FIN-W1184","Windows","HKLM\\…\\CurrentVersion\\Run\\Updater","Added","high","CIS 4 · persistence"],
+ ["18:21","BML-EHR-W0907","Windows","C:\\Windows\\System32\\drivers\\nvlddmkm.sys","Modified","medium","CIS 4"],
+ ["17:55","DPS-OPS-W1530","Linux","/usr/bin/curl","Modified","critical","CIS 4 · malware"],
+ ["17:30","KFS-TRD-W0788","Linux","/etc/passwd","Modified","high","CIS 5 · accounts"],
+ ["16:48","STP-DEV-M0331","macOS","/usr/local/bin/helperd","Added","medium","new executable"]];
+VIEWS.fim=()=>{
+ $('#view').innerHTML=`
+ <div class="h1">Host Integrity Monitoring</div><div class="sub">File integrity monitoring, rootkit detection &amp; registry monitoring — built into the Innovo agent (Wazuh/OSSEC engine)</div>
+ <div class="chiprow"><span class="chip">FIM active on <b>12,716</b> endpoints</span><span class="chip">Baseline <b>established</b></span><span class="chip">Mode <b>real-time</b></span><span class="chip">Rootkit scan <b>every 12 h</b></span></div>
+ <div class="grid g4" style="margin-bottom:14px">
+   <div class="card kpi"><div class="lab">FIM events (24h)</div><div class="val">1,204</div><div class="d up">7 flagged critical/high</div></div>
+   <div class="card kpi"><div class="lab">Critical file changes</div><div class="val" style="color:#F08A84">7</div><div class="d up">auto-triaged</div></div>
+   <div class="card kpi"><div class="lab">Rootkit detections</div><div class="val" style="color:var(--lime)">0</div><div class="d up">last scan 02:00</div></div>
+   <div class="card kpi"><div class="lab">Run-key / registry changes</div><div class="val">3</div><div class="d wn">1 unexpected</div></div></div>
+ <div class="grid" style="grid-template-columns:2fr 1fr;margin-bottom:14px">
+   <div class="card"><div class="spread"><h3 style="margin:0">File integrity events</h3>
+     <button class="btn btn-ghost btn-sm" onclick="downloadKit()">⬇ Download Wazuh config kit</button></div>
+     <table style="margin-top:8px"><thead><tr><th>Time</th><th>Host</th><th>OS</th><th>Path</th><th>Change</th><th>Severity</th><th></th></tr></thead><tbody>
+     ${FIM_EVENTS.map((e,i)=>`<tr><td class="mono" style="font-size:10.5px">${e[0]}</td><td class="mono" style="font-size:10.5px">${e[1]}</td><td>${e[2]}</td>
+      <td class="mono" style="font-size:10.5px">${e[3]}</td><td><span class="pill ${e[4]=='Modified'?'p-amber':e[4]=='Added'?'p-blue':'p-grey'}">${e[4]}</span></td>
+      <td><span class="pill ${e[5]=='critical'?'p-red':e[5]=='high'?'p-amber':'p-grey'}">${e[5]}</span></td>
+      <td><button class="btn btn-ghost btn-sm" onclick="fimAct(${i})">Investigate</button></td></tr>`).join('')}</tbody></table>
+     <div class="note">Each change captures who/what/when plus a cryptographic hash diff, mapped to CIS &amp; PCI DSS 11.5. Critical changes auto-isolate via the FIM tripwire automation.</div></div>
+   <div>
+     <div class="card" style="margin-bottom:14px"><h3>Rootkit detection</h3>
+       ${["Hidden processes","Hidden ports","Hidden files","Trojaned binaries","Loaded kernel modules"].map(c=>`<div class="spread" style="padding:5px 0"><span class="note">✓ ${c}</span><span class="pill p-lime">clear</span></div>`).join('')}</div>
+     <div class="card" style="margin-bottom:14px"><h3>Registry monitoring <small>Windows</small></h3>
+       ${["…\\CurrentVersion\\Run","…\\CurrentVersion\\RunOnce","…\\CurrentControlSet\\Services"].map(k=>`<div class="spread" style="padding:5px 0"><span class="mono" style="font-size:10.5px">${k}</span><span class="pill p-lime">watched</span></div>`).join('')}</div>
+     <div class="card"><h3>Active response</h3>
+       <div class="spread" style="padding:6px 0"><span class="note">firewall-drop on brute force</span><span class="switch on" onclick="sw(this)"><i></i></span></div>
+       <div class="spread" style="padding:6px 0"><span class="note">disable-account on detection</span><span class="switch on" onclick="sw(this)"><i></i></span></div>
+       <div class="spread" style="padding:6px 0"><span class="note">isolate host on critical FIM</span><span class="switch on" onclick="sw(this)"><i></i></span></div></div>
+   </div></div>
+ <div class="card"><h3>Monitored paths <small>tuned to reduce noise — logs &amp; caches excluded</small></h3>
+   <div class="grid g2"><div><div class="note" style="color:var(--lime);font-weight:700">Linux / macOS</div>
+     <div class="mono" style="font-size:11px;line-height:1.9">/etc · /usr/bin · /usr/sbin · /bin · /sbin · /boot · /etc/ssh/sshd_config</div></div>
+     <div><div class="note" style="color:var(--lime);font-weight:700">Windows</div>
+     <div class="mono" style="font-size:11px;line-height:1.9">System32 · SysWOW64 · %PROGRAMFILES% · Run / RunOnce / Services registry keys</div></div></div></div>`;};
+function fimAct(i){const e=FIM_EVENTS[i];toast('Investigating <b>'+e[3]+'</b> on '+e[1]+' — hash diff + change author pulled; '+(e[5]=='critical'?'host auto-isolated, SOC paged.':'baseline comparison opened.'));}
+function downloadKit(){toast('<b>Wazuh config kit generated</b> — ossec.conf, local_rules.xml, Windows/Linux install scripts + Filebeat→SIEM wiring (innovo-secure-one/detection-kit/wazuh).',6500);}
+
+/* --- Email & BEC (M365 + Google Workspace) --- */
+const BEC_RULES=[
+ ["finance@joburgretail.co.za","Forward ALL mail → collector@mail-ru.top (external)","M365","2 h ago","p-red","external-forward"],
+ ["accounts@gardenroute.gov.za","Delete messages containing 'invoice' OR 'payment'","M365","6 h ago","p-red","keyword-delete"],
+ ["dr.naidoo@bolandmed.co.za","Move 'wire'/'bank' mail → RSS Feeds, mark read","Google","1 d ago","p-amber","hide-rule"],
+ ["procurement@durbanport.co.za","Forward → personal gmail address","Google","2 d ago","p-amber","external-forward"]];
+const BEC_SIGNIN=[
+ ["s.naidoo@khulisafin.co.za","Cape Town → Kyiv (11 min apart)","M365","p-red","impossible travel"],
+ ["admin@joburgretail.co.za","user agent: python-requests/2.31","M365","p-amber","scripted access"],
+ ["adv.botha@atlanticlegal.co.za","Johannesburg → Lagos (38 min apart)","Google","p-amber","impossible travel"],
+ ["it@gardenroute.gov.za","user agent: PowerShell/7.4 from new ASN","M365","p-blue","atypical client"]];
+const BEC_OAUTH=[
+ ["PerfectData Software","full_access_as_user","admin@joburgretail.co.za","M365","p-red","Known BEC tooling"],
+ ["eM Client","Mail.Read, Mail.Send, offline_access","s.naidoo@khulisafin.co.za","M365","p-amber","Unverified publisher"],
+ ["Mail Merge Pro","gmail.send, gmail.readonly","procurement@durbanport.co.za","Google","p-amber","Unverified"]];
+const BEC_FRAUD=[
+ ["CEO wire-transfer request","Display-name 'Damian Michael' from gmail.com — 'urgent' R 480,000 payment","Khulisa Financial Services","p-red"],
+ ["Lookalike domain","inn0vonet.co.za (zero-for-O) sending supplier invoices","Innovo Direct","p-amber"],
+ ["Vendor bank-change","Supplier mid-thread 'updated banking details' — reply-to altered","Boland Medical Group","p-amber"]];
+VIEWS.bec=()=>becTab('rules');
+function becTab(t){
+ const tabs=`<div class="tabs">${[["rules","Inbox Rules"],["signin","Sign-in Anomalies"],["oauth","OAuth Grants"],["fraud","Payment Fraud"]].map(x=>`<button class="tab ${t==x[0]?'on':''}" onclick="becTab('${x[0]}')">${x[1]}</button>`).join('')}</div>`;
+ let body='';
+ if(t=='rules')body=`<div class="card"><h3>Suspicious inbox rules <small>external forwarding · keyword deletion · hide rules</small></h3>
+   <table><thead><tr><th>Mailbox</th><th>Rule</th><th>Platform</th><th>Created</th><th>Class</th><th></th></tr></thead><tbody>
+   ${BEC_RULES.map((r,i)=>`<tr><td class="mono" style="font-size:11px">${r[0]}</td><td>${r[1]}</td>
+    <td><span class="pill ${r[2]=='M365'?'p-blue':'p-grey'}">${r[2]}</span></td><td style="color:var(--mut)">${r[3]}</td>
+    <td><span class="pill ${r[4]}">${r[5]}</span></td>
+    <td><button class="btn btn-lime btn-sm" onclick="becAct('rule',${i})">Disable rule</button></td></tr>`).join('')}</tbody></table>
+   <div class="note">Innovo reads inbox rules via Microsoft Graph (messageRules) and the Google Admin SDK, flagging external forwards and financial-keyword deletion — the classic BEC persistence move.</div></div>`;
+ if(t=='signin')body=`<div class="card"><h3>Sign-in anomalies <small>impossible travel · scripted user agents</small></h3>
+   <table><thead><tr><th>User</th><th>Signal</th><th>Platform</th><th>Class</th><th></th></tr></thead><tbody>
+   ${BEC_SIGNIN.map((r,i)=>`<tr><td class="mono" style="font-size:11px">${r[0]}</td><td>${r[1]}</td>
+    <td><span class="pill ${r[2]=='M365'?'p-blue':'p-grey'}">${r[2]}</span></td><td><span class="pill ${r[3]}">${r[4]}</span></td>
+    <td><button class="btn btn-lime btn-sm" onclick="becAct('signin',${i})">Revoke sessions + MFA</button></td></tr>`).join('')}</tbody></table>
+   <div class="note">Correlates Azure AD / Google sign-in logs for impossible travel and non-human user agents (python-requests, curl, PowerShell) indicative of token replay.</div></div>`;
+ if(t=='oauth')body=`<div class="card"><h3>Risky OAuth consent grants <small>third-party app access to mail</small></h3>
+   <table><thead><tr><th>Application</th><th>Scopes</th><th>Granted by</th><th>Platform</th><th>Flag</th><th></th></tr></thead><tbody>
+   ${BEC_OAUTH.map((r,i)=>`<tr><td style="font-weight:600">${r[0]}</td><td class="mono" style="font-size:10.5px">${r[1]}</td>
+    <td class="mono" style="font-size:10.5px">${r[2]}</td><td><span class="pill ${r[3]=='M365'?'p-blue':'p-grey'}">${r[3]}</span></td>
+    <td><span class="pill ${r[4]}">${r[5]}</span></td>
+    <td><button class="btn btn-lime btn-sm" onclick="becAct('oauth',${i})">Revoke consent</button></td></tr>`).join('')}</tbody></table>
+   <div class="note">Illicit-consent grants are a token-based persistence path that survives password resets — Innovo revokes the grant and the refresh token together.</div></div>`;
+ if(t=='fraud')body=`<div class="card"><h3>Payment-fraud / BEC attempts <small>display-name spoofing · lookalike domains · bank-change</small></h3>
+   <table><thead><tr><th>Type</th><th>Detail</th><th>Target tenant</th><th>Risk</th><th></th></tr></thead><tbody>
+   ${BEC_FRAUD.map((r,i)=>`<tr><td style="font-weight:600">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td>
+    <td><span class="pill ${r[3]}">${r[3]=='p-red'?'CRITICAL':'HIGH'}</span></td>
+    <td><button class="btn btn-lime btn-sm" onclick="becAct('fraud',${i})">Quarantine + warn</button></td></tr>`).join('')}</tbody></table>
+   <div class="note">Inbound BEC detection: CEO-fraud display-name spoofing, newly-registered lookalike domains, and mid-thread banking-detail changes are quarantined and the recipient warned with a banner.</div></div>`;
+ $('#view').innerHTML=`<div class="h1">Email &amp; BEC Protection</div>
+   <div class="sub">Business email compromise defence across Microsoft 365 &amp; Google Workspace — inbox rules, sign-in anomalies, OAuth abuse and payment fraud</div>
+   <div class="chiprow"><span class="chip">Microsoft 365 <b>14 tenants</b></span><span class="chip">Google Workspace <b>9 tenants</b></span>
+     <span class="chip">Mailboxes monitored <b>9,840</b></span><span class="chip">BEC attempts blocked (30d) <b>23</b></span></div>
+   ${tabs}${body}`;}
+function becAct(kind,i){const m={
+   rule:'Forwarding rule disabled — '+(BEC_RULES[i]?BEC_RULES[i][0]:'')+' · sessions revoked · tenant notified.',
+   signin:'Sessions revoked + step-up MFA enforced for '+(BEC_SIGNIN[i]?BEC_SIGNIN[i][0]:'')+'. Sign-in evidence filed.',
+   oauth:'OAuth consent + refresh token revoked for '+(BEC_OAUTH[i]?BEC_OAUTH[i][0]:'')+'. App blocked tenant-wide.',
+   fraud:'Message quarantined and recipient warned. Lookalike domain submitted for takedown.'}[kind];
+ toast('<b>Action taken</b> — '+m+' (CIS 09)',6000);}
+
+/* --- Email Archive & Retention (99-year immutable cloud archive, per-TB billing) --- */
+const ARCH={zar:false,model:'tb'};
+VIEWS.archive=()=>{
+ $('#view').innerHTML=`
+ <div class="h1">Email Archive &amp; Retention</div>
+ <div class="sub">Tamper-proof email archiving for up to 99 years — immutable cloud storage, SA data residency, legal hold &amp; eDiscovery</div>
+ <div class="chiprow"><span class="chip">M365 + Google Workspace <b>journaled</b></span><span class="chip">Immutable <b>WORM</b></span>
+   <span class="chip">🇿🇦 <b>SA data residency</b></span><span class="chip">Retention <b>up to 99 years</b></span><span class="chip">POPIA · FICA aligned</span></div>
+ <div class="grid g4" style="margin-bottom:14px">
+   <div class="card kpi"><div class="lab">Mailboxes journaled</div><div class="val">9,840</div><div class="d up">M365 + Google</div></div>
+   <div class="card kpi"><div class="lab">Emails archived</div><div class="val">1.84 B</div><div class="d up">+4.2M / day</div></div>
+   <div class="card kpi"><div class="lab">Archive size</div><div class="val">312 TB</div><div class="d up">deduped + compressed</div></div>
+   <div class="card kpi"><div class="lab">Retention horizon</div><div class="val" style="color:var(--lime)">99 yrs</div><div class="d up">immutable WORM</div></div></div>
+ <div class="grid g2" style="margin-bottom:14px">
+   <div class="card"><h3>Retention policy</h3>
+     <label class="note">Retention period</label>
+     <select class="fld" id="retSel" onchange="setRetention(this.value)">
+       <option value="99" selected>99 years (maximum)</option><option value="50">50 years</option>
+       <option value="25">25 years</option><option value="10">10 years (FICA)</option>
+       <option value="7">7 years (tax / POPIA default)</option><option value="custom">Custom…</option></select>
+     <div class="spread" style="padding:8px 0"><span>Immutability (WORM) — locked</span><span class="switch on" style="opacity:.6;pointer-events:none"><i></i></span></div>
+     <div class="spread" style="padding:8px 0"><span>Legal hold (suspends deletion)</span><span class="switch" onclick="sw(this);toast('Legal hold '+(this.classList.contains('on')?'enabled — deletion suspended estate-wide.':'released.'))"><i></i></span></div>
+     <div class="spread" style="padding:8px 0"><span>Data residency</span><span class="pill p-lime">South Africa 🇿🇦</span></div>
+     <button class="btn btn-lime" style="margin-top:8px" onclick="toast('Retention policy applied across 9,840 mailboxes — immutable, 99-year horizon.')">Apply policy</button></div>
+   <div class="card"><h3>Storage tiers <small>auto-tiering lowers cost as mail ages</small></h3>
+     <table><thead><tr><th>Tier</th><th>Age</th><th>Size</th><th>$/TB/mo</th><th>Immutable</th></tr></thead><tbody>
+     ${[["Hot","0–90 days","41 TB","$20"],["Warm","90 d – 2 yr","68 TB","$12"],["Cold","2 – 7 yr","94 TB","$6"],["Deep archive","7 – 99 yr","109 TB","$3"]].map(t=>`<tr><td><b>${t[0]}</b></td><td>${t[1]}</td><td>${t[2]}</td><td class="mono">${t[3]}</td><td><span class="pill p-lime">WORM</span></td></tr>`).join('')}</tbody></table>
+     <div class="note">Mail tiers down automatically; 99-year-old mail rests in deep archive at $3/TB/mo while staying instantly searchable.</div></div></div>
+ <div class="card" style="margin-bottom:14px"><h3>eDiscovery — search the full archive</h3>
+   <div class="flex" style="gap:10px;margin-bottom:8px"><input class="fld" id="edSearch" style="flex:1;margin:0" placeholder="Search 99 years of mail — sender, subject, keyword, date range…" value="from:supplier invoice 2019..2026">
+     <button class="btn btn-lime" onclick="archiveSearch()">Search archive</button></div>
+   <div id="edResults"><div class="note">Results are tamper-evident; export to PST/MBOX or place on legal hold for litigation.</div></div></div>
+ <div class="card"><h3>Billing — storage-based usage <small>clients opt for per-TB consumption</small></h3>
+   <div class="flex" style="gap:8px;margin-bottom:12px"><button class="btn btn-ghost btn-sm" id="bmMail" onclick="setArchModel('mailbox')">Per-mailbox</button>
+     <button class="btn btn-lime btn-sm" id="bmTB" onclick="setArchModel('tb')">Storage-based (per TB)</button>
+     <button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="ARCH.zar=!ARCH.zar;VIEWS.archive()">Toggle USD / ZAR</button></div>
+   <div class="grid g2">
+     <div><label class="note">Archived storage: <b id="arTBL">312</b> TB</label>
+       <input type="range" class="slider" id="arTB" min="1" max="2000" value="312" oninput="archiveCalc()">
+       <div class="note" id="arMixNote" style="margin-top:8px"></div></div>
+     <div class="grid g3">
+       <div><div class="note">Blended rate</div><div class="bigval" id="arRate">—</div></div>
+       <div><div class="note">Monthly</div><div class="bigval" id="arMo">—</div></div>
+       <div><div class="note">Annual</div><div class="bigval" id="arYr">—</div></div></div></div>
+   <div class="note" id="arFoot" style="margin-top:10px"></div>
+   <button class="btn btn-lime" style="margin-top:10px" onclick="toast('Tenant switched to <b>storage-based (per-TB)</b> archive billing — invoiced on TB consumed across tiers.')">Opt in to storage-based billing</button></div>`;
+ setArchModel(ARCH.model);};
+function setRetention(v){toast(v=='custom'?'Custom retention — set any period up to 99 years.':'Retention set to <b>'+v+' years</b> across all journaled mailboxes (immutable).');}
+function setArchModel(m){ARCH.model=m;const a=$('#bmMail'),b=$('#bmTB');
+ if(a)a.className='btn btn-'+(m=='mailbox'?'lime':'ghost')+' btn-sm';
+ if(b)b.className='btn btn-'+(m=='tb'?'lime':'ghost')+' btn-sm';archiveCalc();}
+function archiveCalc(){const tb=+($('#arTB')?$('#arTB').value:312);if($('#arTBL'))$('#arTBL').textContent=fmt(tb);
+ const mix=[[0.13,20],[0.22,12],[0.30,6],[0.35,3]];const blended=mix.reduce((a,m)=>a+m[0]*m[1],0);
+ const fx=ARCH.zar?16.53:1,c=ARCH.zar?'R':'$';
+ if(ARCH.model=='mailbox'){const perMbx=4.0,mo=9840*perMbx;
+   if($('#arRate'))$('#arRate').textContent=c+(perMbx*fx).toFixed(2);
+   if($('#arMo'))$('#arMo').textContent=c+fmt(Math.round(mo*fx));
+   if($('#arYr'))$('#arYr').textContent=c+fmt(Math.round(mo*12*fx));
+   if($('#arMixNote'))$('#arMixNote').textContent='Per-mailbox: '+c+perMbx.toFixed(2)+'/mailbox/mo × 9,840 mailboxes (unlimited storage).';
+   if($('#arFoot'))$('#arFoot').textContent='Per-mailbox suits predictable headcount billing. Switch to storage-based to pay only for TB consumed.';
+   return;}
+ const mo=tb*blended;
+ if($('#arRate'))$('#arRate').textContent=c+(blended*fx).toFixed(2);
+ if($('#arMo'))$('#arMo').textContent=c+fmt(Math.round(mo*fx));
+ if($('#arYr'))$('#arYr').textContent=c+fmt(Math.round(mo*12*fx));
+ if($('#arMixNote'))$('#arMixNote').innerHTML='Tier mix: 13% hot · 22% warm · 30% cold · 35% deep archive — old mail keeps tiering down.';
+ if($('#arFoot'))$('#arFoot').textContent='Storage-based: pay '+c+(blended*fx).toFixed(2)+'/TB/mo blended across tiers. A 99-year archive costs a fraction of hot storage because aged mail rests in deep archive at '+c+(3*fx).toFixed(0)+'/TB/mo.';}
+function archiveSearch(){const q=$('#edSearch')?$('#edSearch').value:'';
+ const rows=[["2019-03-14","accounts@supplier.co.za → finance@khulisafin.co.za","Invoice INV-20194 — March","Cold (2–7 yr)"],
+   ["2021-08-02","accounts@supplier.co.za → finance@khulisafin.co.za","Re: Invoice &amp; banking details","Cold (2–7 yr)"],
+   ["2024-11-19","accounts@supplier.co.za → finance@khulisafin.co.za","Updated invoice INV-7741","Warm (90 d–2 yr)"]];
+ $('#edResults').innerHTML=`<div class="note" style="margin-bottom:8px">3 results across the archive for “${esc(q)}” — retrieved from immutable store in 0.8 s</div>
+   <table><thead><tr><th>Date</th><th>Participants</th><th>Subject</th><th>Tier</th><th></th></tr></thead><tbody>
+   ${rows.map(r=>`<tr><td class="mono" style="font-size:11px">${r[0]}</td><td style="font-size:11.5px">${r[1]}</td><td>${r[2]}</td><td><span class="pill p-grey" style="font-size:9.5px">${r[3]}</span></td>
+   <td style="white-space:nowrap"><button class="btn btn-ghost btn-sm" onclick="toast('Placed on legal hold — message frozen, deletion suspended.')">Hold</button>
+   <button class="btn btn-lime btn-sm" onclick="toast('Exported to PST — tamper-evident, hash-verified for chain of custody.')">Export</button></td></tr>`).join('')}</tbody></table>`;
+ toast('Archive search complete — 3 results from 1.84 B emails (immutable, hash-verified).');}
+
+/* --- Web Application Firewall as a Service --- */
+const WAF_SITES=[
+ ["www.joburgretail.co.za","Joburg Retail Group","Block","4.2M","82K","OWASP CRS · Bot · RL","Active"],
+ ["shop.joburgretail.co.za","Joburg Retail Group","Block","3.1M","61K","OWASP CRS · Bot","Active"],
+ ["portal.gardenroute.gov.za","Garden Route Municipality","Block","1.8M","44K","OWASP CRS · Geo","Active"],
+ ["www.bolandmed.co.za","Boland Medical Group","Monitor","420K","9K","OWASP CRS","Active"],
+ ["api.khulisafin.co.za","Khulisa Financial Services","Block","6.4M","104K","OWASP CRS · RL · Bot","Active"],
+ ["www.durbanport.co.za","Durban Port Services","Block","980K","12K","OWASP CRS","Active"],
+ ["careers.stellenboschtech.co.za","Stellenbosch Tech Park","Monitor","210K","3K","OWASP CRS","Provisioning"]];
+const WAF_PROTECT=[
+ ["OWASP Core Rule Set","SQLi · XSS · RCE · LFI/RFI · protocol anomalies"],
+ ["Bot management","credential stuffing, scrapers, fake crawlers"],
+ ["Rate limiting","per-IP / per-endpoint throttling"],
+ ["DDoS mitigation (L7)","volumetric + application-layer floods"],
+ ["Geo / IP reputation","block by country or threat-intel score"],
+ ["Virtual patching","edge rules block known CVEs before the fix ships"]];
+VIEWS.waf=()=>wafTab('protect');
+function wafTabs(t){return `<div class="tabs">
+ <button class="tab ${t=='protect'?'on':''}" onclick="wafTab('protect')">Protection</button>
+ <button class="tab ${t=='report'?'on':''}" onclick="wafTab('report')">Reporting</button></div>`;}
+function wafTab(t){t=='report'?wafReport():wafProtect();$('#view').scrollTop=0;}
+function wafProtect(){
+ $('#view').innerHTML=`
+ <div class="h1">Web Application Firewall</div>
+ <div class="sub">WAF-as-a-Service — add a website by URL and get edge protection from the OWASP Top 10, bots, L7 DDoS and virtual patching</div>
+ ${wafTabs('protect')}
+ <div class="chiprow"><span class="chip">Edge PoPs <b>Cape Town · Joburg · Durban</b></span><span class="chip">Managed <b>OWASP CRS</b></span>
+   <span class="chip">Virtual patching ↔ <b>VulnOps</b></span><span class="chip">🇿🇦 SA data residency</span><span class="chip">PCI DSS 6.6</span></div>
+ <div class="grid g4" style="margin-bottom:14px">
+   <div class="card kpi"><div class="lab">Protected sites</div><div class="val">47</div><div class="d up">+5 this month</div></div>
+   <div class="card kpi"><div class="lab">Requests (24h)</div><div class="val">18.4M</div><div class="d up">across all sites</div></div>
+   <div class="card kpi"><div class="lab">Threats blocked (24h)</div><div class="val" style="color:#F08A84">312K</div><div class="d up">OWASP + bots</div></div>
+   <div class="card kpi"><div class="lab">Added latency</div><div class="val">4 ms</div><div class="d up">edge-cached TLS</div></div></div>
+ <div class="card" style="margin-bottom:14px"><div class="spread"><h3 style="margin:0">Protected websites</h3>
+   <button class="btn btn-lime" onclick="addSite()">＋ Add website</button></div>
+   <table style="margin-top:10px"><thead><tr><th>Domain</th><th>Tenant</th><th>Mode</th><th>Requests 24h</th><th>Blocked 24h</th><th>Managed rules</th><th>TLS</th><th>Status</th><th></th></tr></thead><tbody>
+   ${WAF_SITES.map((w,i)=>`<tr><td class="mono" style="font-size:11px;color:#7CC6E2">${w[0]}</td><td>${w[1]}</td>
+     <td><span class="pill ${w[2]=='Block'?'p-lime':'p-amber'}">${w[2]}</span></td>
+     <td>${w[3]}</td><td style="color:#F08A84">${w[4]}</td><td style="font-size:10.5px;color:var(--mut)">${w[5]}</td>
+     <td><span class="pill p-lime">🔒 valid</span></td>
+     <td><span class="pill ${w[6]=='Active'?'p-lime':'p-amber'}">${w[6]}</span></td>
+     <td><button class="btn btn-ghost btn-sm" onclick="wafSite(${i})">View</button></td></tr>`).join('')}</tbody></table>
+   <div class="note">Sites are reverse-proxied through the Innovo edge: point your DNS at us, we terminate TLS, run the OWASP Core Rule Set, and forward only clean traffic to your origin.</div></div>
+ <div class="grid g2">
+   <div class="card"><h3>Managed protections <small>on by default · tunable per site</small></h3>
+     ${WAF_PROTECT.map(p=>`<div class="spread" style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div><b style="font-size:12.5px;color:var(--lime)">✓ ${p[0]}</b><div class="note">${p[1]}</div></div><span class="switch on" onclick="sw(this)"><i></i></span></div>`).join('')}</div>
+   <div class="card"><h3>Virtual patching <small>block exploitation at the edge while the fix ships</small></h3>
+     <div class="note" style="margin-bottom:10px">When VulnOps or the DAST scanner finds an exploitable web vulnerability, Innovo deploys an edge WAF rule that blocks the exploit across every protected site — instant mitigation, no code change required.</div>
+     ${[["CVE-2026-21412","Windows SmartScreen — proxied app","blocked"],["CVE-2025-53770","SharePoint ToolShell RCE","blocked"],["NoSQL $ne injection","Joburg Retail /api/login","blocked"]].map(v=>`
+       <div class="spread" style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span class="mono" style="font-size:11px">${v[0]}</span><span class="note" style="flex:1;margin:0 10px">${v[1]}</span><span class="pill p-lime">${v[2]}</span></div>`).join('')}
+     <button class="btn btn-lime" style="width:100%;margin-top:12px" onclick="virtualPatch()">Deploy a virtual patch</button></div></div>`;}
+const WAF_ATTACKS=[
+ ["SQL injection (SQLi)",118420,31,"#D5524A"],["Cross-site scripting (XSS)",84210,22,"#E8A33D"],
+ ["Bad bots / scrapers",61300,16,"#56AAC8"],["Path traversal / LFI",38900,10,"#B58DE0"],
+ ["Remote code execution",27600,7,"#F08A84"],["Rate-limit / L7 DDoS",23100,6,"#5ED0B8"],
+ ["Protocol anomaly",19400,5,"#8DC63F"],["Geo / IP reputation",11800,3,"#7E9AA0"]];
+const WAF_COUNTRIES=[
+ ["🇿🇦","South Africa",214000,4],["🇷🇺","Russia",98400,96],["🇨🇳","China",76200,94],
+ ["🇺🇸","United States",54300,61],["🇳🇱","Netherlands",41800,88],["🇧🇷","Brazil",33200,79],
+ ["🇮🇳","India",28700,72],["🇳🇬","Nigeria",19400,83],["🇩🇪","Germany",17600,45],["🇻🇳","Vietnam",14900,91]];
+const WAF_IPS=[
+ ["45.146.164.0/24","🇷🇺 Russia","AS204428 · SS-Net",12840,12810,"2 min ago",98,"SQLi + RCE probes"],
+ ["193.42.33.17","🇳🇱 Netherlands","AS202425 · IP Volume",9610,9580,"just now",95,"Credential stuffing"],
+ ["116.31.116.41","🇨🇳 China","AS4134 · Chinanet",8420,8390,"4 min ago",97,"Path traversal"],
+ ["185.220.101.8","🇩🇪 Germany","Tor exit node",6210,6180,"1 min ago",99,"XSS payloads"],
+ ["14.103.55.96","🇨🇳 China","AS4837 · CU",5380,5360,"3 min ago",96,"NoSQLi (virtual-patched)"],
+ ["41.220.78.12","🇳🇬 Nigeria","AS37340",4180,4020,"7 min ago",88,"Login brute force"],
+ ["104.21.43.190","🇺🇸 United States","AS13335 · Cloudflare",3920,210,"3 min ago",24,"Mixed scanner"]];
+const WAF_EVENTS=[
+ ["19:04:12","45.146.164.7","🇷🇺","POST /api/login","SQLi · CRS 942100","Blocked","api.khulisafin.co.za"],
+ ["19:04:08","193.42.33.17","🇳🇱","POST /wp-login.php","Credential stuffing · bot","Blocked","www.joburgretail.co.za"],
+ ["19:03:55","116.31.116.41","🇨🇳","GET /../../etc/passwd","Path traversal · CRS 930110","Blocked","portal.gardenroute.gov.za"],
+ ["19:03:41","185.220.101.8","🇩🇪","GET /search?q=&lt;script&gt;","XSS · CRS 941100","Blocked","shop.joburgretail.co.za"],
+ ["19:03:30","41.220.78.12","🇳🇬","POST /admin/login","Brute force · rate-limit","Challenged","www.bolandmed.co.za"],
+ ["19:03:18","104.21.43.190","🇺🇸","GET /.git/config","Sensitive file · CRS 930120","Blocked","www.durbanport.co.za"],
+ ["19:03:02","14.103.55.96","🇨🇳","POST /api/orders","NoSQLi $ne · virtual patch","Blocked","api.khulisafin.co.za"],
+ ["19:02:49","91.240.118.30","🇷🇺","GET /?id=1+UNION+SELECT","SQLi · CRS 942190","Blocked","www.joburgretail.co.za"],
+ ["19:02:33","45.155.205.6","🇻🇳","POST /cgi-bin/","RCE · CRS 932160","Blocked","portal.gardenroute.gov.za"],
+ ["19:02:20","196.252.14.3","🇿🇦","GET /products","— clean","Allowed","shop.joburgretail.co.za"]];
+function wafReport(){
+ $('#view').innerHTML=`
+ <div class="h1">Web Application Firewall</div>
+ <div class="sub">Reporting &amp; analytics — attacker IPs, source countries, attack types, targeted sites and the live blocked-request log</div>
+ ${wafTabs('report')}
+ <div class="spread" style="margin-bottom:14px"><div class="flex">
+   <select class="fld" style="margin:0;max-width:280px" onchange="toast('Report filtered to '+this.value+'.')"><option>All protected sites (47)</option>${WAF_SITES.map(w=>`<option>${w[0]}</option>`).join('')}</select>
+   <div class="flex" style="gap:4px">${["24 h","7 d","30 d"].map((r,i)=>`<button class="btn btn-${i==0?'lime':'ghost'} btn-sm" onclick="toast('Report range set to ${r}.')">${r}</button>`).join('')}</div></div>
+   <button class="btn btn-ghost btn-sm" onclick="wafExport()">⬇ Export report (PDF / CSV)</button></div>
+ <div class="grid" style="grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:14px">
+   <div class="card kpi"><div class="lab">Total requests</div><div class="val">18.4M</div><div class="d up">24 h</div></div>
+   <div class="card kpi"><div class="lab">Requests blocked</div><div class="val" style="color:#F08A84">312K</div><div class="d up">1.7% block rate</div></div>
+   <div class="card kpi"><div class="lab">Unique attacker IPs</div><div class="val">8,412</div><div class="d up">+9% vs prior</div></div>
+   <div class="card kpi"><div class="lab">Source countries</div><div class="val">96</div><div class="d up">7 high-threat</div></div>
+   <div class="card kpi"><div class="lab">OWASP rules fired</div><div class="val">204</div><div class="d up">CRS managed set</div></div></div>
+ <div class="grid" style="grid-template-columns:1.3fr 1fr;margin-bottom:14px">
+   <div class="card"><h3>Requests over time <small>allowed vs blocked · last 12 h</small></h3>
+     ${areaChart([[720,760,810,690,840,910,880,790,830,900,870,850],[14,18,22,16,28,31,26,19,24,30,21,17]],
+       ["07h","08h","09h","10h","11h","12h","13h","14h","15h","16h","17h","18h"],["#2C7A8C","#D5524A"])}
+     <div class="flex" style="gap:16px;font-size:11px;color:var(--mut)"><span>■ <span style="color:#2C7A8C">Allowed</span></span><span>■ <span style="color:#D5524A">Blocked</span></span></div></div>
+   <div class="card"><h3>Attack types <small>by signature class (24 h)</small></h3>
+     ${WAF_ATTACKS.map(a=>`<div class="spread" style="padding:5px 0"><span class="note" style="width:150px">${a[0]}</span>
+       <div style="flex:1;margin:0 10px;height:7px;background:#0B2832;border-radius:4px"><i style="display:block;height:100%;width:${a[2]*2.6}%;background:${a[3]};border-radius:4px"></i></div>
+       <b style="font-size:11px;width:54px;text-align:right">${fmt(a[1])}</b></div>`).join('')}</div></div>
+ <div class="grid g2" style="margin-bottom:14px">
+   <div class="card"><h3>Top source countries <small>requests · block rate</small></h3>
+     <table><thead><tr><th>Country</th><th>Requests</th><th>Blocked</th></tr></thead><tbody>
+     ${WAF_COUNTRIES.map(c=>`<tr><td>${c[0]} ${c[1]}</td><td>${fmt(c[2])}</td>
+       <td><div class="flex"><div style="width:64px;height:6px;background:#0B2832;border-radius:4px"><i style="display:block;height:100%;width:${c[3]}%;background:${c[3]>50?'#D5524A':'var(--lime)'};border-radius:4px"></i></div><b style="font-size:10.5px;margin-left:7px">${c[3]}%</b></div></td></tr>`).join('')}</tbody></table>
+     <div class="note">South Africa is mostly legitimate traffic (4% blocked); high-threat origins are blocked 80–99%.</div></div>
+   <div class="card"><h3>Top targeted sites <small>attacks blocked (24 h)</small></h3>
+     <table><thead><tr><th>Site</th><th>Tenant</th><th>Blocked</th></tr></thead><tbody>
+     ${WAF_SITES.slice().sort((a,b)=>parseFloat(b[4])-parseFloat(a[4])).map(w=>`<tr><td class="mono" style="font-size:10.5px;color:#7CC6E2">${w[0]}</td><td style="font-size:11.5px">${w[1]}</td><td style="color:#F08A84">${w[4]}</td></tr>`).join('')}</tbody></table></div></div>
+ <div class="card" style="margin-bottom:14px"><h3>Top attacker IP addresses <small>last 24 h</small></h3>
+   <table><thead><tr><th>IP / range</th><th>Country</th><th>Network (ASN)</th><th>Requests</th><th>Blocked</th><th>Threat</th><th>Signature</th><th>Last seen</th><th></th></tr></thead><tbody>
+   ${WAF_IPS.map((p,i)=>`<tr><td class="mono" style="font-size:11px">${p[0]}</td><td style="font-size:11.5px">${p[1]}</td>
+     <td style="font-size:10.5px;color:var(--mut)">${p[2]}</td><td>${fmt(p[3])}</td><td style="color:#F08A84">${fmt(p[4])}</td>
+     <td>${scorebar(p[6])}</td><td style="font-size:11px">${p[7]}</td><td style="color:var(--mut)">${p[5]}</td>
+     <td><button class="btn btn-lime btn-sm" onclick="wafBlockIP(${i})">Block IP</button></td></tr>`).join('')}</tbody></table>
+   <div class="note">Threat score blends request volume, signature severity and threat-intel reputation. Block adds the IP/range to the edge denylist across all protected sites.</div></div>
+ <div class="card"><h3>Live event log — blocked requests <small><span class="pulse" style="display:inline-block"></span> streaming</small></h3>
+   <table><thead><tr><th>Time</th><th>Source IP</th><th>Country</th><th>Request</th><th>Rule triggered</th><th>Action</th><th>Site</th></tr></thead><tbody>
+   ${WAF_EVENTS.map(e=>`<tr><td class="mono" style="font-size:10.5px">${e[0]}</td><td class="mono" style="font-size:10.5px">${e[1]}</td>
+     <td style="font-size:14px">${e[2]}</td><td class="mono" style="font-size:10.5px">${e[3]}</td><td style="font-size:11px">${e[4]}</td>
+     <td><span class="pill ${e[5]=='Blocked'?'p-red':e[5]=='Challenged'?'p-amber':'p-lime'}">${e[5]}</span></td>
+     <td class="mono" style="font-size:10.5px;color:#7CC6E2">${e[6]}</td></tr>`).join('')}</tbody></table>
+   <div class="note">Every request decision is logged with source IP, geo, the OWASP CRS rule that fired and the action — exportable for SIEM and PCI DSS 6.6 evidence.</div></div>`;}
+function wafExport(){openModal(`<button class="mx" onclick="closeModal()">✕</button><h2>Export WAF report</h2>
+ <div class="ms">Compiling attacker IPs, geo breakdown, attack types and the event log across 47 sites</div>
+ <div class="prog"><i id="wxp"></i></div><div class="note" id="wxn">Aggregating edge logs…</div>`);
+ let p=0;const iv=setInterval(()=>{p+=Math.random()*26;if(p>=100){p=100;clearInterval(iv);closeModal();
+  toast('<b>WAF report exported</b> — waf_report_2026-06.pdf + events.csv (IPs, countries, attack types). Filed to Evidence Vault (PCI DSS 6.6).',6500);}
+  if($('#wxp')){$('#wxp').style.width=p+'%';$('#wxn').textContent=p<50?'Aggregating edge logs…':p<85?'Rendering charts…':'Writing PDF + CSV…';}else clearInterval(iv);},340);}
+function wafBlockIP(i){const p=WAF_IPS[i];toast('<b>'+p[0]+'</b> ('+p[1]+') added to the edge denylist across all 47 protected sites — '+fmt(p[3])+' requests will be dropped at the PoP.',6000);}
+
+/* --- EDR / MDR: endpoint detection & response + managed 24/7 SOC --- */
+const EDR_DETECTIONS=[
+ ["19:06","JRG-POS-L0412","Joburg Retail Group","T1486 · ransomware","critical","Mass file-encryption + shadow-copy deletion","Auto-contained"],
+ ["18:54","GRM-FIN-W1184","Garden Route Municipality","T1059.001 · PowerShell","high","Encoded PowerShell spawned from an Office macro","Auto-contained"],
+ ["18:47","KFS-TRD-W0788","Khulisa Financial Services","T1003.001 · LSASS access","high","Credential-dump attempt (Mimikatz signature)","Investigating"],
+ ["18:31","ACL-LAW-M0218","Atlantic Coast Legal","T1566.002 · phishing link","medium","Malicious link detonated in sandbox","Resolved"],
+ ["18:12","DPS-OPS-W1530","Durban Port Services","T1547.001 · run-key persistence","medium","New autostart entry auto-removed","Auto-contained"],
+ ["17:58","BML-EHR-W0907","Boland Medical Group","T1055 · process injection","high","Hollowed process injecting into explorer.exe","Investigating"],
+ ["17:40","STP-DEV-M0331","Stellenbosch Tech Park","T1071.001 · C2 beacon","critical","Cobalt Strike beacon signature blocked","Auto-contained"]];
+const EDR_ENGINE=[
+ ["Behavioural AI engine","on-device ML scores process behaviour in real time"],
+ ["Kernel-level sensor","tamper-resistant telemetry: process, file, registry, network"],
+ ["Memory & in-line scanning","catches fileless / living-off-the-land attacks"],
+ ["Ransomware canary + rollback","decoy files trip encryption; changes roll back from snapshots"],
+ ["Deep visibility","full process tree, command line and network attribution per detection"]];
+const SOC_ANALYSTS=[
+ ["Aiden (AI)","L1 Triage","Cape Town SOC","On shift"],
+ ["Naledi Mbeki","L2 Threat Hunter","Cape Town SOC","On shift"],
+ ["Thabo Dlamini","L2 Analyst","Cape Town SOC","On shift"],
+ ["Sarah Petersen","L3 IR Lead","Cape Town SOC","On call"],
+ ["Johan van Wyk","L1 Analyst","Cape Town SOC","On shift"]];
+const MDR_CASES=[
+ ["IR-4471","critical","Joburg Retail Group","Ransomware (T1486)","Contained","Naledi Mbeki","SLA met"],
+ ["IR-4468","high","Khulisa Financial Services","Credential dumping","Investigating","Thabo Dlamini","18 min"],
+ ["IR-4465","high","Boland Medical Group","Process injection","Escalated → L3","Sarah Petersen","31 min"],
+ ["IR-4460","medium","Garden Route Municipality","Phishing cluster","Triaging","Aiden (AI)","4 min"],
+ ["IR-4452","low","Durban Port Services","Policy violation","Closed","Johan van Wyk","resolved"]];
+const MDR_HUNTS=[
+ ["LOLBin abuse hunt","42 endpoints reviewed · 2 leads → 1 rule","2 d ago"],
+ ["Beaconing / C2 frequency analysis","clean across estate","4 d ago"],
+ ["Living-off-the-land PowerShell","1 finding → Sigma rule promoted","1 w ago"]];
+VIEWS.edr=()=>edrTab('edr');
+function edrTabs(t){return `<div class="tabs">
+ <button class="tab ${t=='edr'?'on':''}" onclick="edrTab('edr')">EDR — endpoint detection &amp; response</button>
+ <button class="tab ${t=='mdr'?'on':''}" onclick="edrTab('mdr')">MDR — managed 24/7 SOC</button></div>`;}
+function edrTab(t){t=='mdr'?edrMDR():edrEDR();$('#view').scrollTop=0;}
+function edrEDR(){
+ $('#view').innerHTML=`
+ <div class="h1">EDR / MDR</div><div class="sub">AI-powered endpoint detection &amp; response in the single Innovo agent — behavioural detection, auto-containment and one-click response</div>
+ ${edrTabs('edr')}
+ <div class="grid g4" style="margin-bottom:14px">
+   <div class="card kpi"><div class="lab">Endpoints protected</div><div class="val">12,716</div><div class="d up">agent v2.4.1</div></div>
+   <div class="card kpi"><div class="lab">Detections (24h)</div><div class="val">318</div><div class="d up">behavioural + signature</div></div>
+   <div class="card kpi"><div class="lab">Auto-contained</div><div class="val" style="color:var(--lime)">96%</div><div class="d up">no analyst needed</div></div>
+   <div class="card kpi"><div class="lab">Mean time to respond</div><div class="val">38 min</div><div class="d up">MTTD 4 min</div></div></div>
+ <div class="card" style="margin-bottom:14px"><h3>Live endpoint detections <small><span class="pulse" style="display:inline-block"></span> behavioural AI · auto-containment</small></h3>
+   <table><thead><tr><th>Time</th><th>Host</th><th>Tenant</th><th>Technique (MITRE)</th><th>Severity</th><th>Detection</th><th>Status</th><th></th></tr></thead><tbody>
+   ${EDR_DETECTIONS.map((d,i)=>`<tr><td class="mono" style="font-size:10.5px">${d[0]}</td><td class="mono" style="font-size:10.5px">${d[1]}</td><td style="font-size:11.5px">${d[2]}</td>
+     <td><span class="mitre">${d[3]}</span></td>
+     <td><span class="pill ${d[4]=='critical'?'p-red':d[4]=='high'?'p-amber':'p-blue'}">${d[4]}</span></td>
+     <td style="font-size:11.5px">${d[5]}</td>
+     <td><span class="pill ${d[6]=='Auto-contained'||d[6]=='Resolved'?'p-lime':'p-amber'}">${d[6]}</span></td>
+     <td><button class="btn btn-lime btn-sm" onclick="edrRespond(${i})">Respond</button></td></tr>`).join('')}</tbody></table>
+   <div class="note">96% of detections are auto-contained by the agent in milliseconds; the rest are escalated to the 24/7 MDR SOC. Every detection carries the full process tree and MITRE ATT&CK mapping.</div></div>
+ <div class="card"><h3>Detection &amp; response engine <small>one lightweight agent — EDR + vuln + patch + backup + WAF telemetry</small></h3>
+   ${EDR_ENGINE.map(e=>`<div class="spread" style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div><b style="font-size:12.5px;color:var(--lime)">✓ ${e[0]}</b><div class="note">${e[1]}</div></div><span class="pill p-lime">active</span></div>`).join('')}</div>`;}
+function edrRespond(i){const d=EDR_DETECTIONS[i];openModal(`<button class="mx" onclick="closeModal()">✕</button>
+   <h2>Respond — ${d[1]}</h2><div class="ms">${d[3]} · ${d[4]} · ${d[2]}</div>
+   <div class="codebox" style="flex-direction:column;align-items:flex-start;color:#C9DADF">
+     <span>${d[5]}</span>
+     <span style="color:var(--mut);margin-top:6px">Process tree:  winword.exe → cmd.exe → powershell.exe -enc … → vssadmin delete shadows</span></div>
+   <h3 style="margin:12px 0 8px">Response actions</h3>
+   <div class="grid g2">
+     <button class="btn btn-lime" onclick="closeModal();toast('<b>${d[1]} isolated</b> — network-quarantined; only the Innovo agent can reach it. Rollback available 72h.')">Isolate endpoint</button>
+     <button class="btn btn-ghost" onclick="closeModal();toast('Process tree terminated on ${d[1]} — parent + children killed.')">Kill process tree</button>
+     <button class="btn btn-ghost" onclick="closeModal();toast('Malicious artefact quarantined &amp; hash added to blocklist estate-wide.')">Quarantine file</button>
+     <button class="btn btn-ghost" onclick="closeModal();toast('Changes rolled back on ${d[1]} from the last immutable snapshot.')">Roll back changes</button></div>
+   <button class="btn btn-lime" style="width:100%;margin-top:12px" onclick="closeModal();toast('Escalated to the 24/7 MDR SOC — case opened, L2 analyst assigned.')">Escalate to MDR SOC</button>`);}
+function edrMDR(){
+ $('#view').innerHTML=`
+ <div class="h1">EDR / MDR</div><div class="sub">Managed Detection &amp; Response — a 24/7 SOC of human analysts + AI watching every tenant, triaging, hunting and responding</div>
+ ${edrTabs('mdr')}
+ <div class="grid g4" style="margin-bottom:14px">
+   <div class="card kpi"><div class="lab">SOC coverage</div><div class="val" style="color:var(--lime)">24/7/365</div><div class="d up">Cape Town SOC</div></div>
+   <div class="card kpi"><div class="lab">MTTD / MTTR</div><div class="val">4 / 38 min</div><div class="d up">detect / respond</div></div>
+   <div class="card kpi"><div class="lab">Cases (30d)</div><div class="val">214</div><div class="d up">11 escalated to L3</div></div>
+   <div class="card kpi"><div class="lab">Analyst-hours saved by AI</div><div class="val">312</div><div class="d up">Aiden auto-triage</div></div></div>
+ <div class="grid" style="grid-template-columns:2fr 1fr;margin-bottom:14px">
+   <div class="card"><div class="spread"><h3 style="margin:0">Open cases &amp; escalations</h3>
+     <button class="btn btn-lime btn-sm" onclick="toast('SOC investigation requested — an L2 analyst will pick this up within the 15-min SLA.')">Request investigation</button></div>
+     <table style="margin-top:8px"><thead><tr><th>Case</th><th>Severity</th><th>Tenant</th><th>Threat</th><th>Status</th><th>Analyst</th><th>SLA</th></tr></thead><tbody>
+     ${MDR_CASES.map(c=>`<tr><td class="mono" style="font-size:11px">${c[0]}</td>
+       <td><span class="pill ${c[1]=='critical'?'p-red':c[1]=='high'?'p-amber':c[1]=='low'?'p-grey':'p-blue'}">${c[1]}</span></td>
+       <td style="font-size:11.5px">${c[2]}</td><td style="font-size:11.5px">${c[3]}</td>
+       <td><span class="pill ${c[4]=='Contained'||c[4]=='Closed'?'p-lime':c[4].includes('Escalated')?'p-red':'p-amber'}">${c[4]}</span></td>
+       <td style="font-size:11px">${c[5]}</td><td style="color:var(--lime);font-size:11px">${c[6]}</td></tr>`).join('')}</tbody></table>
+     <div class="note">L1 triage (Aiden AI) → L2 investigation → L3 IR lead → customer notification, following the SOC escalation matrix. Every action is logged for evidence.</div></div>
+   <div class="card"><h3>On shift now <small>Cape Town SOC</small></h3>
+     ${SOC_ANALYSTS.map(a=>`<div class="spread" style="padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div><b style="font-size:12px">${a[0]}</b><div class="note">${a[1]} · ${a[2]}</div></div><span class="pill ${a[3]=='On shift'?'p-lime':'p-amber'}">${a[3]}</span></div>`).join('')}
+     <div class="note">AI handles L1 triage; humans own investigation, hunting and IR decisions.</div></div></div>
+ <div class="grid g2">
+   <div class="card"><h3>Proactive threat hunting <small>hypothesis-driven</small></h3>
+     ${MDR_HUNTS.map(h=>`<div class="spread" style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div><b style="font-size:12.5px">${h[0]}</b><div class="note">${h[1]}</div></div><span class="note">${h[2]}</span></div>`).join('')}
+     <button class="btn btn-ghost btn-sm" style="margin-top:10px" onclick="toast('New hunt launched — Naledi (L2) running the hypothesis across 12,716 endpoints.')">Launch a hunt</button></div>
+   <div class="card"><h3>Incident-response escalation</h3>
+     <div class="ring" style="flex-wrap:wrap">${["L1 Triage (Aiden AI)","L2 Investigation","L3 IR Lead","Customer notify + IR playbook"].map((s,i)=>`<div class="ringbox" style="${i==3?'border-color:var(--lime)':''}"><b style="font-size:11.5px">${i+1}. ${s}</b></div>${i<3?'<span class="arrow">→</span>':''}`).join('')}</div>
+     <div class="note">Severity-driven: critical detections page the L3 IR lead immediately and notify the tenant within the SLA. Quarterly IR tabletop included for the Complete tier.</div>
+     <button class="btn btn-lime" style="width:100%;margin-top:12px" onclick="toast('IR playbook activated — containment, eradication and recovery steps orchestrated; tenant comms drafted.')">Activate IR playbook</button></div></div>`;}
+function addSite(){let step=1,url='www.example.co.za';
+ const startProg=()=>{let p=0;const iv=setInterval(()=>{p+=Math.random()*22;if(p>=100){p=100;clearInterval(iv);if($('#wfn'))$('#wfn').innerHTML='<span style="color:var(--lime)">Certificate issued &amp; deployed to all edge PoPs.</span>';}if($('#wfp'))$('#wfp').style.width=p+'%';else clearInterval(iv);},300);};
+ const render=()=>{openModal(`<button class="mx" onclick="closeModal()">✕</button>
+   <h2>Add website to WAF</h2><div class="ms">Insert a URL — Innovo proxies it through the edge and protects it from vulnerabilities.</div>
+   <div class="steps">${[1,2,3,4].map(i=>`<i class="${i<=step?'done':''}"></i>`).join('')}</div>
+   ${step==1?`<label class="note">Website URL</label>
+     <input class="fld" id="wfUrl" value="https://${url}" placeholder="https://www.yourdomain.co.za">
+     <label class="note">Protection plan</label>
+     <select class="fld"><option>Advanced — OWASP CRS + Bot + Rate limiting</option><option>Essentials — OWASP CRS</option><option>Complete — + L7 DDoS + Virtual patching</option></select>`:''}
+   ${step==2?`<h3 style="margin-bottom:8px">Verify ownership &amp; route traffic</h3>
+     <div class="note">Add this CNAME at your DNS provider, then verify:</div>
+     <div class="codebox"><span>${url}.  CNAME  edge.innovo.one</span><button class="btn btn-ghost btn-sm" onclick="navigator.clipboard&&navigator.clipboard.writeText('edge.innovo.one');toast('CNAME target copied.')">Copy</button></div>
+     <button class="btn btn-ghost" id="wfVerify" onclick="this.style.borderColor='var(--lime)';this.style.color='var(--lime)';this.innerHTML='✓ DNS verified — traffic routing through the Innovo edge'">Verify DNS</button>`:''}
+   ${step==3?`<h3 style="margin-bottom:8px">Provision edge TLS certificate</h3>
+     <div class="ms">Issuing an auto-renewing managed certificate for ${url}.</div>
+     <div class="prog"><i id="wfp"></i></div><div class="note" id="wfn">Requesting certificate…</div>`:''}
+   ${step==4?`<h3 style="margin-bottom:8px">Enable protection</h3>
+     <div class="spread" style="padding:8px 0"><span>OWASP Core Rule Set</span><span class="switch on" onclick="sw(this)"><i></i></span></div>
+     <div class="spread" style="padding:8px 0"><span>Bot management + rate limiting</span><span class="switch on" onclick="sw(this)"><i></i></span></div>
+     <div class="spread" style="padding:8px 0"><span>Start in Monitor mode (48 h, recommended)</span><span class="switch on" onclick="sw(this)"><i></i></span></div>
+     <div class="spread" style="padding:8px 0"><span>Virtual patching from VulnOps</span><span class="switch on" onclick="sw(this)"><i></i></span></div>`:''}
+   <div class="spread" style="margin-top:18px"><span class="note">Step ${step} of 4</span>
+     <button class="btn btn-lime" onclick="${step<4?`wafNext(${step+1})`:`wafDone()`}">${step<4?'Continue →':'Protect site'}</button></div>`);
+   if(step==3)startProg();};
+ window.wafNext=s=>{const u=$('#wfUrl');if(u)url=u.value.replace(/^https?:\/\//,'').replace(/\/$/,'')||url;step=s;render();};
+ window.wafDone=()=>{closeModal();toast('<b>'+url+' is now protected</b> — proxied through the Innovo edge, OWASP CRS active, TLS valid. Monitor mode for 48 h, then auto-switch to Block.',7000);};
+ render();}
+function wafSite(i){const w=WAF_SITES[i];openModal(`<button class="mx" onclick="closeModal()">✕</button>
+   <h2>${w[0]}</h2><div class="ms">${w[1]} · mode ${w[2]} · ${w[3]} requests / ${w[4]} blocked (24h)</div>
+   <h3 style="margin:6px 0 10px">Top attack types blocked (24h)</h3>
+   ${[["SQL injection",38],["Cross-site scripting",24],["Bad bots",18],["Path traversal",11],["RCE attempts",9]].map(a=>`<div class="spread" style="padding:4px 0"><span class="note" style="width:130px">${a[0]}</span><div style="flex:1;margin:0 10px;height:7px;background:#0B2832;border-radius:4px"><i style="display:block;height:100%;width:${a[1]*2.4}%;background:var(--lime);border-radius:4px"></i></div><b style="font-size:11px">${a[1]}%</b></div>`).join('')}
+   <div class="spread" style="margin-top:16px"><span class="note">WAF mode</span>
+     <div class="flex"><button class="btn btn-ghost btn-sm" onclick="closeModal();toast('${w[0]} set to Monitor — rules log only, no blocking.')">Monitor</button>
+     <button class="btn btn-lime btn-sm" onclick="closeModal();toast('${w[0]} set to Block — OWASP rules enforced at the edge.')">Block</button></div></div>`);}
+function virtualPatch(){openModal(`<button class="mx" onclick="closeModal()">✕</button><h2>Deploy virtual patch</h2>
+   <div class="ms">Push an edge WAF rule to block exploitation across all protected sites — no origin change.</div>
+   <label class="note">Vulnerability / signature</label>
+   <select class="fld"><option>CVE-2026-1731 — Chrome V8 (proxied app)</option><option>CVE-2024-3400 — PAN-OS command injection</option><option>Generic — SQLi / NoSQLi payloads</option><option>Generic — path traversal</option></select>
+   <div class="spread" style="margin-top:14px"><span class="note">Applies at the edge in &lt; 30 s · monitor-then-block</span>
+   <button class="btn btn-lime" onclick="closeModal();toast('<b>Virtual patch deployed</b> — edge rule blocking the exploit across 47 protected sites. Origin untouched; the code fix can ship on its own schedule.',6500)">Deploy edge rule</button></div>`);}
+
+/* --- Mobile Device Management (UEM + Kaspersky-class MTD + eagle-eye fleet visibility) --- */
+const MDM_DEVICES=[
+ ["iPhone 15 Pro · A. Botha","iOS 18.3","Atlantic Coast Legal","Corporate","Compliant","2 min ago","Encrypted"],
+ ["Galaxy S24 · T. Mokoena","Android 15","Joburg Retail Group","BYOD","Compliant","6 min ago","Work profile"],
+ ["iPad Pro · Dr Naidoo","iPadOS 18.2","Boland Medical Group","Corporate","Compliant","just now","Encrypted"],
+ ["Pixel 8 · S. Petersen","Android 14","Khulisa Financial Services","BYOD","At risk","18 min ago","Work profile"],
+ ["Surface Pro · GRM Field","Windows 11","Garden Route Municipality","Corporate","Non-compliant","1 h ago","BitLocker off"],
+ ["iPhone 13 · J. van Wyk","iOS 17.6","Joburg Retail Group","Corporate","Out of date","32 min ago","Encrypted"],
+ ["Galaxy A54 · field unit","Android 14","Durban Port Services","Corporate","Locked","3 h ago","Encrypted"],
+ ["MacBook Air · STP Dev","macOS 15","Stellenbosch Tech Park","Corporate","Compliant","12 min ago","FileVault"]];
+const MDM_POLICIES=[
+ ["Passcode policy","6-digit minimum · wipe after 10 failed attempts",true],
+ ["Device encryption enforced","BitLocker / FileVault / native, mandatory",true],
+ ["Minimum OS version","Auto-quarantine devices below the baseline",true],
+ ["Jailbreak / root blocking","Detect and isolate a compromised OS",true],
+ ["Conditional access","Block non-compliant devices from M365 / Google",true],
+ ["App blocklist (corporate)","Unmanaged stores and risky apps",true],
+ ["Per-app VPN + Wi-Fi profiles","Tunnel only corporate apps",true],
+ ["Kiosk / single-app mode","Lock field & kiosk devices to one app",false],
+ ["Camera / USB lockdown (geofenced)","Disable hardware inside secure zones",false]];
+const MDM_APPS=[
+ ["Innovo Secure Agent","All platforms","Required","1,204"],
+ ["Microsoft 365 (managed)","iOS · Android","Required","1,180"],
+ ["Salesforce","iOS · Android","Available","420"],
+ ["WhatsApp Business","Android","Managed container","260"],
+ ["Field App (kiosk)","Android","Required · kiosk","88"]];
+const MDM_THREATS=[
+ ["Pixel 8 · S. Petersen","Malicious app — 'BatterySaverPro' (banking trojan)","critical","Quarantine app"],
+ ["Galaxy S24 · T. Mokoena","Smishing URL blocked in browser","high","Blocked"],
+ ["iPhone 13 · J. van Wyk","Rogue Wi-Fi — man-in-the-middle risk","medium","Isolate"],
+ ["Surface Pro · GRM Field","Sideloaded unsigned APK attempt","high","Blocked"]];
+VIEWS.mdm=()=>mdmTab('fleet');
+function mdmTab(t){
+ const tabs=`<div class="tabs">${[["fleet","Fleet"],["policies","Policies & Compliance"],["apps","App Management"],["threat","Threat Defence"]].map(x=>`<button class="tab ${t==x[0]?'on':''}" onclick="mdmTab('${x[0]}')">${x[1]}</button>`).join('')}</div>`;
+ let body='';
+ if(t=='fleet'){
+   body=`<div class="grid g4" style="margin-bottom:14px">
+     <div class="card kpi"><div class="lab">Devices enrolled</div><div class="val">1,204</div><div class="d up">iOS · Android · Win · macOS</div></div>
+     <div class="card kpi"><div class="lab">Compliant</div><div class="val">92%</div><div class="d up">conditional access enforced</div></div>
+     <div class="card kpi"><div class="lab">BYOD (work profile)</div><div class="val">38%</div><div class="d up">corporate data contained</div></div>
+     <div class="card kpi"><div class="lab">Mobile threats blocked (30d)</div><div class="val" style="color:#F08A84">47</div><div class="d up">Kaspersky-class MTD</div></div></div>
+   <div class="card" style="margin-bottom:14px"><h3>Fleet oversight <small>eagle-eye view · live location &amp; geofencing</small></h3>
+     <div class="grid g4" style="margin-top:4px">
+       ${[["1,142","devices online"],["Cape Town HQ","412 in zone"],["Joburg branch","286 in zone"],["Durban Port","158 in zone"]].map(z=>`<div class="cisbox" style="text-align:center"><div style="font-size:16px;font-weight:800;color:var(--lime)">${z[0]}</div><div class="note">${z[1]}</div></div>`).join('')}</div>
+     <div class="spread" style="margin-top:10px"><span class="note" style="color:var(--amber)">⚠ 1 device outside an approved geofence — owner notified</span>
+       <span class="note" style="color:#F08A84">⚠ 1 device reported lost — auto-locked &amp; located</span></div></div>
+   <div class="card"><div class="spread"><h3 style="margin:0">Enrolled devices</h3>
+     <button class="btn btn-lime btn-sm" onclick="toast('Enrolment QR &amp; link generated — share with the user; zero-touch / DEP supported for corporate devices.')">＋ Enrol device</button></div>
+     <table style="margin-top:8px"><thead><tr><th>Device · owner</th><th>OS</th><th>Tenant</th><th>Ownership</th><th>Compliance</th><th>Encryption</th><th>Last seen</th><th></th></tr></thead><tbody>
+     ${MDM_DEVICES.map((d,i)=>`<tr><td style="font-weight:600;font-size:11.5px">${d[0]}</td><td class="mono" style="font-size:10.5px">${d[1]}</td><td style="font-size:11px">${d[2]}</td>
+       <td><span class="pill ${d[3]=='Corporate'?'p-blue':'p-grey'}">${d[3]}</span></td>
+       <td><span class="pill ${d[4]=='Compliant'?'p-lime':d[4]=='Locked'?'p-red':'p-amber'}">${d[4]}</span></td>
+       <td style="font-size:10.5px">${d[6]}</td><td style="color:var(--mut);font-size:10.5px">${d[5]}</td>
+       <td style="white-space:nowrap"><button class="btn btn-ghost btn-sm" onclick="mdmAct('lock',${i})">Lock</button>
+       <button class="btn btn-ghost btn-sm" onclick="mdmAct('locate',${i})">Locate</button>
+       <button class="btn btn-ghost btn-sm" onclick="mdmWipe(${i})">Wipe</button></td></tr>`).join('')}</tbody></table>
+     <div class="note">One agent, every platform: iOS, Android, Windows and macOS. BYOD devices use a work profile so corporate apps and data stay separate from personal data.</div></div>`;
+ }
+ if(t=='policies'){
+   body=`<div class="card"><div class="spread"><h3 style="margin:0">Configuration &amp; compliance policies</h3>
+     <button class="btn btn-lime btn-sm" onclick="toast('Policy set pushed to 1,204 devices — non-compliant devices quarantined from corporate apps until remediated.')">Push policy set</button></div>
+     ${MDM_POLICIES.map(p=>`<div class="spread" style="padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div><b style="font-size:12.5px;color:${p[2]?'var(--lime)':'var(--mut)'}">${p[2]?'✓ ':''}${p[0]}</b><div class="note">${p[1]}</div></div><span class="switch ${p[2]?'on':''}" onclick="sw(this);toast('${p[0]} '+(this.classList.contains('on')?'enabled — pushing to fleet.':'disabled.'))"><i></i></span></div>`).join('')}
+     <div class="note">Conditional access ties device compliance to identity: a non-compliant or jailbroken device is blocked from Microsoft 365 and Google until it is brought back into policy.</div></div>`;
+ }
+ if(t=='apps'){
+   body=`<div class="card"><div class="spread"><h3 style="margin:0">Managed app catalogue</h3>
+     <button class="btn btn-lime btn-sm" onclick="toast('App added to the managed catalogue — silently deployed to assigned device groups (VPP / managed Google Play).')">＋ Add app</button></div>
+     <table style="margin-top:8px"><thead><tr><th>App</th><th>Platform</th><th>Assignment</th><th>Deployed</th><th></th></tr></thead><tbody>
+     ${MDM_APPS.map((a,i)=>`<tr><td style="font-weight:600">${a[0]}</td><td style="font-size:11px">${a[1]}</td>
+       <td><span class="pill ${a[2].indexOf('Required')>-1?'p-lime':a[2]=='Managed container'?'p-blue':'p-grey'}">${a[2]}</span></td>
+       <td>${a[3]}</td>
+       <td style="white-space:nowrap"><button class="btn btn-ghost btn-sm" onclick="toast('${a[0]} pushed to assigned devices.')">Push</button>
+       <button class="btn btn-ghost btn-sm" onclick="toast('${a[0]} removed from selected devices — corporate data wiped from the app only.')">Remove</button></td></tr>`).join('')}</tbody></table>
+     <div class="note">Managed apps and their data live inside a work container on BYOD devices — a selective wipe removes the container without touching the user's personal apps, photos or messages.</div></div>`;
+ }
+ if(t=='threat'){
+   body=`<div class="grid g4" style="margin-bottom:14px">
+     <div class="card kpi"><div class="lab">Malware blocked (30d)</div><div class="val" style="color:#F08A84">19</div><div class="d up">on-device scanning</div></div>
+     <div class="card kpi"><div class="lab">Phishing / smishing blocked</div><div class="val">214</div><div class="d up">web &amp; SMS protection</div></div>
+     <div class="card kpi"><div class="lab">Jailbroken / rooted</div><div class="val" style="color:var(--amber)">2</div><div class="d up">auto-isolated</div></div>
+     <div class="card kpi"><div class="lab">Network (MITM) alerts</div><div class="val">8</div><div class="d up">rogue Wi-Fi detection</div></div></div>
+   <div class="card"><h3>Active mobile threats <small>Kaspersky-class mobile threat defence</small></h3>
+     <table style="margin-top:6px"><thead><tr><th>Device</th><th>Threat</th><th>Severity</th><th></th></tr></thead><tbody>
+     ${MDM_THREATS.map((m,i)=>`<tr><td style="font-weight:600;font-size:11.5px">${m[0]}</td><td>${m[1]}</td>
+       <td><span class="pill ${m[2]=='critical'?'p-red':m[2]=='high'?'p-amber':'p-blue'}">${m[2]}</span></td>
+       <td><button class="btn btn-lime btn-sm" onclick="toast('<b>${m[3]}</b> — actioned on ${m[0]}. Device re-scanned; evidence filed (CIS 10).')">${m[3]}</button></td></tr>`).join('')}</tbody></table>
+     <div class="note">Mobile threat defence runs on-device: malicious-app analysis, web &amp; SMS phishing protection, jailbreak/root detection and rogue-Wi-Fi (man-in-the-middle) detection — feeding the same SOC and detections as the rest of the platform.</div></div>`;
+ }
+ $('#view').innerHTML=`<div class="h1">Mobile Device Management</div>
+   <div class="sub">Enterprise UEM across iOS, Android, Windows &amp; macOS — Kaspersky-class mobile threat defence and eagle-eye fleet visibility, in one agent</div>
+   <div class="chiprow"><span class="chip">iOS · Android · Windows · macOS</span><span class="chip">BYOD <b>work-profile containers</b></span><span class="chip">Conditional access</span><span class="chip">🇿🇦 SA data residency</span></div>
+   ${tabs}${body}`;}
+function mdmAct(kind,i){const d=MDM_DEVICES[i];const m={
+   lock:'Remote lock sent to '+d[0]+' — device locked with a recovery message on screen.',
+   locate:d[0]+' located — last known position plotted on the fleet map (eagle-eye view).',
+   scan:'Threat scan started on '+d[0]+' — Kaspersky-class engine checking apps, files &amp; network.'}[kind];
+ toast('<b>Action sent</b> — '+m);}
+function mdmWipe(i){const d=MDM_DEVICES[i];openModal(`<button class="mx" onclick="closeModal()">✕</button>
+   <h2>Wipe device</h2><div class="ms">${d[0]} · ${d[1]} · ${d[3]}</div>
+   <div class="note" style="margin-bottom:12px">Choose the wipe scope. For BYOD devices use a selective wipe — it removes only corporate apps, profiles and data and leaves the user's personal data intact.</div>
+   <button class="btn btn-ghost" style="width:100%;margin-bottom:8px" onclick="mdmDoWipe(${i},'sel')">Selective wipe — corporate work profile only</button>
+   <button class="btn" style="width:100%;background:var(--red);color:#fff;border-radius:9px;padding:10px;font-weight:600" onclick="mdmDoWipe(${i},'full')">Full wipe — factory reset &amp; de-enrol</button>`);}
+function mdmDoWipe(i,scope){const d=MDM_DEVICES[i];closeModal();
+ if(scope=='sel')toast('<b>Selective wipe sent</b> to '+d[0]+' — corporate apps, profiles &amp; data removed; personal data untouched. (CIS 03)',6000);
+ else toast('<b>Full factory wipe sent</b> to '+d[0]+' — device reset and de-enrolled. (CIS 03)',6000);}
+
+/* ============== PROVIDER ADMIN CONSOLE + CLIENT SINGLE PANE ============== */
+const SERVICES=[['mdr','EDR / MDR'],['vulns','Vulnerability mgmt'],['patch','Safe patching'],['waf','Web App Firewall'],['bec','Email & BEC'],['archive','Email archive (99-yr)'],['dr','Resilience DR'],['vmdr','VM backup & recovery'],['risk','Digital Risk'],['studio','Cyber Studio'],['comply','Compliance & evidence'],['mdm','Mobile device mgmt (MDM)']];
+const TENANT_BILLING=TENANTS.map((t,i)=>{
+ const mrr=+(''+t[4]).replace(/[^\d]/g,'');
+ const svc=new Set(SERVICES.map(s=>s[0]));
+ if(i%4===1){svc.delete('risk');svc.delete('studio');}
+ if(i%4===2){svc.delete('archive');svc.delete('vmdr');}
+ return [t[0],['Complete','Advanced','Essentials'][i%3],'Paid',mrr,svc];});
+TENANT_BILLING[3][2]='Overdue';
+TENANT_BILLING[7][2]='Overdue';
+TENANT_BILLING[10][2]='Suspended';TENANT_BILLING[10][4]=new Set();
+function initials(s){return s.split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase();}
+function setIdentity(n,sub,a){const N=$('#meName'),S=$('#meSub'),A=$('#ava');if(N)N.textContent=n;if(S)S.textContent=sub;if(A)A.textContent=a;}
+function setRoleTag(){const t=$('#roleTag');if(!t)return;
+ if(SESSION.role==='provider')t.innerHTML='<span class="pill p-lime" style="font-size:9px">PROVIDER</span>';
+ else if(SESSION.impersonating)t.innerHTML='<span class="pill p-amber" style="font-size:9px;cursor:pointer" onclick="exitClientView()" title="Return to provider console">VIEWING AS CLIENT ✕</span>';
+ else t.innerHTML='<span class="pill p-blue" style="font-size:9px">CLIENT</span>';}
+function setRole(r){SESSION.pendingRole=r;const p=$('#roleProv'),c=$('#roleClient');
+ if(p){p.style.background=r==='provider'?'var(--lime)':'transparent';p.style.color=r==='provider'?'#0B2228':'#8FA8AD';}
+ if(c){c.style.background=r==='client'?'var(--lime)':'transparent';c.style.color=r==='client'?'#0B2228':'#8FA8AD';}
+ const pf=$('#provFields'),cf=$('#clientFields');if(pf)pf.style.display=r==='provider'?'block':'none';if(cf)cf.style.display=r==='client'?'block':'none';}
+function applyRole(){buildNav(SESSION.role);const sel=$('#tenantSel');
+ if(SESSION.role==='client'){
+   if(sel){sel.innerHTML='<option>'+SESSION.tenant+'</option>';sel.disabled=true;}
+   setIdentity(SESSION.impersonating?'Impersonating client':'Client Administrator',SESSION.tenant,initials(SESSION.tenant));setRoleTag();
+   const b=TENANT_BILLING.find(t=>t[0]===SESSION.tenant);
+   if(b&&b[2]==='Suspended'){renderSuspended(b);return;}
+   go('dashboard');if(!SESSION.impersonating)toast('Signed in to <b>'+SESSION.tenant+'</b> — your single pane of glass.');
+ } else {
+   if(sel){sel.disabled=false;sel.innerHTML='<option>All tenants (38)</option>'+TENANTS.map(t=>'<option>'+t[0]+'</option>').join('');}
+   setIdentity('Damian Michael','Provider · Innovo Networks','DM');setRoleTag();go('admin');
+   toast('<b>Welcome back, Damian.</b> Innovo provider console — provision tenants &amp; activate services.');
+ }}
+function exitClientView(){SESSION.role='provider';SESSION.impersonating=false;SESSION.tenant=null;applyRole();}
+function renderSuspended(b){if($('#nav'))$('#nav').innerHTML='';
+ $('#view').innerHTML=`<div style="max-width:560px;margin:7vh auto;text-align:center">
+   <div class="card" style="border-color:var(--amber);padding:34px 30px">
+   <div style="font-size:42px">⏸</div>
+   <div class="h1" style="margin-top:8px">Service paused</div>
+   <div class="sub">Your Innovo Secure One subscription for <b>${b[0]}</b> is suspended pending payment.</div>
+   <div class="note" style="margin:14px 0">Your protection, backups and 99-year email archive remain safely retained and immutable — nothing has been deleted. Full access is restored the instant your account is brought up to date.</div>
+   <div class="codebox" style="justify-content:center">billing@innovonet.co.za · +27 21 811 3333</div>
+   <button class="btn btn-lime" style="margin-top:14px" onclick="toast('Payment portal opened — settle the balance to restore access instantly.')">Settle account</button>
+   ${SESSION.impersonating?'<button class="btn btn-ghost" style="margin-top:8px" onclick="exitClientView()">↩ Back to provider console</button>':''}
+   </div></div>`;}
+VIEWS.admin=()=>{
+ const total=TENANT_BILLING.length;
+ const overdue=TENANT_BILLING.filter(t=>t[2]==='Overdue').length;
+ const susp=TENANT_BILLING.filter(t=>t[2]==='Suspended').length;
+ const mrr=TENANT_BILLING.filter(t=>t[2]==='Paid').reduce((a,t)=>a+t[3],0);
+ $('#view').innerHTML=`
+ <div class="h1">Admin Console</div><div class="sub">Provider control plane — provision tenants, configure the solution, activate the services clients pay for, and suspend in one click for non-payment</div>
+ <div class="grid g4" style="margin-bottom:14px">
+   <div class="card kpi"><div class="lab">Tenants</div><div class="val">${total}</div><div class="d up">live on the platform</div></div>
+   <div class="card kpi"><div class="lab">Billed MRR (active)</div><div class="val">R ${fmt(mrr)}</div><div class="d up">paid accounts</div></div>
+   <div class="card kpi"><div class="lab">Overdue accounts</div><div class="val" style="color:var(--amber)">${overdue}</div><div class="d wn">dunning in progress</div></div>
+   <div class="card kpi"><div class="lab">Suspended</div><div class="val" style="color:#F08A84">${susp}</div><div class="d up">access turned off</div></div></div>
+ <div class="card"><div class="spread"><h3 style="margin:0">Tenant accounts &amp; service activation</h3>
+   <button class="btn btn-lime" onclick="wizard()">＋ Provision tenant</button></div>
+   <table style="margin-top:10px"><thead><tr><th>Tenant</th><th>Plan</th><th>Billing</th><th>MRR</th><th>Services active</th><th></th></tr></thead><tbody>
+   ${TENANT_BILLING.map((t,i)=>`<tr><td style="font-weight:600">${t[0]}</td><td><span class="pill p-grey">${t[1]}</span></td>
+     <td><span class="pill ${t[2]==='Paid'?'p-lime':t[2]==='Overdue'?'p-amber':'p-red'}">${t[2]}</span></td>
+     <td class="mono" style="font-size:11.5px">R ${fmt(t[3])}</td>
+     <td>${t[4].size} / ${SERVICES.length}</td>
+     <td style="white-space:nowrap"><button class="btn btn-ghost btn-sm" onclick="tenantConfig(${i})">Configure</button>
+     <button class="btn btn-ghost btn-sm" onclick="viewAsClient(${i})">View as client</button></td></tr>`).join('')}</tbody></table>
+   <div class="note">“Configure” activates the services a client pays for and suspends/reactivates the account. “View as client” drops into that tenant's single pane of glass — their exact view.</div></div>`;};
+function tenantConfig(i){const t=TENANT_BILLING[i];
+ openModal(`<button class="mx" onclick="closeModal()">✕</button>
+   <h2>${t[0]}</h2><div class="ms">${t[1]} plan · billing <b style="color:${t[2]==='Paid'?'var(--lime)':t[2]==='Overdue'?'var(--amber)':'#F08A84'}">${t[2]}</b> · MRR R${fmt(t[3])}</div>
+   <h3 style="margin:6px 0 6px">Activated services <small>switch on what the client pays for</small></h3>
+   <div style="max-height:230px;overflow:auto">${SERVICES.map(s=>`<div class="spread" style="padding:7px 2px;border-bottom:1px solid rgba(255,255,255,.05)"><span>${s[1]}</span>
+     <span class="switch ${t[4].has(s[0])?'on':''}" onclick="toggleSvc(${i},'${s[0]}',this)"><i></i></span></div>`).join('')}</div>
+   <div class="spread" style="margin-top:16px">
+   ${t[2]==='Suspended'
+     ? `<span class="note" style="color:var(--amber)">Client access is blocked.</span><button class="btn btn-lime" onclick="reactivate(${i})">▶ Reactivate service</button>`
+     : `<span class="note">Non-payment? Turn the client off instantly.</span><button class="btn" style="background:var(--red);color:#fff;border-radius:9px;padding:10px 16px;font-weight:600" onclick="suspend(${i})">⏸ Suspend service</button>`}
+   </div>`);}
+function toggleSvc(i,k,el){const s=TENANT_BILLING[i][4];const on=s.has(k);if(on){s.delete(k);el.classList.remove('on');}else{s.add(k);el.classList.add('on');}
+ toast('<b>'+TENANT_BILLING[i][0]+'</b> — '+(on?'deactivated':'activated')+' '+SERVICES.find(x=>x[0]===k)[1]+'.');}
+function suspend(i){TENANT_BILLING[i][2]='Suspended';closeModal();if(SESSION.role==='provider')VIEWS.admin();
+ toast('<b>'+TENANT_BILLING[i][0]+' suspended</b> — access blocked at next sign-in. Data retained &amp; immutable; reactivate anytime.',6500);}
+function reactivate(i){const t=TENANT_BILLING[i];t[2]='Paid';if(!t[4].size)SERVICES.forEach(s=>t[4].add(s[0]));closeModal();if(SESSION.role==='provider')VIEWS.admin();
+ toast('<b>'+t[0]+' reactivated</b> — services restored, client access live.');}
+function viewAsClient(i){SESSION.role='client';SESSION.impersonating=true;SESSION.tenant=TENANT_BILLING[i][0];applyRole();}
+
+buildNav('provider');
+TENANT_BILLING.forEach(t=>{const o=document.createElement('option');o.textContent=t[0];if($('#clientOrg'))$('#clientOrg').appendChild(o);});
+</script>
+</body>
+</html>
